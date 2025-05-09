@@ -9,8 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -27,7 +26,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,7 +39,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(activity: FragmentActivity) {
+fun MainScreen(activity : FragmentActivity) {
     val supportFragmentManager = activity.supportFragmentManager
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
@@ -56,13 +55,13 @@ fun MainScreen(activity: FragmentActivity) {
                 NavigationBarItem(
                     selected = selectedTabIndex == 1,
                     onClick = { selectedTabIndex = 1 },
-                    icon = { Icon(Icons.Filled.Search, contentDescription = "커뮤니티") },
+                    icon = { Icon(Icons.Filled.Notifications, contentDescription = "커뮤니티") },
                     label = { Text("커뮤니티") }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 2,
                     onClick = { selectedTabIndex = 2 },
-                    icon = { Icon(Icons.Filled.Notifications, contentDescription = "쇼핑") },
+                    icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "쇼핑") },
                     label = { Text("쇼핑") }
                 )
                 NavigationBarItem(
@@ -74,7 +73,7 @@ fun MainScreen(activity: FragmentActivity) {
                 NavigationBarItem(
                     selected = selectedTabIndex == 4,
                     onClick = { selectedTabIndex = 4 },
-                    icon = { Icon(Icons.Filled.Settings, contentDescription = "마이페이지") },
+                    icon = { Icon(Icons.Filled.Person, contentDescription = "마이페이지") },
                     label = { Text("마이페이지") }
                 )
             }

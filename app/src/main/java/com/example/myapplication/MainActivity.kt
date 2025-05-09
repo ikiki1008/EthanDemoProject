@@ -118,34 +118,34 @@ fun FragmentContainer(
                             .commitNow() // 또는 commit()
                     }
                 }
-//                "community" -> {
-//                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-//                        supportFragmentManager.beginTransaction()
-//                            .replace(view.id, CommunityFragment(), fragmentTag)
-//                            .commitNow() // 또는 commit()
-//                    }
-//                }
-//                "shopping" -> {
-//                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-//                        supportFragmentManager.beginTransaction()
-//                            .replace(view.id, ShoppingFragment(), fragmentTag)
-//                            .commitNow() // 또는 commit()
-//                    }
-//                }
-//                "interior" -> {
-//                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-//                        supportFragmentManager.beginTransaction()
-//                            .replace(view.id, InteriorFragment(), fragmentTag)
-//                            .commitNow() // 또는 commit()
-//                    }
-//                }
-//                "mypage" -> {
-//                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-//                        supportFragmentManager.beginTransaction()
-//                            .replace(view.id, MyPageFragment(), fragmentTag)
-//                            .commitNow() // 또는 commit()
-//                    }
-//                }
+                "community" -> {
+                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(view.id, HomeFragment(), fragmentTag)
+                            .commit() // 또는 commit()
+                    }
+                }
+                "shopping" -> {
+                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(view.id, HomeFragment(), fragmentTag)
+                            .commitNow() // 또는 commit()
+                    }
+                }
+                "interior" -> {
+                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(view.id, HomeFragment(), fragmentTag)
+                            .commitNow() // 또는 commit()
+                    }
+                }
+                "mypage" -> {
+                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
+                        supportFragmentManager.beginTransaction()
+                            .replace(view.id, HomeFragment(), fragmentTag)
+                            .commitNow() // 또는 commit()
+                    }
+                }
             }
         }
     )

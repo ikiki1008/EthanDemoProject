@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.view.View.generateViewId
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -22,9 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.example.myapplication.ui.theme.HomeFragment
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(activity: ComponentActivity) {
+fun MainScreen(activity: FragmentActivity) {
     val supportFragmentManager = activity.supportFragmentManager
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
@@ -82,17 +82,11 @@ fun MainScreen(activity: ComponentActivity) {
     ) { innerPadding ->
         // 탭을 누를 시 fragment 소환
         when (selectedTabIndex) {
-            0 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "home") {
-            }
-            1 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "community") {
-            }
-            2 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "shopping") {
-            }
-            3 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "interior") {
-            }
-            4 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "mypage") {
-
-            }
+            0 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "home")
+            1 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "community")
+            2 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "shopping")
+            3 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "interior")
+            4 -> FragmentContainer(supportFragmentManager = supportFragmentManager, fragmentTag = "mypage")
         }
     }
 }
@@ -101,50 +95,32 @@ fun MainScreen(activity: ComponentActivity) {
 fun FragmentContainer(
     supportFragmentManager: FragmentManager,
     fragmentTag: String,
-    content: @Composable () -> Unit
 ) {
     AndroidView(
         factory = { context ->
-            FragmentContainerView(context).apply {
-                id = android.R.id.content // 임의의 ID 할당
+            // You don't need to create FragmentContainerView here.  Just a simple FrameLayout.
+            android.widget.FrameLayout(context).apply {
+                id = generateViewId()
             }
         },
         update = { view ->
-            when (fragmentTag) {
-                "home" -> {
-                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-                        supportFragmentManager.beginTransaction()
-                            .replace(view.id, HomeFragment(), fragmentTag)
-                            .commitNow() // 또는 commit()
-                    }
+            val transaction = supportFragmentManager.beginTransaction()
+            val existingFragment = supportFragmentManager.findFragmentByTag(fragmentTag)
+            val viewId = view.id
+
+            if (existingFragment == null) {
+                val fragment = when (fragmentTag) {
+                    "home" -> HomeFragment()
+                    "community" -> HomeFragment()
+                    "shopping" -> HomeFragment()
+                    "interior" -> HomeFragment()
+                    "mypage" -> HomeFragment()
+                    else -> null
                 }
-                "community" -> {
-                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-                        supportFragmentManager.beginTransaction()
-                            .replace(view.id, HomeFragment(), fragmentTag)
-                            .commit() // 또는 commit()
-                    }
-                }
-                "shopping" -> {
-                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-                        supportFragmentManager.beginTransaction()
-                            .replace(view.id, HomeFragment(), fragmentTag)
-                            .commitNow() // 또는 commit()
-                    }
-                }
-                "interior" -> {
-                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-                        supportFragmentManager.beginTransaction()
-                            .replace(view.id, HomeFragment(), fragmentTag)
-                            .commitNow() // 또는 commit()
-                    }
-                }
-                "mypage" -> {
-                    if (supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
-                        supportFragmentManager.beginTransaction()
-                            .replace(view.id, HomeFragment(), fragmentTag)
-                            .commitNow() // 또는 commit()
-                    }
+
+                fragment?.let {
+                    transaction.add(viewId, it, fragmentTag)
+                    transaction.commit()
                 }
             }
         }
@@ -155,6 +131,6 @@ fun FragmentContainer(
 @Composable
 fun MainScreenPreview() {
     MyApplicationTheme {
-        Text("MainScreen Preview")
+        Text("MainScreen")
     }
 }

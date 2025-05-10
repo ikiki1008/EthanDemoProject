@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -54,6 +56,10 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:$fragment_version")
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation("androidx.fragment:fragment-compose:$fragment_version")
+
+    implementation ("com.google.accompanist:accompanist-pager:0.32.0")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.32.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

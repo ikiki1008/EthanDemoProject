@@ -5,6 +5,7 @@ import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.util.Log
 import android.view.View.generateViewId
+import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -35,13 +36,22 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalContext
+import androidx.fragment.app.Fragment
+import com.example.myapplication.ui.theme.fivetaps.CommunityFragment
+import com.example.myapplication.ui.theme.fivetaps.HomeFragment
+import com.example.myapplication.ui.theme.fivetaps.InteriorFragment
+import com.example.myapplication.ui.theme.fivetaps.MyPageFragment
+import com.example.myapplication.ui.theme.fivetaps.ShoppingFragment
 
 
 class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        Log.d("Activity", "MainScreen")
+
         setContent {
             MyApplicationTheme {
                 MainScreen(activity = this)
@@ -57,7 +67,6 @@ fun MainScreen(activity : FragmentActivity) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var searchText by remember { mutableStateOf("") }
     var isActive by remember { mutableStateOf(false) }
-    Log.d(TAG, "MainScreen: what is this........")
 
     Scaffold(
         topBar = {
@@ -80,40 +89,6 @@ fun MainScreen(activity : FragmentActivity) {
                 //비활성화 시키기
             }
         },
-//        topBar = {
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(20.dp),
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Icon(Icons.Filled.Search, contentDescription = "검색", modifier = Modifier.padding(end = 8.dp))
-//                TextField(
-//                    value = searchText,
-//                    onValueChange = { searchText = it },
-//                    placeholder = { Text("최저가 상품을 검색하세요") },
-//                    modifier = Modifier.weight(1f),
-//                    singleLine = true,
-//                    colors = TextFieldDefaults.colors(
-//                        focusedIndicatorColor = Color.Transparent,
-//                        unfocusedIndicatorColor = Color.Transparent,
-//                        disabledIndicatorColor = Color.Transparent,
-//                        errorIndicatorColor = Color.Transparent,
-//                        // 배경색을 투명하게 하거나 원하는 색상으로 지정
-//                        focusedContainerColor = MaterialTheme.colorScheme.surface,
-//                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-//                        disabledContainerColor = MaterialTheme.colorScheme.surface,
-//                        errorContainerColor = MaterialTheme.colorScheme.surface
-//                    ),
-//                    textStyle = TextStyle(color = Color.Black) // 텍스트 색상 설정
-//                )
-//                if (searchText.isNotEmpty()) {
-//                    IconButton(onClick = { searchText = "" }) {
-//                        Icon(Icons.Filled.Close, contentDescription = "닫기")
-//                    }
-//                }
-//            }
-//        },
         bottomBar = {
             NavigationBar {
                 NavigationBarItem(
@@ -165,36 +140,35 @@ fun FragmentContainer(
     supportFragmentManager: FragmentManager,
     fragmentTag: String,
 ) {
+    val containerId = remember { generateViewId() }
+
     AndroidView(
         factory = { context ->
-            // You don't need to create FragmentContainerView here.  Just a simple FrameLayout.
-            android.widget.FrameLayout(context).apply {
-                id = generateViewId()
+            FrameLayout(context).apply {
+                id = containerId
             }
         },
         update = { view ->
             val transaction = supportFragmentManager.beginTransaction()
-            val existingFragment = supportFragmentManager.findFragmentByTag(fragmentTag)
-            val viewId = view.id
 
-            if (existingFragment == null) {
-                val fragment = when (fragmentTag) {
-                    "home" -> HomeFragment()
-                    "community" -> HomeFragment()
-                    "shopping" -> HomeFragment()
-                    "interior" -> HomeFragment()
-                    "mypage" -> HomeFragment()
-                    else -> null
-                }
+            val fragment = when (fragmentTag) {
+                "home" -> HomeFragment()
+                "community" -> CommunityFragment()
+                "shopping" -> ShoppingFragment()
+                "interior" -> InteriorFragment()
+                "mypage" -> MyPageFragment()
+                else -> null
+            }
 
-                fragment?.let {
-                    transaction.add(viewId, it, fragmentTag)
-                    transaction.commit()
-                }
+            fragment?.let {
+                transaction.replace(containerId, it, fragmentTag)
+                transaction.commitAllowingStateLoss()
             }
         }
     )
 }
+
+
 
 @Preview(showBackground = true)
 @Composable

@@ -34,8 +34,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.myapplication.R
 import kotlinx.coroutines.launch
 
-
-
 class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +46,7 @@ class HomeFragment : Fragment() {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 110.dp)
+                        .padding(top = 5.dp)
                 ) {
                     val tabs = listOf("홈", "오늘의 취향")
                     val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
@@ -92,22 +90,22 @@ fun MainFeed() {
     val scrollState = rememberLazyListState()
     val data = List(10) { "아이템 ${it + 1}" }
 
-    Column {
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 16.dp)
-        ) {
-            items(data.size) { index ->
-                SquareItem(title = data[index])
-                Spacer(modifier = Modifier.width(12.dp))
+    LazyColumn(state = scrollState) {
+        item {
+            LazyRow (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 16.dp)
+            ) {
+                items (data.size) { index ->
+                    SquareItem(title = data[index])
+                    Spacer(modifier = Modifier.width(12.dp))
+                }
             }
         }
 
-        LazyColumn(state = scrollState) {
-            items(100) {
-                ImageListItem(it)
-            }
+        items (10) {
+            ImageListItem(it)
         }
     }
 }
@@ -192,7 +190,7 @@ fun ScrollableWithCustomScrollbar(
 @Composable
 fun SquareItem(title: String) {
     Column(
-        modifier = Modifier.width(80.dp),
+        modifier = Modifier.width(50.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -223,7 +221,7 @@ fun ImageListItem(index: Int) {
             contentDescription = "Item $index",
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f), // 1f = 정사각형. 4/3f = 4:3, 3/4f = 세로가 긴 사진
+                .aspectRatio(1f),
             contentScale = ContentScale.Crop // 꽉 채우기, 잘림 감수
         )
 

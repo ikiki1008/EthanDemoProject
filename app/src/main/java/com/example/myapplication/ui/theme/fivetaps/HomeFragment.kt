@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -15,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,10 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
+import com.example.myapplication.R
 import kotlinx.coroutines.launch
 
 
@@ -81,6 +87,32 @@ class HomeFragment : Fragment() {
     }
 }
 
+@Composable
+fun MainFeed() {
+    val scrollState = rememberLazyListState()
+    val data = List(10) { "아이템 ${it + 1}" }
+
+    Column {
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 16.dp)
+        ) {
+            items(data.size) { index ->
+                SquareItem(title = data[index])
+                Spacer(modifier = Modifier.width(12.dp))
+            }
+        }
+
+        LazyColumn(state = scrollState) {
+            items(100) {
+                ImageListItem(it)
+            }
+        }
+    }
+}
+
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TasteFeed() {
@@ -122,29 +154,40 @@ fun TasteFeed() {
 }
 
 @Composable
-fun MainFeed() {
-    val scrollState = rememberLazyListState()
-    val data = List(10) { "아이템 ${it + 1}" }
+fun ScrollableWithCustomScrollbar(
+    scrollState: LazyListState,
+    content: @Composable () -> Unit
+) {
+    Box(Modifier.fillMaxSize()) {
+        content()
 
-    Column {
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 16.dp)
-        ) {
-            items(data.size) { index ->
-                SquareItem(title = data[index])
-                Spacer(modifier = Modifier.width(12.dp))
-            }
-        }
+        val totalItems = scrollState.layoutInfo.totalItemsCount
+        if (totalItems > 0) {
+            val proportion = scrollState.firstVisibleItemIndex.toFloat() / totalItems
+            val scrollbarHeightRatio = 1f / totalItems.coerceAtLeast(1)
 
-        LazyColumn(state = scrollState) {
-            items(100) {
-                ImageListItem(it)
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .fillMaxHeight()
+                    .width(4.dp)
+                    .padding(end = 2.dp)
+            ) {
+                val offsetY = (proportion * 1000).toInt() // 임의값 1000: 대충 화면 높이에 맞춰야 함
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(scrollbarHeightRatio)
+                        .offset { IntOffset(0, offsetY) }
+                        .background(Color.Gray, shape = RoundedCornerShape(2.dp))
+                )
             }
         }
     }
 }
+
+
+
 
 @Composable
 fun SquareItem(title: String) {
@@ -153,7 +196,7 @@ fun SquareItem(title: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = rememberAsyncImagePainter("https://developer.android.com/images/brand/Android_Robot.png"),
+            painter = painterResource(id = R.drawable.ic_launcher_background),
             contentDescription = null,
             modifier = Modifier
                 .size(80.dp)
@@ -170,13 +213,34 @@ fun SquareItem(title: String) {
 
 @Composable
 fun ImageListItem(index: Int) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 5.dp)
+    ) {
         Image(
-            painter = rememberImagePainter("https://developer.android.com/images/brand/Android_Robot.png"),
-            contentDescription = "",
-            modifier = Modifier.size(50.dp)
+            painter = painterResource(id = R.drawable.ic_launcher_background),
+            contentDescription = "Item $index",
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f), // 1f = 정사각형. 4/3f = 4:3, 3/4f = 세로가 긴 사진
+            contentScale = ContentScale.Crop // 꽉 채우기, 잘림 감수
         )
-        Spacer(Modifier.width(10.dp))
-        Text("Item $index", style = MaterialTheme.typography.bodyMedium)
+
+        Spacer(modifier = Modifier.height(3.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            Text(
+                text = "Item $index",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 }
+
+

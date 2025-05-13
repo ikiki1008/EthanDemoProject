@@ -9,6 +9,10 @@ color teal_700
 color white
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable pic1
+drawable pic2
+drawable pic3
+drawable pic4
 layout fragment_home
 mipmap ic_launcher
 mipmap ic_launcher_round

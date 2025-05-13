@@ -41,6 +41,7 @@ import com.example.myapplication.R
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.filled.Close
@@ -51,12 +52,18 @@ import com.example.myapplication.ProductItem
 import kotlinx.coroutines.coroutineScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.example.myapplication.MainToDetailPage
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import okhttp3.HttpUrl
 
 class HomeFragment : Fragment() {
@@ -170,7 +177,7 @@ fun MainFeed() {
         //sth below the top bar
         item {
             LazyRow (
-                modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp, top = 8.dp, bottom = 16.dp)){
+                modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 16.dp)){
                 items (data.size) { index ->
                     SquareItem(title = data[index])
                     Spacer(modifier = Modifier.width(12.dp))
@@ -202,41 +209,94 @@ fun MainFeed() {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TasteFeed() {
-    val itemList = listOf(
-        Pair("https://developer.android.com/images/brand/Android_Robot.png", "안드로이드"),
-        Pair("https://upload.wikimedia.org/wikipedia/commons/4/47/React.svg", "리액트"),
-        Pair("https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg", "C++"),
-        Pair("https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", "자바스크립트")
+    val images = listOf(
+        R.drawable.pic1,
+        R.drawable.pic2,
+        R.drawable.pic3,
+        R.drawable.pic4,
     )
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(4),
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    var selectedImg by remember { mutableStateOf(images.random()) }
+    var isRefreshing by remember { mutableStateOf(false) }
+
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isRefreshing),
+        onRefresh = {
+            isRefreshing = true
+            selectedImg = images.random()
+            isRefreshing = false
+        }
     ) {
-        items(itemList) { (imageUrl, label) ->
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Image(
-                    painter = rememberAsyncImagePainter(imageUrl),
-                    contentDescription = label,
-                    modifier = Modifier.size(64.dp),
-                    contentScale = ContentScale.Crop
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = label,
-                    style = MaterialTheme.typography.bodySmall
-                )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // 상단 대표 이미지
+            Image(
+                painter = painterResource(id = selectedImg),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.height(25.dp))
+
+            // 상단 텍스트
+            Text(
+                text = "평수별 인기 집들이 보러 오세요",
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
+                textAlign = TextAlign.Start
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // 그리드 피드 (20개)
+            val feedItems = (0 until 20).toList()
+            feedItems.chunked(2).forEach { rowItems ->
+                Row (
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ){
+                    rowItems.forEach { index ->
+                        val imageRes = images[index % images.size]
+
+                        Column (modifier = Modifier.weight(1f).aspectRatio(1f).clip(RoundedCornerShape(8.dp))) {
+                            Image(
+                                painter = painterResource(id = imageRes),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(8.dp))
+                            )
+                            Text(
+                                text = "인기 집들이 #${index + 1}",
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.fillMaxWidth().padding(4.dp),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+
+                    if (rowItems.size < 2) {
+                        Spacer(modifier = Modifier.weight(1f))
+                }
+            }
             }
         }
     }
 }
+
+
 
 @Composable
 fun SquareItem(title: String) {

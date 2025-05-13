@@ -10,6 +10,7 @@ MERGED from [androidx.fragment:fragment-compose:1.8.3] /Users/ohyugyeong/.gradle
 MERGED from [androidx.fragment:fragment-ktx:1.8.3] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a3b5c05d5751285ec653b18cc4ed18de/transformed/fragment-ktx-1.8.3/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.fragment:fragment-testing:1.8.3] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/23addf61e3d37a15017726dbf1e0837b/transformed/fragment-testing-1.8.3/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.test:core:1.5.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/2f1e0994c09a8bdc374fa2b0d0880f95/transformed/core-1.5.0/AndroidManifest.xml:17:1-53:12
+MERGED from [com.google.accompanist:accompanist-swiperefresh:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/d6681061baf38cd935843927a25d53a8/transformed/accompanist-swiperefresh-0.30.1/AndroidManifest.xml:17:1-25:12
 MERGED from [com.google.accompanist:accompanist-pager-indicators:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/c636d3ab14036a47f2173f1ef8dd6a39/transformed/accompanist-pager-indicators-0.32.0/AndroidManifest.xml:17:1-23:12
 MERGED from [com.google.accompanist:accompanist-pager:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/0ec6ee4f802f4a599157db3473e4116d/transformed/accompanist-pager-0.32.0/AndroidManifest.xml:17:1-23:12
 MERGED from [dev.chrisbanes.snapper:snapper:0.2.2] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b9c10d06d5a75d73a96bfd9283423416/transformed/snapper-0.2.2/AndroidManifest.xml:17:1-24:12
@@ -25,8 +26,8 @@ MERGED from [androidx.compose.foundation:foundation-android:1.7.0] /Users/ohyugy
 MERGED from [androidx.compose.ui:ui-tooling-data-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/6ceb4fd7b8c918f760a51f6f7c2ac364/transformed/ui-tooling-data-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.ui:ui-unit-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/650c1887d6616ef3fba706188c61d77c/transformed/ui-unit-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.ui:ui-geometry-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9fcb2b414c043637807e70995e0e7a3d/transformed/ui-geometry-release/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.compose.ui:ui-util-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a2b27d943bb48f9393304c4a4f333331/transformed/ui-util-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.ui:ui-text-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b5a4cf0c331212c51ae6f930a331a23a/transformed/ui-text-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-util-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a2b27d943bb48f9393304c4a4f333331/transformed/ui-util-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/de0a2d09b61418f0bb8a9d0347e3908d/transformed/ui-tooling-preview-release/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.compose.ui:ui-tooling-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/e09d751c4f090445d9d5671f0459ddf0/transformed/ui-tooling-release/AndroidManifest.xml:17:1-28:12
 MERGED from [androidx.compose.ui:ui-graphics-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9767c797c765c412a348e6cf89df0ac9/transformed/ui-graphics-release/AndroidManifest.xml:2:1-7:12
@@ -189,6 +190,8 @@ MERGED from [androidx.fragment:fragment-testing:1.8.3] /Users/ohyugyeong/.gradle
 MERGED from [androidx.fragment:fragment-testing:1.8.3] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/23addf61e3d37a15017726dbf1e0837b/transformed/fragment-testing-1.8.3/AndroidManifest.xml:20:5-22:54
 MERGED from [androidx.test:core:1.5.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/2f1e0994c09a8bdc374fa2b0d0880f95/transformed/core-1.5.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.test:core:1.5.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/2f1e0994c09a8bdc374fa2b0d0880f95/transformed/core-1.5.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.accompanist:accompanist-swiperefresh:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/d6681061baf38cd935843927a25d53a8/transformed/accompanist-swiperefresh-0.30.1/AndroidManifest.xml:21:5-23:42
+MERGED from [com.google.accompanist:accompanist-swiperefresh:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/d6681061baf38cd935843927a25d53a8/transformed/accompanist-swiperefresh-0.30.1/AndroidManifest.xml:21:5-23:42
 MERGED from [com.google.accompanist:accompanist-pager-indicators:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/c636d3ab14036a47f2173f1ef8dd6a39/transformed/accompanist-pager-indicators-0.32.0/AndroidManifest.xml:21:5-44
 MERGED from [com.google.accompanist:accompanist-pager-indicators:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/c636d3ab14036a47f2173f1ef8dd6a39/transformed/accompanist-pager-indicators-0.32.0/AndroidManifest.xml:21:5-44
 MERGED from [com.google.accompanist:accompanist-pager:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/0ec6ee4f802f4a599157db3473e4116d/transformed/accompanist-pager-0.32.0/AndroidManifest.xml:21:5-44
@@ -219,10 +222,10 @@ MERGED from [androidx.compose.ui:ui-unit-android:1.7.0] /Users/ohyugyeong/.gradl
 MERGED from [androidx.compose.ui:ui-unit-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/650c1887d6616ef3fba706188c61d77c/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.ui:ui-geometry-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9fcb2b414c043637807e70995e0e7a3d/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.ui:ui-geometry-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9fcb2b414c043637807e70995e0e7a3d/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-util-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a2b27d943bb48f9393304c4a4f333331/transformed/ui-util-release/AndroidManifest.xml:5:5-44
-MERGED from [androidx.compose.ui:ui-util-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a2b27d943bb48f9393304c4a4f333331/transformed/ui-util-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.ui:ui-text-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b5a4cf0c331212c51ae6f930a331a23a/transformed/ui-text-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.ui:ui-text-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b5a4cf0c331212c51ae6f930a331a23a/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a2b27d943bb48f9393304c4a4f333331/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a2b27d943bb48f9393304c4a4f333331/transformed/ui-util-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/de0a2d09b61418f0bb8a9d0347e3908d/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
 MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/de0a2d09b61418f0bb8a9d0347e3908d/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
 MERGED from [androidx.compose.ui:ui-tooling-android:1.7.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/e09d751c4f090445d9d5671f0459ddf0/transformed/ui-tooling-release/AndroidManifest.xml:20:5-44
@@ -350,7 +353,7 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/ohyugyeong/.gradle/ca
 	android:targetSdkVersion
 		INJECTED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml
 	tools:ignore
-		ADDED from [com.google.accompanist:accompanist-drawablepainter:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/67981b00793aa6587f2cd5935d2b23dc/transformed/accompanist-drawablepainter-0.30.1/AndroidManifest.xml:23:9-39
+		ADDED from [com.google.accompanist:accompanist-swiperefresh:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/d6681061baf38cd935843927a25d53a8/transformed/accompanist-swiperefresh-0.30.1/AndroidManifest.xml:23:9-39
 	android:minSdkVersion
 		INJECTED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml
 uses-permission#android.permission.REORDER_TASKS

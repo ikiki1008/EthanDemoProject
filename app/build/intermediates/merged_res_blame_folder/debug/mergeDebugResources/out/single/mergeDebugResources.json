@@ -12,6 +12,10 @@
         "source": "com.example.myapplication.app-main-62:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic2.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic2.jpg"
+    },
+    {
         "merged": "com.example.myapplication.app-debug-60:/mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "com.example.myapplication.app-main-62:/mipmap-mdpi/ic_launcher_round.webp"
     },
@@ -26,6 +30,10 @@
     {
         "merged": "com.example.myapplication.app-debug-60:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "com.example.myapplication.app-main-62:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic3.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic3.jpg"
     },
     {
         "merged": "com.example.myapplication.app-debug-60:/mipmap-mdpi_ic_launcher.webp.flat",
@@ -52,6 +60,10 @@
         "source": "com.example.myapplication.app-main-62:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic1.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic1.jpg"
+    },
+    {
         "merged": "com.example.myapplication.app-debug-60:/xml_backup_rules.xml.flat",
         "source": "com.example.myapplication.app-main-62:/xml/backup_rules.xml"
     },
@@ -62,6 +74,10 @@
     {
         "merged": "com.example.myapplication.app-debug-60:/drawable_ic_launcher_background.xml.flat",
         "source": "com.example.myapplication.app-main-62:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic4.jpeg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic4.jpeg"
     },
     {
         "merged": "com.example.myapplication.app-debug-60:/mipmap-xxhdpi_ic_launcher.webp.flat",

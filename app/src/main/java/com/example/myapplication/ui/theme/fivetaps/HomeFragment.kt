@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebView
 import android.widget.Space
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -48,8 +50,14 @@ import com.example.myapplication.CreatorPost
 import com.example.myapplication.ProductItem
 import kotlinx.coroutines.coroutineScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import com.example.myapplication.MainToDetailPage
+import okhttp3.HttpUrl
 
 class HomeFragment : Fragment() {
     override fun onCreateView(
@@ -105,6 +113,13 @@ class HomeFragment : Fragment() {
 @Composable
 fun MainFeed() {
     val scrollState = rememberLazyListState()
+//    val adPhotos = List(10) { "https://via.placeholder.com/150?text=Ad+${it + 1}" }
+
+    val data = listOf(
+        "8시라이브", "오늘의딜", "바이너리샵", "집들이",
+        "패키지할인", "행운출첵", "가드닝게임", "챌린지참여",
+        "게러지세일", "오마트", "리모델링", "입주청소"
+    )
     val creatorPosts = listOf(
         CreatorPost(
             pfImage = R.drawable.ic_launcher_background,
@@ -151,9 +166,35 @@ fun MainFeed() {
     )
 
     LazyColumn(state = scrollState) {
-        items(creatorPosts) { post ->
-            ImageListItem(creatorPost = post)
+
+        //sth below the top bar
+        item {
+            LazyRow (
+                modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp, top = 8.dp, bottom = 16.dp)){
+                items (data.size) { index ->
+                    SquareItem(title = data[index])
+                    Spacer(modifier = Modifier.width(12.dp))
+                }
+            }
         }
+
+        //creator feed lists
+        itemsIndexed(creatorPosts) { index, post ->
+            ImageListItem(creatorPost = post)
+
+            if (index == 0) {
+                //show pic ads under the first feed
+                ShowPicAds()
+            }
+
+            if (index == 1) {
+                ShowVidAds()
+            }
+        }
+//        //creator feeds list
+//        items(creatorPosts) { post ->
+//            ImageListItem(creatorPost = post)
+//        }
     }
 }
 
@@ -199,15 +240,25 @@ fun TasteFeed() {
 
 @Composable
 fun SquareItem(title: String) {
+    val context = LocalContext.current
+
     Column(
-        modifier = Modifier.width(50.dp),
+        modifier = Modifier
+            .width(70.dp)
+            .clickable { //click -> move to webpage
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = android.net.Uri.parse("https://www.google.com")
+                }
+                context.startActivity(intent)
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_launcher_background),
             contentDescription = null,
             modifier = Modifier
-                .size(80.dp)
+                .size(60.dp)
+                .clip(RoundedCornerShape(5.dp)) //rounded shape of image
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -430,4 +481,70 @@ fun OptionMenu() {
             )
         }
     }
+}
+
+@Composable
+fun ShowPicAds() {
+    val adPhotos = List(10) { R.drawable.ic_launcher_background }
+
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+    ) {
+        items(adPhotos.size) { index ->
+            Image(
+                painter = painterResource(id = adPhotos[index]),
+                contentDescription = "Ad photo $index",
+                modifier = Modifier
+                    .size(170.dp)
+                    .padding(end = 8.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ShowVidAds() {
+    val videoIds = listOf(
+        "LFsS-9lT0Rk",
+        "LFsS-9lT0Rk",
+        "LFsS-9lT0Rk",
+        "LFsS-9lT0Rk"
+    )
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier.fillMaxWidth().height(450.dp).padding(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items (videoIds){ videoId ->
+            VideoPlayer(videoId)
+        }
+    }
+}
+
+@Composable
+fun VideoPlayer(videoId : String) {
+    val context = LocalContext.current
+    val url = "https://www.youtube.com/embed/$videoId"
+
+    AndroidView(
+        factory = {
+            WebView(it).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                webChromeClient = WebChromeClient()
+                settings.javaScriptEnabled = true
+                loadUrl(url)
+            }
+        },
+        modifier = Modifier.aspectRatio(1f).clip(RoundedCornerShape(5.dp))
+    )
 }

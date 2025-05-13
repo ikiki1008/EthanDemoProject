@@ -41,10 +41,20 @@ MERGED from [androidx.loader:loader:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9df2ed3dd7746853e7dd80425575567b/transformed/emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
 MERGED from [io.coil-kt:coil:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/c94dd67b17f8be48058577beaf6986e9/transformed/coil-2.4.0/AndroidManifest.xml:2:1-7:12
 MERGED from [io.coil-kt:coil-base:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/4cbed00356c86b3da2dd45ef4501d251/transformed/coil-base-2.4.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.media3:media3-ui:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bd26813945e5de21cdd349fb4b57d138/transformed/media3-ui-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-extractor:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f5b91681f338f5bd9d8d7b78e5eae244/transformed/media3-extractor-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-container:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9b026b6bc9085898ac6f666a52b42c37/transformed/media3-container-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-datasource:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b8481480d413dce4e5d9c378757c6f4f/transformed/media3-datasource-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-decoder:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/077355a95bc72b1c27f7d1b133e5f044/transformed/media3-decoder-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-database:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/12e5827afc5b47e8c174f23b3edf206b/transformed/media3-database-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media3:media3-common:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bb53b3a4cbe4ab7b179d4f15ecaa1f07/transformed/media3-common-1.2.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a91cb6e9a1b2a9bb2ef0a065f4ca02dd/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.media:media:1.6.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/21229859951b9f37883e553c0a54de33/transformed/media-1.6.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.3.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bf7d247a4683e246b4220434510c8a77/transformed/recyclerview-1.3.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/4fd5513df921a5dcf808a20ae520bd08/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/19e8e65fd74f533051a37a49ae30dc15/transformed/customview-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.autofill:autofill:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5965b27873991d8ef8a30a80b6c35b4e/transformed/autofill-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.graphics:graphics-path:1.0.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1d0a81cb04e44041f5161ce9e9671194/transformed/graphics-path-1.0.1/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.customview:customview:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/19e8e65fd74f533051a37a49ae30dc15/transformed/customview-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/56b33638e5a6dc00b10473d27b7b9cb4/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/394ca91da6b934f6ba0e8d8056402d91/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.core:core-ktx:1.13.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bccd17ffc8422c4670b16f720d7aa502/transformed/core-ktx-1.13.1/AndroidManifest.xml:2:1-7:12
@@ -72,10 +82,10 @@ MERGED from [androidx.test:annotation:1.0.1] /Users/ohyugyeong/.gradle/caches/8.
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/66d3e7aacfea61e184b0af2cc6017839/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
 MERGED from [io.github.aakira:napier-android-debug:1.4.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1c83836466754fc16fffe115ae308bba/transformed/napier-debug/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5010965d789416475031eec5e19e34e1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1ee6bbf88c6d13b0f2f5b979a6c3cc00/transformed/exifinterface-1.3.6/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5a65b75e59b6d99256995cfb03848ace/transformed/profileinstaller-1.3.1/AndroidManifest.xml:17:1-55:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f4a135c5cb8581157a6bda37bda0c29e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b3720ae31ad64dee5d6128b136390c4b/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1ee6bbf88c6d13b0f2f5b979a6c3cc00/transformed/exifinterface-1.3.6/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/cb8c045d8ca63f808e291e46a4d14a6e/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bc1edef6ba13e10be1f4eb4d33aff454/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
 	package
@@ -241,14 +251,34 @@ MERGED from [io.coil-kt:coil:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/tran
 MERGED from [io.coil-kt:coil:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/c94dd67b17f8be48058577beaf6986e9/transformed/coil-2.4.0/AndroidManifest.xml:5:5-44
 MERGED from [io.coil-kt:coil-base:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/4cbed00356c86b3da2dd45ef4501d251/transformed/coil-base-2.4.0/AndroidManifest.xml:5:5-44
 MERGED from [io.coil-kt:coil-base:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/4cbed00356c86b3da2dd45ef4501d251/transformed/coil-base-2.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.media3:media3-ui:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bd26813945e5de21cdd349fb4b57d138/transformed/media3-ui-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-ui:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bd26813945e5de21cdd349fb4b57d138/transformed/media3-ui-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-extractor:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f5b91681f338f5bd9d8d7b78e5eae244/transformed/media3-extractor-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-extractor:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f5b91681f338f5bd9d8d7b78e5eae244/transformed/media3-extractor-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-container:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9b026b6bc9085898ac6f666a52b42c37/transformed/media3-container-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-container:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9b026b6bc9085898ac6f666a52b42c37/transformed/media3-container-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-datasource:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b8481480d413dce4e5d9c378757c6f4f/transformed/media3-datasource-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-datasource:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b8481480d413dce4e5d9c378757c6f4f/transformed/media3-datasource-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-decoder:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/077355a95bc72b1c27f7d1b133e5f044/transformed/media3-decoder-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-decoder:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/077355a95bc72b1c27f7d1b133e5f044/transformed/media3-decoder-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-database:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/12e5827afc5b47e8c174f23b3edf206b/transformed/media3-database-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-database:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/12e5827afc5b47e8c174f23b3edf206b/transformed/media3-database-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-common:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bb53b3a4cbe4ab7b179d4f15ecaa1f07/transformed/media3-common-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-common:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bb53b3a4cbe4ab7b179d4f15ecaa1f07/transformed/media3-common-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a91cb6e9a1b2a9bb2ef0a065f4ca02dd/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a91cb6e9a1b2a9bb2ef0a065f4ca02dd/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.6.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/21229859951b9f37883e553c0a54de33/transformed/media-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.6.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/21229859951b9f37883e553c0a54de33/transformed/media-1.6.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.3.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bf7d247a4683e246b4220434510c8a77/transformed/recyclerview-1.3.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.3.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bf7d247a4683e246b4220434510c8a77/transformed/recyclerview-1.3.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/4fd5513df921a5dcf808a20ae520bd08/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/4fd5513df921a5dcf808a20ae520bd08/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/19e8e65fd74f533051a37a49ae30dc15/transformed/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/19e8e65fd74f533051a37a49ae30dc15/transformed/customview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.autofill:autofill:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5965b27873991d8ef8a30a80b6c35b4e/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.autofill:autofill:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5965b27873991d8ef8a30a80b6c35b4e/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.graphics:graphics-path:1.0.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1d0a81cb04e44041f5161ce9e9671194/transformed/graphics-path-1.0.1/AndroidManifest.xml:5:5-44
 MERGED from [androidx.graphics:graphics-path:1.0.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1d0a81cb04e44041f5161ce9e9671194/transformed/graphics-path-1.0.1/AndroidManifest.xml:5:5-44
-MERGED from [androidx.customview:customview:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/19e8e65fd74f533051a37a49ae30dc15/transformed/customview-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/19e8e65fd74f533051a37a49ae30dc15/transformed/customview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/56b33638e5a6dc00b10473d27b7b9cb4/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/56b33638e5a6dc00b10473d27b7b9cb4/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/394ca91da6b934f6ba0e8d8056402d91/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
@@ -303,14 +333,14 @@ MERGED from [io.github.aakira:napier-android-debug:1.4.1] /Users/ohyugyeong/.gra
 MERGED from [io.github.aakira:napier-android-debug:1.4.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1c83836466754fc16fffe115ae308bba/transformed/napier-debug/AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5010965d789416475031eec5e19e34e1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5010965d789416475031eec5e19e34e1/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1ee6bbf88c6d13b0f2f5b979a6c3cc00/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1ee6bbf88c6d13b0f2f5b979a6c3cc00/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5a65b75e59b6d99256995cfb03848ace/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/5a65b75e59b6d99256995cfb03848ace/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f4a135c5cb8581157a6bda37bda0c29e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f4a135c5cb8581157a6bda37bda0c29e/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b3720ae31ad64dee5d6128b136390c4b/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b3720ae31ad64dee5d6128b136390c4b/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1ee6bbf88c6d13b0f2f5b979a6c3cc00/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1ee6bbf88c6d13b0f2f5b979a6c3cc00/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/cb8c045d8ca63f808e291e46a4d14a6e/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/cb8c045d8ca63f808e291e46a4d14a6e/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bc1edef6ba13e10be1f4eb4d33aff454/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
@@ -405,6 +435,12 @@ ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/ohyugyeong/.gradle/caches/8.11.
 		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9df2ed3dd7746853e7dd80425575567b/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
 	android:name
 		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9df2ed3dd7746853e7dd80425575567b/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [androidx.media3:media3-common:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bb53b3a4cbe4ab7b179d4f15ecaa1f07/transformed/media3-common-1.2.1/AndroidManifest.xml:22:5-79
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a91cb6e9a1b2a9bb2ef0a065f4ca02dd/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:22:5-79
+MERGED from [androidx.media3:media3-exoplayer:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/a91cb6e9a1b2a9bb2ef0a065f4ca02dd/transformed/media3-exoplayer-1.2.1/AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [androidx.media3:media3-common:1.2.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bb53b3a4cbe4ab7b179d4f15ecaa1f07/transformed/media3-common-1.2.1/AndroidManifest.xml:22:22-76
 permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.13.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/437afea46fdf55afa23e659b2fb26e77/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel

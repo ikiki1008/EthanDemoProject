@@ -1,9 +1,9 @@
 package com.example.myapplication.ui.theme.dataclass
 
 data class CreatorPost(
-    val pfImage : Int,
+    val pfImage : String,
     val id : String,
     val intro : String,
-    val postImage : Int,
+    val postImage : String,
     val postText : String
 )

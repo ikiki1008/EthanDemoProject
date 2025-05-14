@@ -65,6 +65,7 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.2.1")
     implementation("androidx.media3:media3-ui:1.2.1")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.30.1") //새로고침 컴포즈에서 제공
+    implementation ("com.google.code.gson:gson:2.10.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

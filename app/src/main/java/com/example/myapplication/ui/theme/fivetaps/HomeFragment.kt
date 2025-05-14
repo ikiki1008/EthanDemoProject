@@ -272,39 +272,173 @@ fun LoadMoreFeed() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageListItem(creatorPost: CreatorPost) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp)
-    ) {
-        Row(modifier = Modifier.padding(bottom = 8.dp)) {
-            Image(
-                painter = rememberAsyncImagePainter(creatorPost.pfImage),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Column {
-                Text(creatorPost.id, style = MaterialTheme.typography.bodyLarge)
-                Text(creatorPost.intro, style = MaterialTheme.typography.bodySmall)
+    val productItems = listOf(
+        ProductItem("페이브 선반", R.drawable.ic_launcher_background),
+        ProductItem("리버서블 책상", R.drawable.ic_launcher_background),
+        ProductItem("모던 책장", R.drawable.ic_launcher_background),
+        ProductItem("럭셔리 소파", R.drawable.ic_launcher_background),
+        ProductItem("빈티지 램프", R.drawable.ic_launcher_background),
+        ProductItem("우드 테이블", R.drawable.ic_launcher_background),
+        ProductItem("거울 서랍장", R.drawable.ic_launcher_background),
+        ProductItem("의자", R.drawable.ic_launcher_background),
+        ProductItem("러그", R.drawable.ic_launcher_background),
+        ProductItem("장식장", R.drawable.ic_launcher_background)
+    )
+
+    val previewItems = productItems.take(4)
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+    val context = LocalContext.current
+
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = rememberAsyncImagePainter(creatorPost.pfImage),
+                    contentDescription = null,
+                    modifier = Modifier.size(50.dp).clip(RoundedCornerShape(50))
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column {
+                    Text(creatorPost.id, style = MaterialTheme.typography.bodyMedium)
+                    Text(creatorPost.intro, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "팔로우",
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .clickable { println("팔로우 버튼 클릭됨") }
+                )
+                OptionMenu()
             }
         }
 
         Image(
             painter = rememberAsyncImagePainter(creatorPost.postImage),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
-                .clip(RoundedCornerShape(8.dp))
+            contentDescription = "Post Image",
+            modifier = Modifier.fillMaxWidth().aspectRatio(1f),
+            contentScale = ContentScale.Crop
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(creatorPost.postText, style = MaterialTheme.typography.bodyMedium)
+        Text(
+            text = creatorPost.postText,
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(start = 10.dp, top = 4.dp, bottom = 4.dp)
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(start = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            previewItems.forEach { item ->
+                Image(
+                    painter = painterResource(id = item.imageId),
+                    contentDescription = item.title,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .padding(end = 3.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                        .clickable {
+                            val intent = Intent(context, MainToDetailPage::class.java).apply {
+                                putExtra("title", item.title)
+                                putExtra("imageId", item.imageId)
+                            }
+                            context.startActivity(intent)
+                        },
+                    contentScale = ContentScale.Crop
+                )
+            }
+
+            if (productItems.size > 4) {
+                Text(
+                    text = "상품 더보기 >",
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier
+                        .clickable { showBottomSheet = true }
+                        .padding(start = 12.dp)
+                )
+            }
+        }
+
+        if (showBottomSheet) {
+            ModalBottomSheet(
+                onDismissRequest = { showBottomSheet = false },
+                sheetState = sheetState
+            ) {
+                Column(
+                    Modifier.fillMaxWidth().padding(1.dp)
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 1.dp)
+                    ) {
+                        Text(
+                            text = "태그 상품 (${productItems.size})",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                        IconButton(
+                            onClick = { showBottomSheet = false },
+                            modifier = Modifier.align(Alignment.CenterEnd)
+                        ) {
+                            Icon(imageVector = Icons.Default.Close, contentDescription = "닫기")
+                        }
+                    }
+
+                    productItems.forEach { item ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Image(
+                                    painter = painterResource(id = item.imageId),
+                                    contentDescription = item.title,
+                                    modifier = Modifier.size(50.dp).clip(RoundedCornerShape(10))
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Column {
+                                    Text(text = item.title, style = MaterialTheme.typography.bodyMedium)
+                                    Text(text = "390,000", style = MaterialTheme.typography.bodySmall)
+                                }
+                            }
+
+                            var expanded by remember { mutableStateOf(false) }
+
+                            Box {
+                                IconButton(onClick = { expanded = true }) {
+                                    Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
+                                }
+
+                                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                                    DropdownMenuItem(
+                                        text = { Text("신고하기") },
+                                        onClick = {
+                                            expanded = false
+                                            println("신고하기 클릭됨")
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -24,14 +24,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.ui.theme.dataclass.CreatorPost
 import com.example.myapplication.ui.theme.fivetaps.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class MainActivity : FragmentActivity() {
+
+    val jsonArray = "{[name='oh yugyeong', val1='a', val2='3', val3='4']," +
+            "[name='oh yugyeong', val1='a', val2='3', val3='4'], [name='oh yugyeong', val1='a', val2='3', val3='4']," +
+            "[name='oh yugyeong', val1='a', val2='3', val3='4'], [name='oh yugyeong', val1='a', val2='3', val3='4']," +
+            "[name='oh yugyeong', val1='a', val2='3', val3='4'], [name='oh yugyeong', val1='a', val2='3', val3='4'], " +
+            "[name='oh yugyeong', val1='a', val2='3', val3='4']}"
+
+ val asd = arrayListOf<CreatorPost>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         Log.d("Activity", "MainScreen")
-
         setContent {
             MyApplicationTheme {
                 MainScreen(activity = this)

@@ -164,6 +164,8 @@ dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
 drawable abc_vector_test
+drawable back
+drawable down_arrow
 drawable exo_edit_mode_logo
 drawable exo_ic_audiotrack
 drawable exo_ic_check

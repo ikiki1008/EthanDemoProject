@@ -163,6 +163,8 @@ int dimen notification_subtext_size 0x7f06003c
 int dimen notification_top_pad 0x7f06003d
 int dimen notification_top_pad_large_text 0x7f06003e
 int drawable abc_vector_test 0x7f070001
+int drawable back 0x7f07006a
+int drawable down_arrow 0x7f07006b
 int drawable exo_edit_mode_logo 0x7f070002
 int drawable exo_ic_audiotrack 0x7f070003
 int drawable exo_ic_check 0x7f070004

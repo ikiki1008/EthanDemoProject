@@ -261,7 +261,7 @@ fun TasteFeed() {
             Spacer(modifier = Modifier.height(16.dp))
 
             // 그리드 피드 (20개)
-            val feedItems = (0 until 20).toList()
+            val feedItems = (0 until 200).toList()
             feedItems.chunked(2).forEach { rowItems ->
                 Row (
                     modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),

@@ -47,8 +47,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.ui.Alignment
-import com.example.myapplication.CreatorPost
-import com.example.myapplication.ProductItem
+import com.example.myapplication.ui.theme.dataclass.CreatorPost
+import com.example.myapplication.ui.theme.dataclass.ProductItem
 import kotlinx.coroutines.coroutineScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed

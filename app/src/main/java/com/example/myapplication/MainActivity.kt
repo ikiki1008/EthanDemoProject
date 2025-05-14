@@ -31,13 +31,6 @@ import org.json.JSONObject
 
 class MainActivity : FragmentActivity() {
 
-    val jsonArray = "{[name='oh yugyeong', val1='a', val2='3', val3='4']," +
-            "[name='oh yugyeong', val1='a', val2='3', val3='4'], [name='oh yugyeong', val1='a', val2='3', val3='4']," +
-            "[name='oh yugyeong', val1='a', val2='3', val3='4'], [name='oh yugyeong', val1='a', val2='3', val3='4']," +
-            "[name='oh yugyeong', val1='a', val2='3', val3='4'], [name='oh yugyeong', val1='a', val2='3', val3='4'], " +
-            "[name='oh yugyeong', val1='a', val2='3', val3='4']}"
-
- val asd = arrayListOf<CreatorPost>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -67,11 +60,11 @@ fun MainScreen(activity: FragmentActivity) {
                 active = isActive,
                 onActiveChange = { isActive = it },
                 placeholder = { Text("최저가 상품을 고려 하세요") },
-                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "geomsaek") },
+                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
                 trailingIcon = {
                     if (searchText.isNotEmpty()) {
                         IconButton(onClick = { searchText = "" }) {
-                            Icon(Icons.Filled.Clear, contentDescription = "datki")
+                            Icon(Icons.Filled.Clear, contentDescription = null)
                         }
                     }
                 }
@@ -84,31 +77,31 @@ fun MainScreen(activity: FragmentActivity) {
                 NavigationBarItem(
                     selected = selectedTabIndex == 0,
                     onClick = { selectedTabIndex = 0 },
-                    icon = { Icon(Icons.Filled.Home, contentDescription = "홈") },
+                    icon = { Icon(Icons.Filled.Home, contentDescription = null) },
                     label = { Text("홈") }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 1,
                     onClick = { selectedTabIndex = 1 },
-                    icon = { Icon(Icons.Filled.Notifications, contentDescription = "커뮤니티") },
+                    icon = { Icon(Icons.Filled.Notifications, contentDescription = null) },
                     label = { Text("커뮤니티") }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 2,
                     onClick = { selectedTabIndex = 2 },
-                    icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = "쇼핑") },
+                    icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = null) },
                     label = { Text("쇼핑") }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 3,
                     onClick = { selectedTabIndex = 3 },
-                    icon = { Icon(Icons.Filled.Person, contentDescription = "인테리어/생활") },
+                    icon = { Icon(Icons.Filled.Person, contentDescription = null) },
                     label = { Text("인테리어") }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 4,
                     onClick = { selectedTabIndex = 4 },
-                    icon = { Icon(Icons.Filled.Person, contentDescription = "마이페이지") },
+                    icon = { Icon(Icons.Filled.Person, contentDescription = null) },
                     label = { Text("마이페이지") }
                 )
             }

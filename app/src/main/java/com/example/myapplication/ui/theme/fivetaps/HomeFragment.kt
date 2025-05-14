@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.theme.fivetaps
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -53,6 +54,7 @@ import kotlinx.coroutines.coroutineScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -66,6 +68,11 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
 import kotlin.jvm.java
 
@@ -104,7 +111,7 @@ class HomeFragment : Fragment() {
 
                         HorizontalPager(state = pagerState) { page ->
                             when (page) {
-                                0 -> MainFeed(scrollState)
+                                0 -> LoadMoreFeed()
                                 1 -> TasteFeed()
                             }
                         }
@@ -203,6 +210,137 @@ fun MainFeed(scrollState: LazyListState) {
             if (index == 0) ShowPicAds()
             if (index == 1) ShowVidAds()
         }
+    }
+}
+
+suspend fun loadPostsFromAssets(context: Context): List<CreatorPost> = withContext(Dispatchers.IO) {
+    val json = context.assets.open("sample_data.json").bufferedReader().use { it.readText() }
+    Gson().fromJson(json, object : TypeToken<List<CreatorPost>>() {}.type)
+}
+
+@Composable
+fun LoadMoreFeed() {
+    val context = LocalContext.current
+    val allPosts = remember { mutableStateListOf<CreatorPost>() }
+    var isLoading by remember { mutableStateOf(false) }
+    var endReached by remember { mutableStateOf(false) }
+
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+    // 초기 로딩
+    LaunchedEffect(Unit) {
+        isLoading = true
+        val loaded = loadPostsFromAssets(context)
+        allPosts.addAll(loaded.take(4))
+        isLoading = false
+    }
+
+    // 스크롤 감지 후 추가 로딩
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
+            .map { it ?: 0 }
+            .distinctUntilChanged()
+            .collect { lastVisibleItemIndex ->
+                if (!isLoading && !endReached && lastVisibleItemIndex >= allPosts.size - 1) {
+                    coroutineScope.launch {
+                        isLoading = true
+                        delay(500) // 부드러운 UX를 위한 로딩 시간
+                        val loaded = loadPostsFromAssets(context)
+                        val next = loaded.drop(allPosts.size).take(4)
+                        if (next.isEmpty()) {
+                            endReached = true
+                        } else {
+                            allPosts.addAll(next)
+                        }
+                        isLoading = false
+                    }
+                }
+            }
+    }
+
+    LazyColumn(state = listState) {
+        items(allPosts) { post ->
+            ImageListItem(creatorPost = post)
+        }
+
+        if (isLoading) {
+            items(4) {
+                SkeletonItem()
+            }
+        }
+    }
+}
+
+@Composable
+fun ImageListItem(creatorPost: CreatorPost) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp)
+    ) {
+        Row(modifier = Modifier.padding(bottom = 8.dp)) {
+            Image(
+                painter = rememberAsyncImagePainter(creatorPost.pfImage),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(CircleShape)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Column {
+                Text(creatorPost.id, style = MaterialTheme.typography.bodyLarge)
+                Text(creatorPost.intro, style = MaterialTheme.typography.bodySmall)
+            }
+        }
+
+        Image(
+            painter = rememberAsyncImagePainter(creatorPost.postImage),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+                .clip(RoundedCornerShape(8.dp))
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(creatorPost.postText, style = MaterialTheme.typography.bodyMedium)
+    }
+}
+
+@Composable
+fun SkeletonItem() {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(12.dp)) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.LightGray.copy(alpha = 0.3f))
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.5f)
+                .height(20.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color.Gray.copy(alpha = 0.3f))
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.3f)
+                .height(16.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color.Gray.copy(alpha = 0.3f))
+        )
     }
 }
 
@@ -329,196 +467,196 @@ fun SquareItem(title: String) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ImageListItem(creatorPost: CreatorPost) {
-    val productItems = listOf(
-        ProductItem("페이브 선반", R.drawable.ic_launcher_background),
-        ProductItem("리버서블 책상", R.drawable.ic_launcher_background),
-        ProductItem("모던 책장", R.drawable.ic_launcher_background),
-        ProductItem("럭셔리 소파", R.drawable.ic_launcher_background),
-        ProductItem("빈티지 램프", R.drawable.ic_launcher_background),
-        ProductItem("우드 테이블", R.drawable.ic_launcher_background),
-        ProductItem("거울 서랍장", R.drawable.ic_launcher_background),
-        ProductItem("의자", R.drawable.ic_launcher_background),
-        ProductItem("러그", R.drawable.ic_launcher_background),
-        ProductItem("장식장", R.drawable.ic_launcher_background)
-    )
-
-    val previewItems = productItems.take(4)
-    var showBottomSheet by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState()
-    val context = LocalContext.current
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 15.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = rememberAsyncImagePainter(creatorPost.pfImage),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(RoundedCornerShape(50))
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(creatorPost.id, style = MaterialTheme.typography.bodyMedium)
-                    Text(creatorPost.intro, style = MaterialTheme.typography.bodySmall)
-                }
-            }
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "팔로우",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier
-                        .padding(end = 8.dp)
-                        .clickable { println("팔로우 버튼 클릭됨") }
-                )
-                OptionMenu()
-            }
-        }
-
-        // 게시글 이미지 (웹 URL로부터 로드)
-        Image(
-            painter = rememberAsyncImagePainter(creatorPost.postImage),
-            contentDescription = "Post Image",
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f),
-            contentScale = ContentScale.Crop
-        )
-
-        Text(
-            text = creatorPost.postText,
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(start = 10.dp, top = 4.dp, bottom = 4.dp)
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            previewItems.forEach { item ->
-                Image(
-                    painter = painterResource(id = item.imageId),
-                    contentDescription = item.title,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .padding(end = 3.dp)
-                        .clip(RoundedCornerShape(5.dp))
-                        .clickable {
-                            val intent = Intent(context, MainToDetailPage::class.java).apply {
-                                putExtra("title", item.title)
-                                putExtra("imageId", item.imageId)
-                            }
-                            context.startActivity(intent)
-                        },
-                    contentScale = ContentScale.Crop
-                )
-            }
-
-            if (productItems.size > 4) {
-                Text(
-                    text = "상품 더보기 >",
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .clickable { showBottomSheet = true }
-                        .padding(start = 12.dp)
-                )
-            }
-        }
-
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = { showBottomSheet = false },
-                sheetState = sheetState
-            ) {
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(1.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 1.dp)
-                    ) {
-                        Text(
-                            text = "태그 상품 (${productItems.size})",
-                            style = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                        IconButton(
-                            onClick = { showBottomSheet = false },
-                            modifier = Modifier.align(Alignment.CenterEnd)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Close,
-                                contentDescription = "닫기"
-                            )
-                        }
-                    }
-
-                    productItems.forEach { item ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Image(
-                                    painter = painterResource(id = item.imageId),
-                                    contentDescription = item.title,
-                                    modifier = Modifier.size(50.dp).clip(RoundedCornerShape(10))
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Column {
-                                    Text(text = item.title, style = MaterialTheme.typography.bodyMedium)
-                                    Text(text = "390,000", style = MaterialTheme.typography.bodySmall)
-                                }
-                            }
-
-                            var expanded by remember { mutableStateOf(false) }
-
-                            Box {
-                                IconButton(onClick = { expanded = true }) {
-                                    Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
-                                }
-
-                                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                                    DropdownMenuItem(
-                                        text = { Text("신고하기") },
-                                        onClick = {
-                                            expanded = false
-                                            println("신고하기 클릭됨")
-                                        }
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun ImageListItem(creatorPost: CreatorPost) {
+//    val productItems = listOf(
+//        ProductItem("페이브 선반", R.drawable.ic_launcher_background),
+//        ProductItem("리버서블 책상", R.drawable.ic_launcher_background),
+//        ProductItem("모던 책장", R.drawable.ic_launcher_background),
+//        ProductItem("럭셔리 소파", R.drawable.ic_launcher_background),
+//        ProductItem("빈티지 램프", R.drawable.ic_launcher_background),
+//        ProductItem("우드 테이블", R.drawable.ic_launcher_background),
+//        ProductItem("거울 서랍장", R.drawable.ic_launcher_background),
+//        ProductItem("의자", R.drawable.ic_launcher_background),
+//        ProductItem("러그", R.drawable.ic_launcher_background),
+//        ProductItem("장식장", R.drawable.ic_launcher_background)
+//    )
+//
+//    val previewItems = productItems.take(4)
+//    var showBottomSheet by remember { mutableStateOf(false) }
+//    val sheetState = rememberModalBottomSheetState()
+//    val context = LocalContext.current
+//
+//    Column(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(vertical = 15.dp)
+//    ) {
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(10.dp),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Image(
+//                    painter = rememberAsyncImagePainter(creatorPost.pfImage),
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .size(50.dp)
+//                        .clip(RoundedCornerShape(50))
+//                )
+//                Spacer(modifier = Modifier.width(8.dp))
+//                Column {
+//                    Text(creatorPost.id, style = MaterialTheme.typography.bodyMedium)
+//                    Text(creatorPost.intro, style = MaterialTheme.typography.bodySmall)
+//                }
+//            }
+//
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Text(
+//                    text = "팔로우",
+//                    color = MaterialTheme.colorScheme.primary,
+//                    style = MaterialTheme.typography.bodyMedium,
+//                    modifier = Modifier
+//                        .padding(end = 8.dp)
+//                        .clickable { println("팔로우 버튼 클릭됨") }
+//                )
+//                OptionMenu()
+//            }
+//        }
+//
+//        // 게시글 이미지 (웹 URL로부터 로드)
+//        Image(
+//            painter = rememberAsyncImagePainter(creatorPost.postImage),
+//            contentDescription = "Post Image",
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .aspectRatio(1f),
+//            contentScale = ContentScale.Crop
+//        )
+//
+//        Text(
+//            text = creatorPost.postText,
+//            style = MaterialTheme.typography.bodySmall,
+//            modifier = Modifier.padding(start = 10.dp, top = 4.dp, bottom = 4.dp)
+//        )
+//
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(start = 10.dp),
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            previewItems.forEach { item ->
+//                Image(
+//                    painter = painterResource(id = item.imageId),
+//                    contentDescription = item.title,
+//                    modifier = Modifier
+//                        .size(50.dp)
+//                        .padding(end = 3.dp)
+//                        .clip(RoundedCornerShape(5.dp))
+//                        .clickable {
+//                            val intent = Intent(context, MainToDetailPage::class.java).apply {
+//                                putExtra("title", item.title)
+//                                putExtra("imageId", item.imageId)
+//                            }
+//                            context.startActivity(intent)
+//                        },
+//                    contentScale = ContentScale.Crop
+//                )
+//            }
+//
+//            if (productItems.size > 4) {
+//                Text(
+//                    text = "상품 더보기 >",
+//                    color = MaterialTheme.colorScheme.primary,
+//                    style = MaterialTheme.typography.bodySmall,
+//                    modifier = Modifier
+//                        .clickable { showBottomSheet = true }
+//                        .padding(start = 12.dp)
+//                )
+//            }
+//        }
+//
+//        if (showBottomSheet) {
+//            ModalBottomSheet(
+//                onDismissRequest = { showBottomSheet = false },
+//                sheetState = sheetState
+//            ) {
+//                Column(
+//                    Modifier
+//                        .fillMaxWidth()
+//                        .padding(1.dp)
+//                ) {
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(bottom = 1.dp)
+//                    ) {
+//                        Text(
+//                            text = "태그 상품 (${productItems.size})",
+//                            style = MaterialTheme.typography.titleMedium,
+//                            modifier = Modifier.align(Alignment.Center)
+//                        )
+//                        IconButton(
+//                            onClick = { showBottomSheet = false },
+//                            modifier = Modifier.align(Alignment.CenterEnd)
+//                        ) {
+//                            Icon(
+//                                imageVector = Icons.Default.Close,
+//                                contentDescription = "닫기"
+//                            )
+//                        }
+//                    }
+//
+//                    productItems.forEach { item ->
+//                        Row(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .padding(10.dp),
+//                            verticalAlignment = Alignment.CenterVertically,
+//                            horizontalArrangement = Arrangement.SpaceBetween
+//                        ) {
+//                            Row(verticalAlignment = Alignment.CenterVertically) {
+//                                Image(
+//                                    painter = painterResource(id = item.imageId),
+//                                    contentDescription = item.title,
+//                                    modifier = Modifier.size(50.dp).clip(RoundedCornerShape(10))
+//                                )
+//                                Spacer(modifier = Modifier.width(8.dp))
+//                                Column {
+//                                    Text(text = item.title, style = MaterialTheme.typography.bodyMedium)
+//                                    Text(text = "390,000", style = MaterialTheme.typography.bodySmall)
+//                                }
+//                            }
+//
+//                            var expanded by remember { mutableStateOf(false) }
+//
+//                            Box {
+//                                IconButton(onClick = { expanded = true }) {
+//                                    Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
+//                                }
+//
+//                                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+//                                    DropdownMenuItem(
+//                                        text = { Text("신고하기") },
+//                                        onClick = {
+//                                            expanded = false
+//                                            println("신고하기 클릭됨")
+//                                        }
+//                                    )
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 
 //report btn

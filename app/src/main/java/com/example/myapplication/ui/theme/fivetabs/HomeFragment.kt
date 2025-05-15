@@ -2,6 +2,7 @@ package com.example.myapplication.ui.theme.fivetabs
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -62,6 +65,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlin.jvm.java
 import androidx.compose.ui.res.stringResource
+import com.example.myapplication.ui.theme.dataclass.TastePost
+import kotlinx.coroutines.CoroutineScope
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,10 +100,17 @@ class HomeFragment : Fragment() {
 
                         HorizontalPager(state = pagerState) { page ->
                             when (page) {
-                                0 -> ShowMainFeed(scrollState)
-                                1 -> TasteFeed()
+                                0 -> {
+                                    val feedScrollState = rememberLazyListState()
+                                    ShowMainFeed(feedScrollState)
+                                }
+                                1 -> {
+                                    val tasteScrollState = rememberLazyListState()
+                                    TasteFeed(tasteScrollState)
+                                }
                             }
                         }
+
                     }
                 }
             }
@@ -212,9 +224,13 @@ fun ImageListItem(creatorPost: CreatorPost) {
 
     val previewItems = productItems.take(4)
 
-    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 15.dp)) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -222,7 +238,10 @@ fun ImageListItem(creatorPost: CreatorPost) {
                 Image(
                     painter = rememberAsyncImagePainter(creatorPost.pfImage),
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp).aspectRatio(1f).clip(CircleShape),
+                    modifier = Modifier
+                        .size(50.dp)
+                        .aspectRatio(1f)
+                        .clip(CircleShape),
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -247,7 +266,9 @@ fun ImageListItem(creatorPost: CreatorPost) {
         Image(
             painter = rememberAsyncImagePainter(creatorPost.postImage),
             contentDescription = null,
-            modifier = Modifier.fillMaxWidth().aspectRatio(1f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f),
             contentScale = ContentScale.Crop
         )
 
@@ -258,7 +279,9 @@ fun ImageListItem(creatorPost: CreatorPost) {
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(start = 10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             previewItems.forEach { item ->
@@ -298,10 +321,14 @@ fun ImageListItem(creatorPost: CreatorPost) {
                 sheetState = sheetState
             ) {
                 Column(
-                    Modifier.fillMaxWidth().padding(1.dp)
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(1.dp)
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 1.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 1.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.tag_item, productItems.size),
@@ -328,7 +355,9 @@ fun ImageListItem(creatorPost: CreatorPost) {
                                 Image(
                                     painter = painterResource(id = item.imageId),
                                     contentDescription = item.title,
-                                    modifier = Modifier.size(50.dp).clip(RoundedCornerShape(10))
+                                    modifier = Modifier
+                                        .size(50.dp)
+                                        .clip(RoundedCornerShape(10))
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Column {
@@ -401,99 +430,6 @@ fun SkeletonItem() {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun TasteFeed() {
-    val images = listOf(
-        R.drawable.pic1,
-        R.drawable.pic2,
-        R.drawable.pic3,
-        R.drawable.pic4,
-    )
-
-    var selectedImg by remember { mutableStateOf(images.random()) }
-    var isRefreshing by remember { mutableStateOf(false) }
-
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(isRefreshing),
-        onRefresh = {
-            isRefreshing = true
-            selectedImg = images.random()
-            isRefreshing = false
-        }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // 상단 대표 이미지
-            Image(
-                painter = painterResource(id = selectedImg),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
-
-            Spacer(modifier = Modifier.height(25.dp))
-
-            // 상단 텍스트
-            Text(
-                text = stringResource(R.string.come_look),
-                style = MaterialTheme.typography.titleMedium,
-                maxLines = 1,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp),
-                textAlign = TextAlign.Start
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // 그리드 피드 (20개)
-            val feedItems = (0 until 200).toList()
-            val context = LocalContext.current
-            feedItems.chunked(2).forEach { rowItems ->
-                Row (
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ){
-                    rowItems.forEach { index ->
-                        val imageRes = images[index % images.size]
-
-                        Column (modifier = Modifier.weight(1f).aspectRatio(1f).clip(RoundedCornerShape(8.dp))) {
-                            Image(
-                                painter = painterResource(id = imageRes),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(8.dp))
-                            )
-                            Text(
-                                text = context.getString(R.string.popular_post_with_rank, index + 1),
-                                style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.fillMaxWidth().padding(4.dp),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
-                    }
-
-                    if (rowItems.size < 2) {
-                        Spacer(modifier = Modifier.weight(1f))
-                }
-            }
-            }
-        }
-    }
-}
-
-
-
 @Composable
 fun SquareItem(title: String) {
     val context = LocalContext.current
@@ -525,6 +461,184 @@ fun SquareItem(title: String) {
     }
 }
 
+@Composable
+fun TasteFeed(scrollState: LazyListState) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    val images = listOf(R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4)
+    var selectedImg by remember { mutableStateOf(images.random()) }
+
+    val allItems = remember { mutableStateListOf<TastePost?>() }
+    var isLoading by remember { mutableStateOf(true) }
+    var endReached by remember { mutableStateOf(false) }
+
+    // JSON 데이터 로드
+    val allJsonPosts by produceState<List<TastePost>>(initialValue = emptyList()) {
+        val json = context.assets.open("taste_feed_sample_data.json").bufferedReader().use { it.readText() }
+        value = Gson().fromJson(json, object : TypeToken<List<TastePost>>() {}.type)
+    }
+
+    // 초기 데이터 로딩
+    LaunchedEffect(allJsonPosts) {
+        if (allJsonPosts.isNotEmpty() && allItems.isEmpty()) {
+            val initialPosts = allJsonPosts.take(8)
+            allItems.addAll(initialPosts)
+            isLoading = false
+        }
+    }
+
+    LaunchedEffect(scrollState) {
+        snapshotFlow { !scrollState.canScrollForward }
+            .distinctUntilChanged()
+            .collect { isAtBottom ->
+                if (isAtBottom && !isLoading && !endReached) {
+                    loadMoreData(
+                        coroutineScope = coroutineScope,
+                        allItems = allItems,
+                        allJsonPosts = allJsonPosts,
+                        onLoadingChange = { isLoading = it },
+                        onEndReached = { endReached = it }
+                    )
+                }
+            }
+    }
+
+    LazyColumn(
+        state = scrollState,
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
+    ) {
+        item {
+            Image(
+                painter = painterResource(id = selectedImg),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.height(25.dp))
+
+            Text(
+                text = stringResource(R.string.come_look),
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
+                textAlign = TextAlign.Start
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        val rows = allItems.chunked(2)
+        items(rows.size) { index ->
+            val rowItems = rows[index]
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                rowItems.forEachIndexed { itemIndex, post ->
+                    Box(modifier = Modifier.weight(1f)) {
+                        if (post != null) {
+                            TasteGridItem(post = post)
+                        } else {
+                            SkeletonTasteItem()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 추가 데이터 로딩을 위한 함수
+private fun loadMoreData(
+    coroutineScope: CoroutineScope,
+    allItems: SnapshotStateList<TastePost?>,
+    allJsonPosts: List<TastePost>,
+    onLoadingChange: (Boolean) -> Unit,
+    onEndReached: (Boolean) -> Unit
+) {
+    coroutineScope.launch {
+        onLoadingChange(true)
+
+        // 스켈레톤 추가
+        repeat(8) { allItems.add(null) }
+
+        delay(800) // 로딩 시간 시뮬레이션
+
+        // 스켈레톤 제거
+        repeat(8) { allItems.removeLast() }
+
+        // 다음 데이터 추가
+        val currentSize = allItems.count { it != null }
+        val nextItems = allJsonPosts.drop(currentSize).take(8)
+
+        if (nextItems.isEmpty()) {
+            onEndReached(true)
+        } else {
+            allItems.addAll(nextItems)
+        }
+
+        onLoadingChange(false)
+    }
+}
+
+@Composable
+fun TasteGridItem(post: TastePost, modifier: Modifier = Modifier) {
+    Column(modifier = modifier
+        .fillMaxWidth()
+        .aspectRatio(1f)
+        .clip(RoundedCornerShape(8.dp))) {
+        Image(
+            painter = rememberAsyncImagePainter(post.imageUrl),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+        )
+        Text(
+            text = post.title,
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+@Composable
+fun SkeletonTasteItem(modifier: Modifier = Modifier) {
+    Column(modifier = modifier
+        .fillMaxWidth()
+        .aspectRatio(1f)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.LightGray.copy(alpha = 0.3f))
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .height(14.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color.Gray.copy(alpha = 0.3f))
+        )
+    }
+}
 
 //report btn
 @Composable
@@ -583,7 +697,10 @@ fun ShowVidAds() {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.fillMaxWidth().height(450.dp).padding(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(450.dp)
+            .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -611,6 +728,8 @@ fun VideoPlayer(videoId : String) {
                 loadUrl(url)
             }
         },
-        modifier = Modifier.aspectRatio(1f).clip(RoundedCornerShape(5.dp))
+        modifier = Modifier
+            .aspectRatio(1f)
+            .clip(RoundedCornerShape(5.dp))
     )
 }

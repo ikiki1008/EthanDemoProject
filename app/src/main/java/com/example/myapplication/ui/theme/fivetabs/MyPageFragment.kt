@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme.fivetaps
+package com.example.myapplication.ui.theme.fivetabs
 
 import android.os.Bundle
 import android.util.Log

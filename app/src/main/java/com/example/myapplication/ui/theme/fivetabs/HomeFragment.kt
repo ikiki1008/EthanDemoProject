@@ -1,6 +1,5 @@
-package com.example.myapplication.ui.theme.fivetaps
+package com.example.myapplication.ui.theme.fivetabs
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.widget.Space
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,47 +32,36 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import coil.compose.rememberAsyncImagePainter
 import com.example.myapplication.R
 import kotlinx.coroutines.launch
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.ui.Alignment
 import com.example.myapplication.ui.theme.dataclass.CreatorPost
 import com.example.myapplication.ui.theme.dataclass.ProductItem
-import kotlinx.coroutines.coroutineScope
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.media3.common.MediaItem
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.PlayerView
 import com.example.myapplication.MainToDetailPage
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
-import okhttp3.HttpUrl
 import kotlin.jvm.java
+import androidx.compose.ui.res.stringResource
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 class HomeFragment : Fragment() {
@@ -86,16 +73,12 @@ class HomeFragment : Fragment() {
         val view = ComposeView(requireContext())
         view.apply {
             setContent {
-                val scrollState = rememberLazyListState()
-                var showBottomSheet by remember { mutableStateOf(false) }
-                val sheetState = rememberModalBottomSheetState()
-                val context = LocalContext.current
-
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column(modifier = Modifier.fillMaxSize()) {
-                        val tabs = listOf("홈", "오늘의 취향")
+                        val tabs = listOf(R.string.tabs_1, R.string.tabs_2)
                         val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
                         val coroutineScope = rememberCoroutineScope()
+                        val scrollState = rememberLazyListState()
 
                         TabRow(selectedTabIndex = pagerState.currentPage) {
                             tabs.forEachIndexed { index, title ->
@@ -104,67 +87,15 @@ class HomeFragment : Fragment() {
                                     onClick = {
                                         coroutineScope.launch { pagerState.scrollToPage(index) }
                                     },
-                                    text = { Text(text = title, color = Color.Black) }
+                                    text = { Text(text = stringResource(id = title), color = Color.Black) }
                                 )
                             }
                         }
 
                         HorizontalPager(state = pagerState) { page ->
                             when (page) {
-                                0 -> LoadMoreFeed()
+                                0 -> ShowMainFeed(scrollState)
                                 1 -> TasteFeed()
-                            }
-                        }
-                    }
-
-                    // 고정된 하단 버튼
-                    val isAtTop by remember {
-                        derivedStateOf { scrollState.firstVisibleItemIndex == 0 && scrollState.firstVisibleItemScrollOffset < 10 }
-                    }
-
-                    Button(
-                        onClick = { showBottomSheet = true },
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(bottom = 20.dp)
-                            .height(50.dp)
-                    ) {
-                        Text(text = if (isAtTop) "+ 글쓰기" else "+")
-                    }
-
-                    if (showBottomSheet) {
-                        ModalBottomSheet(
-                            onDismissRequest = { showBottomSheet = false },
-                            sheetState = sheetState
-                        ) {
-                            val options = listOf("사진", "동영상", "커뮤니티")
-                            LazyRow(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 20.dp, vertical = 10.dp),
-                                horizontalArrangement = Arrangement.spacedBy(20.dp)
-                            ) {
-                                items(options.size) { index ->
-                                    val label = options[index]
-                                    Column(
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        modifier = Modifier
-                                            .clickable {
-                                                showBottomSheet = false
-                                                val intent = Intent(context, MainToDetailPage::class.java).apply {
-                                                    putExtra("category", label)
-                                                }
-                                                context.startActivity(intent)
-                                            }
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.MoreVert,
-                                            contentDescription = null,
-                                            modifier = Modifier.size(40.dp)
-                                        )
-                                        Text(text = label)
-                                    }
-                                }
                             }
                         }
                     }
@@ -176,78 +107,38 @@ class HomeFragment : Fragment() {
 }
 
 @Composable
-fun MainFeed(scrollState: LazyListState) {
-    val context = LocalContext.current
-    val creatorPosts by produceState<List<CreatorPost>>(initialValue = emptyList()) {
-        val json = context.assets.open("sample_data.json")
-            .bufferedReader().use { it.readText() }
-        val gson = Gson()
-        value = gson.fromJson(json, object : TypeToken<List<CreatorPost>>() {}.type)
-    }
-
-    val data = listOf(
-        "8시라이브", "오늘의딜", "바이너리샵", "집들이",
-        "패키지할인", "행운출첵", "가드닝게임", "챌린지참여",
-        "게러지세일", "오마트", "리모델링", "입주청소"
-    )
-
-    LazyColumn(state = scrollState) {
-        item {
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp)
-            ) {
-                items(data.size) { index ->
-                    SquareItem(title = data[index])
-                    Spacer(modifier = Modifier.width(12.dp))
-                }
-            }
-        }
-
-        itemsIndexed(creatorPosts) { index, post ->
-            ImageListItem(creatorPost = post)
-            if (index == 0) ShowPicAds()
-            if (index == 1) ShowVidAds()
-        }
-    }
-}
-
-suspend fun loadPostsFromAssets(context: Context): List<CreatorPost> = withContext(Dispatchers.IO) {
-    val json = context.assets.open("sample_data.json").bufferedReader().use { it.readText() }
-    Gson().fromJson(json, object : TypeToken<List<CreatorPost>>() {}.type)
-}
-
-@Composable
-fun LoadMoreFeed() {
+fun ShowMainFeed(scrollState : LazyListState) {
     val context = LocalContext.current
     val allPosts = remember { mutableStateListOf<CreatorPost>() }
     var isLoading by remember { mutableStateOf(false) }
     var endReached by remember { mutableStateOf(false) }
-
-    val listState = rememberLazyListState()
+    val listState = scrollState
     val coroutineScope = rememberCoroutineScope()
 
-    // 초기 로딩
+    val allJsonPosts by produceState<List<CreatorPost>>(initialValue = emptyList()) {
+        val json = context.assets.open("sample_data.json")
+            .bufferedReader().use { it.readText() }
+        value = Gson().fromJson(json, object : TypeToken<List<CreatorPost>>() {}.type)
+    }
+
+    //초기 로딩
     LaunchedEffect(Unit) {
         isLoading = true
-        val loaded = loadPostsFromAssets(context)
-        allPosts.addAll(loaded.take(4))
+        allPosts.addAll(allJsonPosts.take(4)) //json 파일에서 우선적으로 4개를 가져와 로드한다
         isLoading = false
     }
 
-    // 스크롤 감지 후 추가 로딩
+    //스크롤 감지 후 추가 로딩
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .map { it ?: 0 }
             .distinctUntilChanged()
-            .collect { lastVisibleItemIndex ->
-                if (!isLoading && !endReached && lastVisibleItemIndex >= allPosts.size - 1) {
-                    coroutineScope.launch {
+            .collect { lastVisibleItemIdex ->
+                if (!isLoading && !endReached && lastVisibleItemIdex >= allPosts.size-1) {
+                    coroutineScope.launch { //코루틴 스콥으로 다음 화면 런치 시작
                         isLoading = true
-                        delay(500) // 부드러운 UX를 위한 로딩 시간
-                        val loaded = loadPostsFromAssets(context)
-                        val next = loaded.drop(allPosts.size).take(4)
+                        delay(500)
+                        val next = allJsonPosts.drop(allPosts.size).take(4)
                         if (next.isEmpty()) {
                             endReached = true
                         } else {
@@ -259,11 +150,37 @@ fun LoadMoreFeed() {
             }
     }
 
+    //카테고리 피드
+    val categoryData = listOf(
+        R.string.category_feed_1,R.string.category_feed_2,R.string.category_feed_3,R.string.category_feed_4,
+        R.string.category_feed_5,R.string.category_feed_6,R.string.category_feed_7,R.string.category_feed_8,
+        R.string.category_feed_9,R.string.category_feed_10,R.string.category_feed_11,R.string.category_feed_12,
+    )
+
     LazyColumn(state = listState) {
-        items(allPosts) { post ->
-            ImageListItem(creatorPost = post)
+        // 상단 카테고리 LazyRow
+        item {
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp)
+            ) {
+                items(categoryData.size) { index ->
+                    val title = stringResource(id = categoryData[index])
+                    SquareItem(title = title)
+                    Spacer(modifier = Modifier.width(12.dp))
+                }
+            }
         }
 
+        // 피드 아이템중 0번째와 1번째를 감지하여 광고 개시
+        itemsIndexed(allPosts) { index, post ->
+            ImageListItem(creatorPost = post)
+            if (index == 0) ShowPicAds()
+            if (index == 1) ShowVidAds()
+        }
+
+        // 로딩 중일 때 스켈레톤
         if (isLoading) {
             items(4) {
                 SkeletonItem()
@@ -275,23 +192,25 @@ fun LoadMoreFeed() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageListItem(creatorPost: CreatorPost) {
+    val context = LocalContext.current
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+
+    // 올바르게 stringResource 사용
     val productItems = listOf(
-        ProductItem("페이브 선반", R.drawable.ic_launcher_background),
-        ProductItem("리버서블 책상", R.drawable.ic_launcher_background),
-        ProductItem("모던 책장", R.drawable.ic_launcher_background),
-        ProductItem("럭셔리 소파", R.drawable.ic_launcher_background),
-        ProductItem("빈티지 램프", R.drawable.ic_launcher_background),
-        ProductItem("우드 테이블", R.drawable.ic_launcher_background),
-        ProductItem("거울 서랍장", R.drawable.ic_launcher_background),
-        ProductItem("의자", R.drawable.ic_launcher_background),
-        ProductItem("러그", R.drawable.ic_launcher_background),
-        ProductItem("장식장", R.drawable.ic_launcher_background)
+        ProductItem(stringResource(R.string.fave_shelf), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.desk), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.book_shelf), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.sofa), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.lamp), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.table), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.mirror_drawers), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.chair), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.lug), R.drawable.ic_launcher_background),
+        ProductItem(stringResource(R.string.cabinet), R.drawable.ic_launcher_background)
     )
 
     val previewItems = productItems.take(4)
-    var showBottomSheet by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState()
-    val context = LocalContext.current
 
     Column(modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp)) {
         Row(
@@ -313,12 +232,12 @@ fun ImageListItem(creatorPost: CreatorPost) {
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "팔로우",
+                    text = stringResource(R.string.follow),
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(end = 8.dp)
-                        .clickable { println("팔로우 버튼 클릭됨") }
+                        .clickable { println("Follow clicked") }
                 )
                 OptionMenu()
             }
@@ -326,7 +245,7 @@ fun ImageListItem(creatorPost: CreatorPost) {
 
         Image(
             painter = rememberAsyncImagePainter(creatorPost.postImage),
-            contentDescription = "Post Image",
+            contentDescription = null,
             modifier = Modifier.fillMaxWidth().aspectRatio(1f),
             contentScale = ContentScale.Crop
         )
@@ -362,7 +281,7 @@ fun ImageListItem(creatorPost: CreatorPost) {
 
             if (productItems.size > 4) {
                 Text(
-                    text = "상품 더보기 >",
+                    text = stringResource(R.string.see_more_items),
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
@@ -384,7 +303,7 @@ fun ImageListItem(creatorPost: CreatorPost) {
                         modifier = Modifier.fillMaxWidth().padding(bottom = 1.dp)
                     ) {
                         Text(
-                            text = "태그 상품 (${productItems.size})",
+                            text = stringResource(R.string.tag_item, productItems.size),
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.align(Alignment.Center)
                         )
@@ -392,7 +311,7 @@ fun ImageListItem(creatorPost: CreatorPost) {
                             onClick = { showBottomSheet = false },
                             modifier = Modifier.align(Alignment.CenterEnd)
                         ) {
-                            Icon(imageVector = Icons.Default.Close, contentDescription = "닫기")
+                            Icon(imageVector = Icons.Default.Close, contentDescription = null)
                         }
                     }
 
@@ -413,7 +332,10 @@ fun ImageListItem(creatorPost: CreatorPost) {
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Column {
                                     Text(text = item.title, style = MaterialTheme.typography.bodyMedium)
-                                    Text(text = "390,000", style = MaterialTheme.typography.bodySmall)
+                                    Text(
+                                        text = stringResource(R.string.price),
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
                                 }
                             }
 
@@ -426,10 +348,9 @@ fun ImageListItem(creatorPost: CreatorPost) {
 
                                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                                     DropdownMenuItem(
-                                        text = { Text("신고하기") },
+                                        text = { Text(stringResource(R.string.report)) },
                                         onClick = {
                                             expanded = false
-                                            println("신고하기 클릭됨")
                                         }
                                     )
                                 }
@@ -441,6 +362,7 @@ fun ImageListItem(creatorPost: CreatorPost) {
         }
     }
 }
+
 
 @Composable
 fun SkeletonItem() {
@@ -521,7 +443,7 @@ fun TasteFeed() {
 
             // 상단 텍스트
             Text(
-                text = "평수별 인기 집들이 보러 오세요",
+                text = stringResource(R.string.come_look),
                 style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 modifier = Modifier
@@ -534,6 +456,7 @@ fun TasteFeed() {
 
             // 그리드 피드 (20개)
             val feedItems = (0 until 200).toList()
+            val context = LocalContext.current
             feedItems.chunked(2).forEach { rowItems ->
                 Row (
                     modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
@@ -550,7 +473,7 @@ fun TasteFeed() {
                                 modifier = Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(8.dp))
                             )
                             Text(
-                                text = "인기 집들이 #${index + 1}",
+                                text = context.getString(R.string.popular_post_with_rank, index + 1),
                                 style = MaterialTheme.typography.bodySmall,
                                 modifier = Modifier.fillMaxWidth().padding(4.dp),
                                 maxLines = 1,
@@ -601,197 +524,6 @@ fun SquareItem(title: String) {
     }
 }
 
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//fun ImageListItem(creatorPost: CreatorPost) {
-//    val productItems = listOf(
-//        ProductItem("페이브 선반", R.drawable.ic_launcher_background),
-//        ProductItem("리버서블 책상", R.drawable.ic_launcher_background),
-//        ProductItem("모던 책장", R.drawable.ic_launcher_background),
-//        ProductItem("럭셔리 소파", R.drawable.ic_launcher_background),
-//        ProductItem("빈티지 램프", R.drawable.ic_launcher_background),
-//        ProductItem("우드 테이블", R.drawable.ic_launcher_background),
-//        ProductItem("거울 서랍장", R.drawable.ic_launcher_background),
-//        ProductItem("의자", R.drawable.ic_launcher_background),
-//        ProductItem("러그", R.drawable.ic_launcher_background),
-//        ProductItem("장식장", R.drawable.ic_launcher_background)
-//    )
-//
-//    val previewItems = productItems.take(4)
-//    var showBottomSheet by remember { mutableStateOf(false) }
-//    val sheetState = rememberModalBottomSheetState()
-//    val context = LocalContext.current
-//
-//    Column(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(vertical = 15.dp)
-//    ) {
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(10.dp),
-//            verticalAlignment = Alignment.CenterVertically,
-//            horizontalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Image(
-//                    painter = rememberAsyncImagePainter(creatorPost.pfImage),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .size(50.dp)
-//                        .clip(RoundedCornerShape(50))
-//                )
-//                Spacer(modifier = Modifier.width(8.dp))
-//                Column {
-//                    Text(creatorPost.id, style = MaterialTheme.typography.bodyMedium)
-//                    Text(creatorPost.intro, style = MaterialTheme.typography.bodySmall)
-//                }
-//            }
-//
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Text(
-//                    text = "팔로우",
-//                    color = MaterialTheme.colorScheme.primary,
-//                    style = MaterialTheme.typography.bodyMedium,
-//                    modifier = Modifier
-//                        .padding(end = 8.dp)
-//                        .clickable { println("팔로우 버튼 클릭됨") }
-//                )
-//                OptionMenu()
-//            }
-//        }
-//
-//        // 게시글 이미지 (웹 URL로부터 로드)
-//        Image(
-//            painter = rememberAsyncImagePainter(creatorPost.postImage),
-//            contentDescription = "Post Image",
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .aspectRatio(1f),
-//            contentScale = ContentScale.Crop
-//        )
-//
-//        Text(
-//            text = creatorPost.postText,
-//            style = MaterialTheme.typography.bodySmall,
-//            modifier = Modifier.padding(start = 10.dp, top = 4.dp, bottom = 4.dp)
-//        )
-//
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(start = 10.dp),
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            previewItems.forEach { item ->
-//                Image(
-//                    painter = painterResource(id = item.imageId),
-//                    contentDescription = item.title,
-//                    modifier = Modifier
-//                        .size(50.dp)
-//                        .padding(end = 3.dp)
-//                        .clip(RoundedCornerShape(5.dp))
-//                        .clickable {
-//                            val intent = Intent(context, MainToDetailPage::class.java).apply {
-//                                putExtra("title", item.title)
-//                                putExtra("imageId", item.imageId)
-//                            }
-//                            context.startActivity(intent)
-//                        },
-//                    contentScale = ContentScale.Crop
-//                )
-//            }
-//
-//            if (productItems.size > 4) {
-//                Text(
-//                    text = "상품 더보기 >",
-//                    color = MaterialTheme.colorScheme.primary,
-//                    style = MaterialTheme.typography.bodySmall,
-//                    modifier = Modifier
-//                        .clickable { showBottomSheet = true }
-//                        .padding(start = 12.dp)
-//                )
-//            }
-//        }
-//
-//        if (showBottomSheet) {
-//            ModalBottomSheet(
-//                onDismissRequest = { showBottomSheet = false },
-//                sheetState = sheetState
-//            ) {
-//                Column(
-//                    Modifier
-//                        .fillMaxWidth()
-//                        .padding(1.dp)
-//                ) {
-//                    Box(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .padding(bottom = 1.dp)
-//                    ) {
-//                        Text(
-//                            text = "태그 상품 (${productItems.size})",
-//                            style = MaterialTheme.typography.titleMedium,
-//                            modifier = Modifier.align(Alignment.Center)
-//                        )
-//                        IconButton(
-//                            onClick = { showBottomSheet = false },
-//                            modifier = Modifier.align(Alignment.CenterEnd)
-//                        ) {
-//                            Icon(
-//                                imageVector = Icons.Default.Close,
-//                                contentDescription = "닫기"
-//                            )
-//                        }
-//                    }
-//
-//                    productItems.forEach { item ->
-//                        Row(
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(10.dp),
-//                            verticalAlignment = Alignment.CenterVertically,
-//                            horizontalArrangement = Arrangement.SpaceBetween
-//                        ) {
-//                            Row(verticalAlignment = Alignment.CenterVertically) {
-//                                Image(
-//                                    painter = painterResource(id = item.imageId),
-//                                    contentDescription = item.title,
-//                                    modifier = Modifier.size(50.dp).clip(RoundedCornerShape(10))
-//                                )
-//                                Spacer(modifier = Modifier.width(8.dp))
-//                                Column {
-//                                    Text(text = item.title, style = MaterialTheme.typography.bodyMedium)
-//                                    Text(text = "390,000", style = MaterialTheme.typography.bodySmall)
-//                                }
-//                            }
-//
-//                            var expanded by remember { mutableStateOf(false) }
-//
-//                            Box {
-//                                IconButton(onClick = { expanded = true }) {
-//                                    Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
-//                                }
-//
-//                                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-//                                    DropdownMenuItem(
-//                                        text = { Text("신고하기") },
-//                                        onClick = {
-//                                            expanded = false
-//                                            println("신고하기 클릭됨")
-//                                        }
-//                                    )
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
 
 //report btn
 @Composable
@@ -806,10 +538,9 @@ fun OptionMenu() {
         DropdownMenu(expanded = expanded,
             onDismissRequest = {expanded = false}) {
             DropdownMenuItem(
-                text = { Text("신고하기") },
+                text = { Text(stringResource(R.string.report)) },
                 onClick = {
                     expanded = false
-                    println("신고하기 클릭됐음")
                 }
             )
         }
@@ -843,10 +574,10 @@ fun ShowPicAds() {
 @Composable
 fun ShowVidAds() {
     val videoIds = listOf(
-        "LFsS-9lT0Rk",
-        "LFsS-9lT0Rk",
-        "LFsS-9lT0Rk",
-        "LFsS-9lT0Rk"
+        R.string.video_url,
+        R.string.video_url,
+        R.string.video_url,
+        R.string.video_url
     )
 
     LazyVerticalGrid(
@@ -856,7 +587,8 @@ fun ShowVidAds() {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items (videoIds){ videoId ->
-            VideoPlayer(videoId)
+            val url = stringResource(id = videoId)
+            VideoPlayer(url)
         }
     }
 }

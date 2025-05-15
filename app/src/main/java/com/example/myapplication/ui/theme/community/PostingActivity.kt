@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +40,7 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
     val sheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
-    var selectedCategory by remember { mutableStateOf("살까말까") }
+    var selectedCategory by remember { mutableStateOf(R.string.buy_or_not) }
 
     // 바텀 시트
     if (showSheet) {
@@ -53,21 +54,21 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
                     .padding(vertical = 24.dp, horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "게시판 선택", fontSize = 20.sp, color = Color.Black)
+                Text(text = stringResource(R.string.choose_the_tags), fontSize = 20.sp, color = Color.Black)
             }
 
-            CategoryItem("살까말까", "살지 말지 망설이는 상품이 있다면 고민을 나눠보세요") {
-                selectedCategory = "살까말까"
+            CategoryItem(stringResource(R.string.buy_or_not), stringResource(R.string.buy_or_not_post)) {
+                selectedCategory = R.string.buy_or_not
                 showSheet = false
             }
 
-            CategoryItem("상품후기", "구매했거나 사용해본 상품의 솔직한 후기를 공유해보세요") {
-                selectedCategory = "상품후기"
+            CategoryItem(stringResource(R.string.item_review), stringResource(R.string.review_post)) {
+                selectedCategory = R.string.item_review
                 showSheet = false
             }
 
-            CategoryItem("꿀템수다", "사소한 고민부터 소소한 정보까지, 상품 관련 수다를 나눠보세요") {
-                selectedCategory = "꿀템수다"
+            CategoryItem(stringResource(R.string.honey_item_comm), stringResource(R.string.honey_tip_post)) {
+                selectedCategory = R.string.honey_item_comm
                 showSheet = false
             }
         }
@@ -93,7 +94,7 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         }
 
         Text(
-            text = "커뮤니티 글쓰기",
+            text = stringResource(R.string.post_on_community),
             fontSize = 17.sp,
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -107,7 +108,7 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
                 .padding(end = 15.dp)
         ) {
             Text(
-                text = "올리기",
+                text = stringResource(R.string.upload),
                 fontSize = 16.sp,
                 color = Color.Gray
             )
@@ -136,7 +137,7 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = selectedCategory, fontSize = 16.sp)
+            Text(text = stringResource(id = selectedCategory), fontSize = 16.sp)
             Image(
                 painter = painterResource(id = R.drawable.down_arrow),
                 contentDescription = null,
@@ -148,7 +149,6 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         Divider(color = Color.LightGray, thickness = 1.dp)
         Spacer(modifier = Modifier.height(10.dp))
 
-        // 텍스트 입력란
         InputField(selectedCategory)
     }
 }
@@ -167,29 +167,34 @@ fun CategoryItem(title: String, description: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun InputField(category: String) {
-    var title by remember {mutableStateOf(TextFieldValue(""))}
-    var subtitle by remember {mutableStateOf(TextFieldValue(""))}
+fun InputField(category: Int) {
+    var title by remember { mutableStateOf(TextFieldValue("")) }
+    var subtitle by remember { mutableStateOf(TextFieldValue("")) }
     val placeholderMap = mapOf(
-        "살까말까" to "살지 말지 망설이는 상품이 있다면 고민을 나눠보세요",
-        "상품후기" to "구매했거나 사용해본 상품의 솔직한 후기를 공유해보세요",
-        "꿀템수다" to "사소한 고민부터 소소한 정보까지, 상품 관련 수다를 나눠보세요"
+        R.string.buy_or_not to R.string.buy_or_not_post,
+        R.string.item_review to R.string.review_post,
+        R.string.honey_item_comm to R.string.honey_tip_post
     )
-    val subtitlePlaceHolder = placeholderMap[category] ?: ""
 
-    Column (modifier = Modifier.padding(horizontal = 10.dp)) {
+    val subtitlePlaceHolder = placeholderMap[category] ?: R.string.buy_or_not_post
+
+    Column(modifier = Modifier.padding(horizontal = 10.dp)) {
         OutlinedTextField(
             value = title,
-            onValueChange = {title = it},
-            placeholder = {Text("제목을 입력해주세요", fontSize = 20.sp, color = Color.LightGray)},
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+            onValueChange = { title = it },
+            placeholder = { Text(stringResource(R.string.make_the_title), fontSize = 20.sp, color = Color.LightGray) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
         )
 
         OutlinedTextField(
             value = subtitle,
-            onValueChange = {subtitle = it},
-            placeholder = {Text(subtitlePlaceHolder, fontSize = 15.sp, color = Color.LightGray)},
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+            onValueChange = { subtitle = it },
+            placeholder = { Text(stringResource(id = subtitlePlaceHolder), fontSize = 15.sp, color = Color.LightGray) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
         )
     }
 }

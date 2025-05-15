@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme.fivetaps
+package com.example.myapplication.ui.theme.fivetabs
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 
-class InteriorFragment : Fragment() {
+class ShoppingFragment : Fragment() {
     override fun onCreateView(
 
         inflater: LayoutInflater,
@@ -19,8 +19,8 @@ class InteriorFragment : Fragment() {
         val view = ComposeView(requireContext())
         view.apply {
             setContent {
-                Log.d("Activity", "this is interior screen")
-                Text("this is a text 444444")
+                Log.d("Activity", "this is shopping screen")
+                Text("this is a text 3333")
             }
         }
         return view

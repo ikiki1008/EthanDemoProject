@@ -1,11 +1,10 @@
-package com.example.myapplication.ui.theme.fivetaps
+package com.example.myapplication.ui.theme.fivetabs
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.ComponentActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -23,9 +22,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
 import androidx.fragment.app.Fragment
+import com.example.myapplication.R
 import com.example.myapplication.ui.theme.community.PostingActivity
 import kotlinx.coroutines.launch
-import kotlin.jvm.java
+import androidx.compose.ui.res.stringResource
 
 class CommunityFragment : Fragment() {
     override fun onCreateView(
@@ -53,7 +53,7 @@ fun CommunityScreen() {
     var showBottomSheet by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
-    val tabs = listOf("꿀템발견", "#채널", "집들이", "집사진")
+    val tabs = listOf(R.string.community_tab_1, R.string.community_tab_2, R.string.community_tab_3, R.string.community_tab_4)
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
     val coroutineScope = rememberCoroutineScope()
 
@@ -61,7 +61,7 @@ fun CommunityScreen() {
         Column(modifier = Modifier.fillMaxSize()) {
             // 상단 탭
             TabRow(selectedTabIndex = pagerState.currentPage) {
-                tabs.forEachIndexed { index, title ->
+                tabs.forEachIndexed { index, titleResId ->
                     Tab(
                         selected = pagerState.currentPage == index,
                         onClick = {
@@ -71,7 +71,7 @@ fun CommunityScreen() {
                         },
                         text = {
                             Text(
-                                text = title,
+                                text = stringResource(id = titleResId),
                                 color = if (pagerState.currentPage == index) Color.Black else Color.Gray
                             )
                         }
@@ -102,13 +102,9 @@ fun CommunityScreen() {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF64B5F6)),
                 modifier = Modifier.height(50.dp)
             ) {
-                AnimatedContent(targetState = isAtTop, label = "ButtonText") { top -> //animatedContent 를 이용하여 화면 상단인지 체크
+                AnimatedContent(targetState = isAtTop, label = R.string.community.toString()) { top ->
                     Text(
-                        text = if (top) {
-                            "+ 글쓰기"
-                        } else {
-                            "+"
-                        },
+                        text = stringResource(id = if (top) R.string.post_on else R.string.post_off),
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
@@ -122,7 +118,7 @@ fun CommunityScreen() {
                 sheetState = sheetState,
                 containerColor = Color.White
             ) {
-                val items = listOf("사진", "동영상", "커뮤니티")
+                val items = listOf(R.string.picture, R.string.video, R.string.community)
                 LazyRow(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -133,14 +129,14 @@ fun CommunityScreen() {
                         OutlinedButton(
                             onClick = {
                                 showBottomSheet = false
-                                when (label) {
-                                    "커뮤니티" -> context.startActivity(Intent(context, PostingActivity::class.java))
+                                if (label == R.string.community) {
+                                    context.startActivity(Intent(context, PostingActivity::class.java))
                                 }
                             },
                             modifier = Modifier.padding(end = 12.dp),
                             shape = RoundedCornerShape(24.dp)
                         ) {
-                            Text(text = label)
+                            Text(text = stringResource(id = label))
                         }
                     }
                 }
@@ -152,7 +148,13 @@ fun CommunityScreen() {
 
 @Composable
 fun ItemFoundFeed(lazyListState: LazyListState) {
-    val data = listOf("전체", "인기", "살까말까", "상품후기", "꿀템수다")
+    val stringIds = listOf(
+        R.string.all,
+        R.string.popular,
+        R.string.buy_or_not,
+        R.string.item_review,
+        R.string.honey_item_comm
+    )
     var selectedIndex by remember { mutableStateOf(0) }
 
     LazyColumn(state = lazyListState) {
@@ -162,9 +164,11 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
                     .fillMaxWidth()
                     .padding(10.dp)
             ) {
-                items(data.size) { index ->
+                itemsIndexed(stringIds) { index, id ->
+                    val title = stringResource(id = id)
+
                     RoundedTabButton(
-                        title = data[index],
+                        title = title,
                         isSelected = selectedIndex == index,
                         onClick = { selectedIndex = index }
                     )
@@ -173,9 +177,9 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
             }
         }
 
-        items(20) {
+        items(20) { index ->
             Text(
-                text = "Item $it",
+                text = "Item $index",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -183,6 +187,7 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
         }
     }
 }
+
 
 @Composable
 fun RoundedTabButton(
@@ -207,7 +212,7 @@ fun RoundedTabButton(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Thin),
             textAlign = TextAlign.Center
         )
     }

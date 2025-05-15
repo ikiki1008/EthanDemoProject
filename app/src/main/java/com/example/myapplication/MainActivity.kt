@@ -18,16 +18,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.myapplication.ui.theme.MyApplicationTheme
-import com.example.myapplication.ui.theme.dataclass.CreatorPost
-import com.example.myapplication.ui.theme.fivetaps.*
-import org.json.JSONArray
-import org.json.JSONObject
+import com.example.myapplication.ui.theme.fivetabs.*
 
 class MainActivity : FragmentActivity() {
 
@@ -59,7 +57,7 @@ fun MainScreen(activity: FragmentActivity) {
                 onSearch = { isActive = false },
                 active = isActive,
                 onActiveChange = { isActive = it },
-                placeholder = { Text("최저가 상품을 고려 하세요") },
+                placeholder = { Text(stringResource(R.string.search_text)) },
                 leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
                 trailingIcon = {
                     if (searchText.isNotEmpty()) {
@@ -78,31 +76,31 @@ fun MainScreen(activity: FragmentActivity) {
                     selected = selectedTabIndex == 0,
                     onClick = { selectedTabIndex = 0 },
                     icon = { Icon(Icons.Filled.Home, contentDescription = null) },
-                    label = { Text("홈") }
+                    label = { Text(stringResource(R.string.tab1)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 1,
                     onClick = { selectedTabIndex = 1 },
                     icon = { Icon(Icons.Filled.Notifications, contentDescription = null) },
-                    label = { Text("커뮤니티") }
+                    label = {Text(stringResource(R.string.tab2)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 2,
                     onClick = { selectedTabIndex = 2 },
                     icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = null) },
-                    label = { Text("쇼핑") }
+                    label = { Text(stringResource(R.string.tab3)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 3,
                     onClick = { selectedTabIndex = 3 },
                     icon = { Icon(Icons.Filled.Person, contentDescription = null) },
-                    label = { Text("인테리어") }
+                    label = { Text(stringResource(R.string.tab4)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 4,
                     onClick = { selectedTabIndex = 4 },
                     icon = { Icon(Icons.Filled.Person, contentDescription = null) },
-                    label = { Text("마이페이지") }
+                    label = { Text(stringResource(R.string.tab5)) }
                 )
             }
         }

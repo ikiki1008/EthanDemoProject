@@ -1,3 +1,76 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">오늘의 집</string>
+
+    <string name="tab1">홈</string>
+    <string name="tab2">커뮤니티</string>
+    <string name="tab3">쇼핑</string>
+    <string name="tab4">인테리어</string>
+    <string name="tab5">마이페이지</string>
+
+    <string name="search_text">&quot;원하는날도착&quot;으로 가구배송도 가볍게</string>
+
+    <string name="fave_shelf">페이브 선반</string>
+    <string name="desk">책상</string>
+    <string name="book_shelf">책장</string>
+    <string name="sofa">럭셔리 소파</string>
+    <string name="lamp">빈티지 램프</string>
+    <string name="table">테이블</string>
+    <string name="mirror_drawers">거울용 서랍장</string>
+    <string name="chair">의자</string>
+    <string name="lug">귀여운 러그</string>
+    <string name="cabinet">장식장</string>
+
+    <string name="tabs_1">홈</string>
+    <string name="tabs_2">오늘의 취향</string>
+
+    <string name="category_feed_1">8시라이브</string>
+    <string name="category_feed_2">오늘의딜</string>
+    <string name="category_feed_3">바이너리샵</string>
+    <string name="category_feed_4">집들이</string>
+    <string name="category_feed_5">패키지할인</string>
+    <string name="category_feed_6">행운출첵</string>
+    <string name="category_feed_7">가드닝게임</string>
+    <string name="category_feed_8">챌린지참여</string>
+    <string name="category_feed_9">게러지세일</string>
+    <string name="category_feed_10">오마트</string>
+    <string name="category_feed_11">리모델링</string>
+    <string name="category_feed_12">입주청소</string>
+
+    <string name="follow">팔로우</string>
+    <string name="follow_clicked">팔로우 버튼 클릭됨</string>
+    <string name="upload">올리기</string>
+
+    <string name="see_more_items">상품 더보기 ></string>
+    <string name="price">390,000</string>
+    <string name="tag_item">태그 상품 %1$d개</string>
+
+    <string name="report">신고하기</string>
+    <string name="come_look">평수별 인기 집들이 보러 오세요</string>
+    <string name="popular_post_with_rank">인기 집들이 #%1$d</string>
+    <string name="video_url">LFsS-9lT0Rk</string>
+
+    <string name="community_tab_1">꿀템발견</string>
+    <string name="community_tab_2">#채널</string>
+    <string name="community_tab_3">집들이</string>
+    <string name="community_tab_4">집사진</string>
+
+    <string name="post_on">+ 글쓰기</string>
+    <string name="post_off">+</string>
+
+    <string name="picture">사진</string>
+    <string name="video">동영상</string>
+    <string name="community">커뮤니티</string>
+
+    <string name="all">전체</string>
+    <string name="popular">인기</string>
+    <string name="buy_or_not">살까말까</string>
+    <string name="item_review">상품후기</string>
+    <string name="honey_item_comm">꿀템수다</string>
+
+    <string name="choose_the_tags">게시판 선택</string>
+    <string name="buy_or_not_post">살지 말지 망설이는 상품이 있다면 고민을 나눠보세요</string>
+    <string name="review_post">구매했거나 사용해본 상품의 솔직한 후기를 공유해보세요</string>
+    <string name="honey_tip_post">사소한 고민부터 소소한 정보까지, 상품 관련 수다를 나눠보세요</string>
+    <string name="post_on_community">커뮤니티 글쓰기</string>
+    <string name="make_the_title">제목을 입력해 주세요</string>
 </resources>

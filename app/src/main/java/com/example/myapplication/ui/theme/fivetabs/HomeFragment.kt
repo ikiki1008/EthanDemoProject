@@ -46,6 +46,7 @@ import com.example.myapplication.ui.theme.dataclass.CreatorPost
 import com.example.myapplication.ui.theme.dataclass.ProductItem
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -196,7 +197,6 @@ fun ImageListItem(creatorPost: CreatorPost) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
 
-    // 올바르게 stringResource 사용
     val productItems = listOf(
         ProductItem(stringResource(R.string.fave_shelf), R.drawable.ic_launcher_background),
         ProductItem(stringResource(R.string.desk), R.drawable.ic_launcher_background),
@@ -222,7 +222,8 @@ fun ImageListItem(creatorPost: CreatorPost) {
                 Image(
                     painter = rememberAsyncImagePainter(creatorPost.pfImage),
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp).clip(RoundedCornerShape(50))
+                    modifier = Modifier.size(50.dp).aspectRatio(1f).clip(CircleShape),
+                    contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Column {

@@ -168,7 +168,13 @@ fun ShowMainFeed(scrollState : LazyListState) {
     val categoryData = listOf(
         R.string.category_feed_1,R.string.category_feed_2,R.string.category_feed_3,R.string.category_feed_4,
         R.string.category_feed_5,R.string.category_feed_6,R.string.category_feed_7,R.string.category_feed_8,
-        R.string.category_feed_9,R.string.category_feed_10,R.string.category_feed_11,R.string.category_feed_12,
+        R.string.category_feed_9,R.string.category_feed_10
+    )
+
+    //카테고리 제목
+    val categoryImage = listOf(
+        R.drawable.week, R.drawable.clock, R.drawable.findhouse, R.drawable.luck,R.drawable.drawer,
+        R.drawable.garage, R.drawable.shampoo, R.drawable.delivery, R.drawable.interior, R.drawable.present
     )
 
     LazyColumn(state = listState) {
@@ -181,7 +187,8 @@ fun ShowMainFeed(scrollState : LazyListState) {
             ) {
                 items(categoryData.size) { index ->
                     val title = stringResource(id = categoryData[index])
-                    SquareItem(title = title)
+                    val image = categoryImage[index]
+                    SquareItem(title = title, imageResId = image)
                     Spacer(modifier = Modifier.width(12.dp))
                 }
             }
@@ -211,16 +218,14 @@ fun ImageListItem(creatorPost: CreatorPost) {
     val sheetState = rememberModalBottomSheetState()
 
     val productItems = listOf(
-        ProductItem(stringResource(R.string.fave_shelf), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.desk), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.book_shelf), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.sofa), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.lamp), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.table), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.mirror_drawers), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.chair), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.lug), R.drawable.ic_launcher_background),
-        ProductItem(stringResource(R.string.cabinet), R.drawable.ic_launcher_background)
+        ProductItem(stringResource(R.string.desk), R.drawable.desktop),
+        ProductItem(stringResource(R.string.book_shelf), R.drawable.bookshelf),
+        ProductItem(stringResource(R.string.sofa), R.drawable.sofa),
+        ProductItem(stringResource(R.string.lamp), R.drawable.lamp),
+        ProductItem(stringResource(R.string.table), R.drawable.table),
+        ProductItem(stringResource(R.string.mirror_drawers), R.drawable.drawers),
+        ProductItem(stringResource(R.string.chair), R.drawable.chair),
+        ProductItem(stringResource(R.string.rug), R.drawable.rug),
     )
 
     val previewItems = productItems.take(4)
@@ -432,26 +437,26 @@ fun SkeletonItem() {
 }
 
 @Composable
-fun SquareItem(title: String) {
+fun SquareItem(title: String, imageResId : Int) {
     val context = LocalContext.current
 
     Column(
         modifier = Modifier
             .width(70.dp)
-            .clickable { //click -> move to webpage
+            .clickable {
                 val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = android.net.Uri.parse("https://www.google.com")
+                    data = Uri.parse("https://ohou.se")
                 }
                 context.startActivity(intent)
             },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = painterResource(id = imageResId),
             contentDescription = null,
             modifier = Modifier
                 .size(60.dp)
-                .clip(RoundedCornerShape(5.dp)) //rounded shape of image
+                .clip(RoundedCornerShape(5.dp))
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -681,26 +686,59 @@ fun OptionMenu() {
 
 @Composable
 fun ShowPicAds() {
-    val adPhotos = List(10) { R.drawable.ic_launcher_background }
+    val adPhotos = listOf(R.drawable.curtain, R.drawable.ebul, R.drawable.pet, R.drawable.winix, R.drawable.sikmul, R.drawable.enuggle)
+    val adTitles = listOf(R.string.adtitle1, R.string.adtitle2, R.string.adtitle3, R.string.adtitle4, R.string.adtitle5, R.string.adtitle6)
 
+    LazyRow (
+        modifier = Modifier
+            .fillMaxWidth()
+    ){
+        item {
+            Text(
+                text = stringResource(R.string.today_recommend),
+                modifier = Modifier
+                    .padding(top = 20.dp, start = 16.dp, bottom = 10.dp),
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+    }
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
     ) {
         items(adPhotos.size) { index ->
-            Image(
-                painter = painterResource(id = adPhotos[index]),
-                contentDescription = "Ad photo $index",
+            Column(
                 modifier = Modifier
-                    .size(170.dp)
-                    .padding(end = 8.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
+                    .width(170.dp)
+                    .padding(end = 8.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Image(
+                    painter = painterResource(id = adPhotos[index]),
+                    contentDescription = "Ad photo $index",
+                    modifier = Modifier
+                        .height(170.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Crop
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
+                    text = stringResource(id = adTitles[index]),
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1
+                )
+                Text(
+                    text = stringResource(R.string.price),
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1
+                )
+            }
         }
     }
 }
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

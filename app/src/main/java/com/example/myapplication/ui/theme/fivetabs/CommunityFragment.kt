@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.*
@@ -16,16 +17,20 @@ import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.fragment.app.Fragment
+import coil.compose.AsyncImage
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.community.PostingActivity
+import com.example.myapplication.ui.theme.dataclass.CommunityPost
+import com.google.gson.Gson
+import com.google.common.reflect.TypeToken
 import kotlinx.coroutines.launch
-import androidx.compose.ui.res.stringResource
 
 class CommunityFragment : Fragment() {
     override fun onCreateView(
@@ -41,7 +46,7 @@ class CommunityFragment : Fragment() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun CommunityScreen() {
     val lazyListState = rememberLazyListState()
@@ -53,13 +58,17 @@ fun CommunityScreen() {
     var showBottomSheet by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
-    val tabs = listOf(R.string.community_tab_1, R.string.community_tab_2, R.string.community_tab_3, R.string.community_tab_4)
+    val tabs = listOf(
+        R.string.community_tab_1,
+        R.string.community_tab_2,
+        R.string.community_tab_3,
+        R.string.community_tab_4
+    )
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
     val coroutineScope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
-            // 상단 탭
             TabRow(selectedTabIndex = pagerState.currentPage) {
                 tabs.forEachIndexed { index, titleResId ->
                     Tab(
@@ -79,7 +88,6 @@ fun CommunityScreen() {
                 }
             }
 
-            // 탭 콘텐츠
             HorizontalPager(state = pagerState) { page ->
                 when (page) {
                     0 -> ItemFoundFeed(lazyListState)
@@ -90,7 +98,6 @@ fun CommunityScreen() {
             }
         }
 
-        // 고정 버튼
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -102,7 +109,7 @@ fun CommunityScreen() {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF64B5F6)),
                 modifier = Modifier.height(50.dp)
             ) {
-                AnimatedContent(targetState = isAtTop, label = R.string.community.toString()) { top ->
+                AnimatedContent(targetState = isAtTop, label = "FAB") { top ->
                     Text(
                         text = stringResource(id = if (top) R.string.post_on else R.string.post_off),
                         modifier = Modifier.padding(horizontal = 16.dp)
@@ -111,7 +118,6 @@ fun CommunityScreen() {
             }
         }
 
-        // BottomSheet
         if (showBottomSheet) {
             ModalBottomSheet(
                 onDismissRequest = { showBottomSheet = false },
@@ -156,13 +162,25 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
         R.string.honey_item_comm
     )
     var selectedIndex by remember { mutableStateOf(0) }
+    val context = LocalContext.current
 
-    LazyColumn(state = lazyListState) {
+    val allJsonPosts by produceState<List<CommunityPost>>(initialValue = emptyList(), key1 = context) {
+        val json = context.assets.open("community_post.json")
+            .bufferedReader().use { it.readText() }
+        value = Gson().fromJson(json, object : TypeToken<List<CommunityPost>>() {}.type)
+    }
+
+    LazyColumn(
+        state = lazyListState,
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(10.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
         item {
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp)
+                    .padding(bottom = 10.dp)
             ) {
                 itemsIndexed(stringIds) { index, id ->
                     val title = stringResource(id = id)
@@ -177,17 +195,53 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
             }
         }
 
-        items(20) { index ->
-            Text(
-                text = "Item $index",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
+        items(allJsonPosts) { post ->
+            PostCardShape(post = post)
         }
     }
 }
 
+@Composable
+fun PostCardShape(post: CommunityPost) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        shape = RoundedCornerShape(10.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(12.dp)
+            ) {
+                AsyncImage(
+                    model = post.pfp,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(50))
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(text = post.id, fontWeight = FontWeight.Bold)
+            }
+
+            AsyncImage(
+                model = post.postPic,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            )
+
+            Text(
+                text = post.post,
+                modifier = Modifier.padding(12.dp),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    }
+}
 
 @Composable
 fun RoundedTabButton(
@@ -218,6 +272,6 @@ fun RoundedTabButton(
     }
 }
 
-@Composable fun ChannelFeed() { Text("this is channel feed") }
-@Composable fun HouseVisitingFeed() { Text("this is house visiting feed") }
-@Composable fun HousePicFeed() { Text("this is house pic feed") }
+@Composable fun ChannelFeed() { Text("This is channel feed") }
+@Composable fun HouseVisitingFeed() { Text("This is house visiting feed") }
+@Composable fun HousePicFeed() { Text("This is house pic feed") }

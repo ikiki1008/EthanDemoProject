@@ -33,6 +33,7 @@
         android:theme="@style/Theme.MyApplication" >
         <activity android:name="com.example.myapplication.MainToDetailPage" />
         <activity android:name="com.example.myapplication.ui.theme.community.PostingActivity" />
+        <activity android:name="com.example.myapplication.ui.theme.community.PostDetailActivity" />
         <activity
             android:name="com.example.myapplication.MainActivity"
             android:exported="true"

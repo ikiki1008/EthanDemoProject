@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.*
@@ -22,15 +24,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.fragment.app.Fragment
 import coil.compose.AsyncImage
 import com.example.myapplication.R
+import com.example.myapplication.ui.theme.community.PostDetailActivity
 import com.example.myapplication.ui.theme.community.PostingActivity
 import com.example.myapplication.ui.theme.dataclass.CommunityPost
 import com.google.gson.Gson
 import com.google.common.reflect.TypeToken
 import kotlinx.coroutines.launch
+import kotlin.jvm.java
 
 class CommunityFragment : Fragment() {
     override fun onCreateView(
@@ -169,6 +175,13 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
             .bufferedReader().use { it.readText() }
         value = Gson().fromJson(json, object : TypeToken<List<CommunityPost>>() {}.type)
     }
+    //filter 를 사용해서 포스트를 정렬한다
+    val filteredPosts = when (selectedIndex) {
+        2 -> allJsonPosts.filter { it.genre == stringResource(R.string.buy_or_not) }
+        3 -> allJsonPosts.filter { it.genre == stringResource(R.string.item_review) }
+        4 -> allJsonPosts.filter { it.genre == stringResource(R.string.honey_item_comm) }
+        else -> allJsonPosts
+    }
 
     LazyColumn(
         state = lazyListState,
@@ -195,7 +208,7 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
             }
         }
 
-        items(allJsonPosts) { post ->
+        items(filteredPosts) { post ->
             PostCardShape(post = post)
         }
     }
@@ -203,45 +216,81 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
 
 @Composable
 fun PostCardShape(post: CommunityPost) {
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .height(100.dp)
+            .clickable {
+                val intent = Intent(context, PostDetailActivity::class.java).apply {
+                    putExtra("postId", post.id)
+                    putExtra("title", R.string.buy_or_not)
+                    putExtra("pfp", post.pfp)
+                    putExtra("intro", post.intro)
+                    putExtra("post", post.post)
+                    putExtra("postPic", post.postPic)
+                    putExtra("postGenre", post.genre)
+                }
+                context.startActivity(intent)
+            },
         shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(contentColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Column {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(12.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                AsyncImage(
-                    model = post.pfp,
-                    contentDescription = null,
+                // 장르 박스
+                Box(
                     modifier = Modifier
-                        .size(40.dp)
-                        .clip(RoundedCornerShape(50))
+                        .background(Color.LightGray, RoundedCornerShape(4.dp))
+                        .padding(horizontal = 8.dp, vertical = 2.dp)
+                ) {
+                    Text(
+                        text = post.genre,
+                        fontSize = MaterialTheme.typography.labelSmall.fontSize,
+                        color = Color.DarkGray
+                    )
+                }
+
+                // 제목
+                Text(
+                    text = stringResource(R.string.make_the_title),
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(top = 4.dp)
                 )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = post.id, fontWeight = FontWeight.Bold)
+
+                // 사용자 ID
+                Text(
+                    text = post.id,
+                    fontSize = MaterialTheme.typography.labelSmall.fontSize,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
             }
 
             AsyncImage(
                 model = post.postPic,
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-            )
-
-            Text(
-                text = post.post,
-                modifier = Modifier.padding(12.dp),
-                style = MaterialTheme.typography.bodyMedium
+                    .size(75.dp)
+                    .clip(RoundedCornerShape(10))
             )
         }
     }
 }
+
 
 @Composable
 fun RoundedTabButton(
@@ -272,6 +321,20 @@ fun RoundedTabButton(
     }
 }
 
-@Composable fun ChannelFeed() { Text("This is channel feed") }
-@Composable fun HouseVisitingFeed() { Text("This is house visiting feed") }
-@Composable fun HousePicFeed() { Text("This is house pic feed") }
+@Composable
+fun ChannelFeed() {
+    Text("This is channel feed")
+}
+
+@Composable
+fun HouseVisitingFeed() {
+    Text("This is house visiting feed")
+}
+
+@Composable
+fun HousePicFeed() {
+    Text("This is house pic feed")
+}
+
+
+

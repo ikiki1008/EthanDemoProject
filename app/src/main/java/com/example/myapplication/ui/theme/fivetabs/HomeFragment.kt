@@ -468,6 +468,8 @@ fun TasteFeed(scrollState: LazyListState) {
 
     val images = listOf(R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4)
     var selectedImg by remember { mutableStateOf(images.random()) }
+    val swipeRefresherState = rememberSwipeRefreshState(isRefreshing = false)
+    var isRefreshing by remember { mutableStateOf(false)}
 
     val allItems = remember { mutableStateListOf<TastePost?>() }
     var isLoading by remember { mutableStateOf(true) }
@@ -504,52 +506,58 @@ fun TasteFeed(scrollState: LazyListState) {
             }
     }
 
-    LazyColumn(
-        state = scrollState,
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
-    ) {
-        item {
-            Image(
-                painter = painterResource(id = selectedImg),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
+    SwipeRefresh(state = swipeRefresherState, onRefresh = {
+        isRefreshing = true
+        selectedImg = images.random() //스와이프 시 이미지 랜덤하게 배치
+        isRefreshing = false
+    }) {
+        LazyColumn(
+            state = scrollState,
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
+        ) {
+            item {
+                Image(
+                    painter = painterResource(id = selectedImg),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .aspectRatio(1f)
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Crop
+                )
 
-            Spacer(modifier = Modifier.height(25.dp))
+                Spacer(modifier = Modifier.height(25.dp))
 
-            Text(
-                text = stringResource(R.string.come_look),
-                style = MaterialTheme.typography.titleMedium,
-                maxLines = 1,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp),
-                textAlign = TextAlign.Start
-            )
+                Text(
+                    text = stringResource(R.string.come_look),
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    textAlign = TextAlign.Start
+                )
 
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+                Spacer(modifier = Modifier.height(16.dp))
+            }
 
-        val rows = allItems.chunked(2)
-        items(rows.size) { index ->
-            val rowItems = rows[index]
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                rowItems.forEachIndexed { itemIndex, post ->
-                    Box(modifier = Modifier.weight(1f)) {
-                        if (post != null) {
-                            TasteGridItem(post = post)
-                        } else {
-                            SkeletonTasteItem()
+            val rows = allItems.chunked(2)
+            items(rows.size) { index ->
+                val rowItems = rows[index]
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    rowItems.forEachIndexed { itemIndex, post ->
+                        Box(modifier = Modifier.weight(1f)) {
+                            if (post != null) {
+                                TasteGridItem(post = post)
+                            } else {
+                                SkeletonTasteItem()
+                            }
                         }
                     }
                 }

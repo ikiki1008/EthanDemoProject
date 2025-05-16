@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.theme.fivetabs
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -601,6 +602,8 @@ private fun loadMoreData(
 
 @Composable
 fun TasteGridItem(post: TastePost, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+
     Column(modifier = modifier
         .fillMaxWidth()
         .aspectRatio(1f)
@@ -612,6 +615,12 @@ fun TasteGridItem(post: TastePost, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f)
+                .clickable {
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(post.webUrl)
+                    }
+                    context.startActivity(intent)
+                },
         )
         Text(
             text = post.title,
@@ -619,7 +628,7 @@ fun TasteGridItem(post: TastePost, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp),
-            maxLines = 1,
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
     }

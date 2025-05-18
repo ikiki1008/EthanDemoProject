@@ -4,7 +4,26 @@
             "outputFile": "com.example.myapplication.app-mergeDebugResources-58:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/21229859951b9f37883e553c0a54de33/transformed/media-1.6.0/res/values-v21/values-v21.xml",
+                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\bd26813945e5de21cdd349fb4b57d138\\transformed\\media3-ui-1.2.1\\res\\values-v21\\values-v21.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,114",
+                        "endLines": "2,7",
+                        "endColumns": "58,10",
+                        "endOffsets": "109,396"
+                    },
+                    "to": {
+                        "startLines": "3,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "173,427",
+                        "endLines": "3,11",
+                        "endColumns": "58,10",
+                        "endOffsets": "227,709"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\21229859951b9f37883e553c0a54de33\\transformed\\media-1.6.0\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,5,8,11",
                         "startColumns": "4,4,4,4",
@@ -23,7 +42,7 @@
                     }
                 },
                 {
-                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/437afea46fdf55afa23e659b2fb26e77/transformed/core-1.13.1/res/values-v21/values-v21.xml",
+                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\437afea46fdf55afa23e659b2fb26e77\\transformed\\core-1.13.1\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -42,7 +61,7 @@
                     }
                 },
                 {
-                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/2f1e0994c09a8bdc374fa2b0d0880f95/transformed/core-1.5.0/res/values-v21/values.xml",
+                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\2f1e0994c09a8bdc374fa2b0d0880f95\\transformed\\core-1.5.0\\res\\values-v21\\values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",
@@ -58,25 +77,6 @@
                         "endLines": "36,45",
                         "endColumns": "8,8",
                         "endOffsets": "2350,2827"
-                    }
-                },
-                {
-                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/bd26813945e5de21cdd349fb4b57d138/transformed/media3-ui-1.2.1/res/values-v21/values-v21.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,114",
-                        "endLines": "2,7",
-                        "endColumns": "58,10",
-                        "endOffsets": "109,396"
-                    },
-                    "to": {
-                        "startLines": "3,7",
-                        "startColumns": "4,4",
-                        "startOffsets": "173,427",
-                        "endLines": "3,11",
-                        "endColumns": "58,10",
-                        "endOffsets": "227,709"
                     }
                 }
             ]

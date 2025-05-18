@@ -1,190 +1,190 @@
 [
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_drawer.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/drawer.png"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_bookshelf.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/bookshelf.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_enuggle.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/enuggle.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_luck.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/luck.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/layout_fragment_home.xml.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/layout/fragment_home.xml"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_ebul.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/ebul.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_interior.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/interior.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_week.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/week.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-60:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.myapplication.app-main-62:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_table.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/table.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic3.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic3.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_chair.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/chair.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_sofa.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/sofa.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_clock.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/clock.png"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_table.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/table.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_pic4.jpeg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/pic4.jpeg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_drawer.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/drawer.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_pic2.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/pic2.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_findhouse.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/findhouse.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_ebul.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/ebul.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_lamp.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/lamp.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_clock.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/clock.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_rug.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/rug.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pet.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pet.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_pic3.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/pic3.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_sikmul.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/sikmul.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_down_arrow.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/down_arrow.png"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_chair.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/chair.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_back.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/back.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic2.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic2.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_findhouse.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/findhouse.png"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_garage.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/garage.png"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_sofa.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/sofa.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_present.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/present.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_present.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/present.png"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_desktop.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/desktop.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_lamp.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/lamp.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_sikmul.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/sikmul.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/xml_backup_rules.xml.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/xml/backup_rules.xml"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_drawers.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/drawers.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_drawers.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/drawers.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_shampoo.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/shampoo.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_interior.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/interior.png"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_winix.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/winix.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_pic1.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/pic1.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_garage.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/garage.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_week.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/week.png"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_back.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/back.png"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_down_arrow.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/down_arrow.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_curtain.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/curtain.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_delivery.png.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/delivery.png"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_delivery.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/delivery.png"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_luck.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/luck.png"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_ic_launcher_background.xml.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.myapplication.app-debug-60:/layout_fragment_home.xml.flat",
+        "source": "com.example.myapplication.app-main-62:/layout/fragment_home.xml"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_desktop.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/desktop.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_enuggle.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/enuggle.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/xml_data_extraction_rules.xml.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/xml/data_extraction_rules.xml"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_pet.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/pet.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_curtain.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/curtain.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_winix.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/winix.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic1.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic1.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.myapplication.app-debug-60:/xml_backup_rules.xml.flat",
+        "source": "com.example.myapplication.app-main-62:/xml/backup_rules.xml"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_bookshelf.jpg.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/bookshelf.jpg"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_pic4.jpeg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/pic4.jpeg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/drawable_shampoo.png.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/drawable/shampoo.png"
+        "merged": "com.example.myapplication.app-debug-60:/drawable_rug.jpg.flat",
+        "source": "com.example.myapplication.app-main-62:/drawable/rug.jpg"
     },
     {
-        "merged": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-debug-60:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "/Users/ohyugyeong/.gradle/daemon/8.11.1/com.example.myapplication.app-main-62:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.myapplication.app-debug-60:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-62:/mipmap-xxhdpi/ic_launcher.webp"
     }
 ]

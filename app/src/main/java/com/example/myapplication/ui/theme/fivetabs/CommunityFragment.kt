@@ -2,6 +2,7 @@ package com.example.myapplication.ui.theme.fivetabs
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -225,7 +226,8 @@ fun PostCardShape(post: CommunityPost) {
             .clickable {
                 val intent = Intent(context, PostDetailActivity::class.java).apply {
                     putExtra("postId", post.id)
-                    putExtra("title", R.string.buy_or_not)
+                    putExtra("title", post.title)
+                    Log.d("letsCheckTitle", "PostCardShape: " + post.title)
                     putExtra("pfp", post.pfp)
                     putExtra("intro", post.intro)
                     putExtra("post", post.post)
@@ -264,7 +266,7 @@ fun PostCardShape(post: CommunityPost) {
 
                 // 제목
                 Text(
-                    text = stringResource(R.string.make_the_title),
+                    text = post.title,
                     fontWeight = FontWeight.SemiBold,
                     color = Color.Black,
                     style = MaterialTheme.typography.bodyMedium,

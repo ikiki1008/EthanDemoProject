@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("kapt")
 }
 
 android {
@@ -42,6 +43,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.room:room-common:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
     val fragment_version = "1.8.3"
 
     implementation(libs.androidx.core.ktx)
@@ -66,6 +69,10 @@ dependencies {
     implementation("androidx.media3:media3-ui:1.2.1")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.30.1") //새로고침 컴포즈에서 제공
     implementation ("com.google.code.gson:gson:2.10.1")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")      // 코루틴, Flow 지원
+    kapt("androidx.room:room-compiler:2.6.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -80,4 +80,7 @@
     <string name="adtitle6">투명 3칸 펜트리</string>
 
     <string name="today_recommend">오늘의 추천상품</string>
+    <string name="userId">프리렌_언제나오냐</string>
+    <string name="input_comment">댓글을 입력하세요</string>
+    <string name="registration">등록</string>
 </resources>

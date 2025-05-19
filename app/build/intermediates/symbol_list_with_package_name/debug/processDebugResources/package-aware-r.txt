@@ -603,6 +603,7 @@ string honey_item_comm
 string honey_tip_post
 string in_progress
 string indeterminate
+string input_comment
 string item_review
 string lamp
 string m3c_bottom_sheet_collapse_description
@@ -675,6 +676,7 @@ string post_on_community
 string price
 string range_end
 string range_start
+string registration
 string report
 string review_post
 string rug
@@ -702,6 +704,7 @@ string today_recommend
 string tooltip_description
 string tooltip_label
 string upload
+string userId
 string video
 string video_url
 style DialogWindowTheme

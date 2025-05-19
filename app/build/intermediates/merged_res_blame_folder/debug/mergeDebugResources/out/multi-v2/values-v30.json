@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.myapplication.app-mergeDebugResources-58:/values-v30/values-v30.xml",
+            "outputFile": "com.example.myapplication.app-mergeDebugResources-62:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\9d9531bb6f3bf9589a4799c3627f1fa0\\transformed\\material3-release\\res\\values-v30\\values-v30.xml",
+                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/869a68e926174aaa6f493ffad07c6ab9/transformed/material3-release/res/values-v30/values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

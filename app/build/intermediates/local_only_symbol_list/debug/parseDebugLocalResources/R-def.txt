@@ -78,6 +78,7 @@ string follow
 string follow_clicked
 string honey_item_comm
 string honey_tip_post
+string input_comment
 string item_review
 string lamp
 string make_the_title
@@ -89,6 +90,7 @@ string post_off
 string post_on
 string post_on_community
 string price
+string registration
 string report
 string review_post
 string rug
@@ -106,6 +108,7 @@ string tabs_2
 string tag_item
 string today_recommend
 string upload
+string userId
 string video
 string video_url
 style Theme.MyApplication

@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.myapplication.app-mergeDebugResources-58:/values-lo/values-lo.xml",
+            "outputFile": "com.example.myapplication.app-mergeDebugResources-62:/values-lo/values-lo.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\a91cb6e9a1b2a9bb2ef0a065f4ca02dd\\transformed\\media3-exoplayer-1.2.1\\res\\values-lo\\values-lo.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10",
-                        "startColumns": "4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,124,185,251,316,391,461,553,640",
-                        "endColumns": "68,60,65,64,74,69,91,86,71",
-                        "endOffsets": "119,180,246,311,386,456,548,635,707"
-                    },
-                    "to": {
-                        "startLines": "55,56,57,58,59,60,61,62,63",
-                        "startColumns": "4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "3784,3853,3914,3980,4045,4120,4190,4282,4369",
-                        "endColumns": "68,60,65,64,74,69,91,86,71",
-                        "endOffsets": "3848,3909,3975,4040,4115,4185,4277,4364,4436"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\bd26813945e5de21cdd349fb4b57d138\\transformed\\media3-ui-1.2.1\\res\\values-lo\\values-lo.xml",
+                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/4f6ca32a08b40641eebaafc071341d7d/transformed/media3-ui-1.2.1/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2,11,15,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -40,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\9d9531bb6f3bf9589a4799c3627f1fa0\\transformed\\material3-release\\res\\values-lo\\values-lo.xml",
+                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/869a68e926174aaa6f493ffad07c6ab9/transformed/material3-release/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -57,7 +40,41 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\d5ba2c0e321eafc9ca1255a48faf4a0d\\transformed\\foundation-release\\res\\values-lo\\values-lo.xml",
+                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b84dba35c26c5b8d1ff533c7cc4d9e18/transformed/ui-release/res/values-lo/values-lo.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,195,272,381,479,568,657,747,833,916,996,1080,1154,1235,1310,1385,1463,1529",
+                        "endColumns": "89,76,108,97,88,88,89,85,82,79,83,73,80,74,74,77,65,120",
+                        "endOffsets": "190,267,376,474,563,652,742,828,911,991,1075,1149,1230,1305,1380,1458,1524,1645"
+                    },
+                    "to": {
+                        "startLines": "26,27,28,29,30,82,83,141,142,143,144,145,146,147,148,150,151,152",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1411,1501,1578,1687,1785,5554,5643,11822,11908,11991,12071,12155,12229,12310,12385,12561,12639,12705",
+                        "endColumns": "89,76,108,97,88,88,89,85,82,79,83,73,80,74,74,77,65,120",
+                        "endOffsets": "1496,1573,1682,1780,1869,5638,5728,11903,11986,12066,12150,12224,12305,12380,12455,12634,12700,12821"
+                    }
+                },
+                {
+                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/319152f1a079fbd675905af2a2875fca/transformed/media3-exoplayer-1.2.1/res/values-lo/values-lo.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,124,185,251,316,391,461,553,640",
+                        "endColumns": "68,60,65,64,74,69,91,86,71",
+                        "endOffsets": "119,180,246,311,386,456,548,635,707"
+                    },
+                    "to": {
+                        "startLines": "55,56,57,58,59,60,61,62,63",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3784,3853,3914,3980,4045,4120,4190,4282,4369",
+                        "endColumns": "68,60,65,64,74,69,91,86,71",
+                        "endOffsets": "3848,3909,3975,4040,4115,4185,4277,4364,4436"
+                    }
+                },
+                {
+                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/599abc734e9e237ad74db901062bb023/transformed/foundation-release/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -74,7 +91,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\437afea46fdf55afa23e659b2fb26e77\\transformed\\core-1.13.1\\res\\values-lo\\values-lo.xml",
+                    "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/ae49cd80f7ce6f34a70b84602a739e46/transformed/core-1.13.1/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -88,23 +105,6 @@
                         "startOffsets": "705,801,904,1003,1101,1202,1300,12460",
                         "endColumns": "95,102,98,97,100,97,110,100",
                         "endOffsets": "796,899,998,1096,1197,1295,1406,12556"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\miayu\\.gradle\\caches\\8.11.1\\transforms\\7d730ffb4381c6a26eb5ff8da59f99a5\\transformed\\ui-release\\res\\values-lo\\values-lo.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,195,272,381,479,568,657,747,833,916,996,1080,1154,1235,1310,1385,1463,1529",
-                        "endColumns": "89,76,108,97,88,88,89,85,82,79,83,73,80,74,74,77,65,120",
-                        "endOffsets": "190,267,376,474,563,652,742,828,911,991,1075,1149,1230,1305,1380,1458,1524,1645"
-                    },
-                    "to": {
-                        "startLines": "26,27,28,29,30,82,83,141,142,143,144,145,146,147,148,150,151,152",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "1411,1501,1578,1687,1785,5554,5643,11822,11908,11991,12071,12155,12229,12310,12385,12561,12639,12705",
-                        "endColumns": "89,76,108,97,88,88,89,85,82,79,83,73,80,74,74,77,65,120",
-                        "endOffsets": "1496,1573,1682,1780,1869,5638,5728,11903,11986,12066,12150,12224,12305,12380,12455,12634,12700,12821"
                     }
                 }
             ]

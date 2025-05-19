@@ -43,6 +43,7 @@
     <string name="follow_clicked">팔로우 버튼 클릭됨</string>
     <string name="honey_item_comm">꿀템수다</string>
     <string name="honey_tip_post">사소한 고민부터 소소한 정보까지, 상품 관련 수다를 나눠보세요</string>
+    <string name="input_comment">댓글을 입력하세요</string>
     <string name="item_review">상품후기</string>
     <string name="lamp">빈티지 램프</string>
     <string name="make_the_title">제목을 입력해 주세요</string>
@@ -54,6 +55,7 @@
     <string name="post_on">+ 글쓰기</string>
     <string name="post_on_community">커뮤니티 글쓰기</string>
     <string name="price">390,000</string>
+    <string name="registration">등록</string>
     <string name="report">신고하기</string>
     <string name="review_post">구매했거나 사용해본 상품의 솔직한 후기를 공유해보세요</string>
     <string name="rug">귀여운 러그</string>
@@ -71,6 +73,7 @@
     <string name="tag_item">태그 상품 %1$d개</string>
     <string name="today_recommend">오늘의 추천상품</string>
     <string name="upload">올리기</string>
+    <string name="userId">프리렌_언제나오냐</string>
     <string name="video">동영상</string>
     <string name="video_url">LFsS-9lT0Rk</string>
     <style name="Theme.MyApplication" parent="android:Theme.Material.Light.NoActionBar"/>

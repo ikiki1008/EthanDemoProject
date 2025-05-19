@@ -97,187 +97,187 @@ class PostDetailActivity : ComponentActivity() {
             }
         }
     }
+}
 
-    @Composable
-    fun PostingDetailScreen(
-        title: String,
-        id: String,
-        pfp: String,
-        intro: String,
-        post: String,
-        postPic: String,
-        genre: String,
-        onBackPressed: () -> Unit
+@Composable
+fun PostingDetailScreen(
+    title: String,
+    id: String,
+    pfp: String,
+    intro: String,
+    post: String,
+    postPic: String,
+    genre: String,
+    onBackPressed: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp)
     ) {
-        Column(
+        Image(
+            painter = painterResource(id = com.example.myapplication.R.drawable.back),
+            contentDescription = null,
             modifier = Modifier
+                .size(24.dp)
+                .clickable { onBackPressed() }
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Box(
+            modifier = Modifier
+                .background(Color.White, RoundedCornerShape(8.dp))
+                .padding(16.dp)
                 .fillMaxWidth()
-                .padding(12.dp)
         ) {
-            Image(
-                painter = painterResource(id = com.example.myapplication.R.drawable.back),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { onBackPressed() }
-            )
+            Column {
+                Text(text = genre, fontSize = 14.sp, color = Color.DarkGray)
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-            Box(
-                modifier = Modifier
-                    .background(Color.White, RoundedCornerShape(8.dp))
-                    .padding(16.dp)
-                    .fillMaxWidth()
-            ) {
-                Column {
-                    Text(text = genre, fontSize = 14.sp, color = Color.DarkGray)
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        AsyncImage(
-                            model = pfp,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clip(CircleShape),
-                            contentScale = ContentScale.Crop
-                        )
-
-                        Spacer(modifier = Modifier.width(20.dp))
-
-                        Text(
-                            text = id,
-                            fontSize = 15.sp,
-                            color = Color.Black
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Text(
-                        text = post,
-                        fontSize = 16.sp,
-                        color = Color.Black
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    AsyncImage(
+                        model = pfp,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.width(20.dp))
 
-                    if (postPic.isNotEmpty()) {
-                        AsyncImage(
-                            model = postPic,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
-                        )
-                    }
+                    Text(
+                        text = id,
+                        fontSize = 15.sp,
+                        color = Color.Black
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text(
+                    text = post,
+                    fontSize = 16.sp,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                if (postPic.isNotEmpty()) {
+                    AsyncImage(
+                        model = postPic,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                    )
                 }
             }
         }
     }
+}
 
-    @OptIn(ExperimentalMaterialApi::class)
-    @Composable
-    fun PostingReplyScreen(postId: String, commentViewModel: CommentViewModel) {
-        val comments by commentViewModel.comments.collectAsState()
-        var input by remember { mutableStateOf("") }
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun PostingReplyScreen(postId: String, commentViewModel: CommentViewModel) {
+    val comments by commentViewModel.comments.collectAsState()
+    var input by remember { mutableStateOf("") }
 
-        LaunchedEffect(postId) {
-            commentViewModel.loadComments(postId)
+    LaunchedEffect(postId) {
+        commentViewModel.loadComments(postId)
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp)
+    ) {
+        // 댓글 입력창
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            TextField(
+                value = input,
+                onValueChange = { input = it },
+                placeholder = { Text("댓글을 입력하세요") },
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "등록",
+                modifier = Modifier
+                    .clickable {
+                        if (input.isNotBlank()) {
+                            commentViewModel.addComment(postId, input)
+                            input = ""
+                        }
+                    }
+                    .padding(8.dp),
+                color = Color.Blue
+            )
         }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp)
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // 댓글 목록 (삭제하기 기능 추가)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
         ) {
-            // 댓글 입력창
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                TextField(
-                    value = input,
-                    onValueChange = { input = it },
-                    placeholder = { Text("댓글을 입력하세요") },
-                    modifier = Modifier.weight(1f)
+            items(
+                items = comments,
+                key = { it.id } // id는 CommentEntity에 있어야 함
+            ) { comment ->
+                val dismissState = rememberDismissState(
+                    confirmStateChange = {
+                        if (it == DismissValue.DismissedToStart) {
+                            commentViewModel.deleteComment(comment)
+                        }
+                        true
+                    }
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "등록",
-                    modifier = Modifier
-                        .clickable {
-                            if (input.isNotBlank()) {
-                                commentViewModel.addComment(postId, input)
-                                input = ""
-                            }
+
+                SwipeToDismiss(
+                    state = dismissState,
+                    directions = setOf(DismissDirection.EndToStart),
+                    background = {
+                        val color = when (dismissState.dismissDirection) {
+                            DismissDirection.EndToStart -> Color.Red
+                            else -> Color.Transparent
                         }
-                        .padding(8.dp),
-                    color = Color.Blue
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(color)
+                                .padding(horizontal = 20.dp),
+                            contentAlignment = Alignment.CenterEnd
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "삭제",
+                                tint = Color.White
+                            )
+                        }
+                    },
+                    dismissContent = {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp)
+                                .background(Color.White)
+                                .padding(8.dp)
+                        ) {
+                            Text(
+                                text = comment.username,
+                                fontSize = 14.sp,
+                                color = Color.DarkGray
+                            )
+                            Text(text = comment.content, fontSize = 16.sp, color = Color.Black)
+                        }
+                    }
                 )
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // 댓글 목록 (삭제하기 기능 추가)
-            LazyColumn(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(
-                    items = comments,
-                    key = { it.id } // id는 CommentEntity에 있어야 함
-                ) { comment ->
-                    val dismissState = rememberDismissState(
-                        confirmStateChange = {
-                            if (it == DismissValue.DismissedToStart) {
-                                commentViewModel.deleteComment(comment)
-                            }
-                            true
-                        }
-                    )
-
-                    SwipeToDismiss(
-                        state = dismissState,
-                        directions = setOf(DismissDirection.EndToStart),
-                        background = {
-                            val color = when (dismissState.dismissDirection) {
-                                DismissDirection.EndToStart -> Color.Red
-                                else -> Color.Transparent
-                            }
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(color)
-                                    .padding(horizontal = 20.dp),
-                                contentAlignment = Alignment.CenterEnd
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = "삭제",
-                                    tint = Color.White
-                                )
-                            }
-                        },
-                        dismissContent = {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp)
-                                    .background(Color.White)
-                                    .padding(8.dp)
-                            ) {
-                                Text(
-                                    text = comment.username,
-                                    fontSize = 14.sp,
-                                    color = Color.DarkGray
-                                )
-                                Text(text = comment.content, fontSize = 16.sp, color = Color.Black)
-                            }
-                        }
-                    )
-                }
             }
         }
     }

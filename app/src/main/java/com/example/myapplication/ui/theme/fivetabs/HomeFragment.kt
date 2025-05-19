@@ -67,6 +67,10 @@ import kotlinx.coroutines.flow.map
 import kotlin.jvm.java
 import androidx.compose.ui.res.stringResource
 import com.example.myapplication.ui.theme.dataclass.TastePost
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
+import com.google.accompanist.placeholder.placeholder
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -128,18 +132,25 @@ fun ShowMainFeed(scrollState : LazyListState) {
     var endReached by remember { mutableStateOf(false) }
     val listState = scrollState
     val coroutineScope = rememberCoroutineScope()
-
+    var showShimmering by remember { mutableStateOf(true) } //초기 상태에는 트루로 설정하여 효과를 보여준다
     val allJsonPosts by produceState<List<CreatorPost>>(initialValue = emptyList()) {
         val json = context.assets.open("sample_data.json")
             .bufferedReader().use { it.readText() }
         value = Gson().fromJson(json, object : TypeToken<List<CreatorPost>>() {}.type)
     }
 
-    //초기 로딩
     LaunchedEffect(Unit) {
-        isLoading = true
-        allPosts.addAll(allJsonPosts.take(4)) //json 파일에서 우선적으로 4개를 가져와 로드한다
-        isLoading = false
+        delay(600)
+        showShimmering = false
+    }
+
+    //초기 로딩
+    LaunchedEffect(showShimmering) {
+        if (!showShimmering) {
+            isLoading = true
+            allPosts.addAll(allJsonPosts.take(4)) //json 파일에서 우선적으로 4개를 가져와 로드한다
+            isLoading = false
+        }
     }
 
     //스크롤 감지 후 추가 로딩
@@ -188,7 +199,7 @@ fun ShowMainFeed(scrollState : LazyListState) {
                 items(categoryData.size) { index ->
                     val title = stringResource(id = categoryData[index])
                     val image = categoryImage[index]
-                    SquareItem(title = title, imageResId = image)
+                    SquareItem(title = title, imageResId = image, showShimmering = showShimmering)
                     Spacer(modifier = Modifier.width(12.dp))
                 }
             }
@@ -402,48 +413,47 @@ fun ImageListItem(creatorPost: CreatorPost) {
 
 @Composable
 fun SkeletonItem() {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(12.dp)) {
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color.LightGray.copy(alpha = 0.3f))
-        )
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(CircleShape)
+                    .placeholder(visible = true, highlight = PlaceholderHighlight.shimmer())
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Box(
+                modifier = Modifier
+                    .height(16.dp)
+                    .width(100.dp)
+                    .placeholder(visible = true, highlight = PlaceholderHighlight.shimmer())
+            )
+        }
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .height(20.dp)
-                .clip(RoundedCornerShape(4.dp))
-                .background(Color.Gray.copy(alpha = 0.3f))
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth(0.3f)
-                .height(16.dp)
-                .clip(RoundedCornerShape(4.dp))
-                .background(Color.Gray.copy(alpha = 0.3f))
+                .fillMaxWidth()
+                .height(300.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .placeholder(visible = true, highlight = PlaceholderHighlight.shimmer())
         )
     }
 }
 
 @Composable
-fun SquareItem(title: String, imageResId : Int) {
+fun SquareItem(title: String, imageResId : Int, showShimmering: Boolean) {
     val context = LocalContext.current
 
     Column(
         modifier = Modifier
             .width(70.dp)
-            .clickable {
+            .clickable (enabled = !showShimmering){ //shimmer 효과 중에는 클릭 비활성화
                 val intent = Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse("https://ohou.se")
                 }
@@ -451,19 +461,45 @@ fun SquareItem(title: String, imageResId : Int) {
             },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = imageResId),
-            contentDescription = null,
-            modifier = Modifier
-                .size(60.dp)
-                .clip(RoundedCornerShape(5.dp))
-        )
+        Box(
+            modifier = Modifier.size(60.dp).clip(RoundedCornerShape(10.dp))
+                .placeholder(
+                    visible = showShimmering,
+                    highlight = PlaceholderHighlight.shimmer(),
+                    color = Color.LightGray.copy(alpha = 0.5f),
+                    shape = RoundedCornerShape(5.dp)
+                )
+        ) {
+            if (!showShimmering) {
+                Image(
+                    painter = painterResource(id = imageResId),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(60.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                )
+            }
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodySmall,
-            maxLines = 1
-        )
+
+        Box(
+            modifier = Modifier.height(14.dp).width(60.dp).placeholder(
+                visible = showShimmering,
+                highlight = PlaceholderHighlight.shimmer(),
+                color = Color.LightGray.copy(alpha = 0.5f),
+                shape = RoundedCornerShape(4.dp)
+            ),
+            contentAlignment = Alignment.Center
+        ) {
+            if (!showShimmering) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1
+                )
+            }
+        }
     }
 }
 

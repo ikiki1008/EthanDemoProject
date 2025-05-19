@@ -271,14 +271,37 @@ fun PostingReplyScreen(postId: String, commentViewModel: CommentViewModel) {
                         ) {
                             Text(
                                 text = comment.username,
-                                fontSize = 14.sp,
+                                fontSize = 15.sp,
                                 color = Color.DarkGray
                             )
-                            Text(text = comment.content, fontSize = 16.sp, color = Color.Black)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(text = comment.content, fontSize = 15.sp, color = Color.Black)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(
+                                text = getCommentTime(comment.timestamp),
+                                fontSize = 15.sp,
+                                color = Color.Gray
+                            )
                         }
                     }
                 )
             }
         }
+    }
+}
+
+@Composable
+fun getCommentTime(timestamp : Long):String {
+    val now = System.currentTimeMillis()
+    val diffMillis = now - timestamp
+    val minute = diffMillis / (1000 * 60)
+    val hours = minute / 60
+    val days = hours /24
+
+    return when {
+        minute < 1 -> "방금 전"
+        minute < 60 -> "${minute}분 전"
+        hours < 24 -> "${hours}시간 전"
+        else -> "${days}일 전"
     }
 }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CommentViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = Room.databaseBuilder(application, AppDataBase::class.java, "app-db").build()
+    private val db = Room.databaseBuilder(application, AppDataBase::class.java, "app-db").fallbackToDestructiveMigration().build()
     private val _comments = MutableStateFlow<List<CommentEntity>>(emptyList())
     val comments = _comments.asStateFlow()
 
@@ -24,7 +24,7 @@ class CommentViewModel(application: Application) : AndroidViewModel(application)
     //댓글 추가하기
     fun addComment(postId: String, content:String) {
         viewModelScope.launch {
-            db.commentDao().insertComment(CommentEntity(postId = postId, content = content))
+            db.commentDao().insertComment(CommentEntity(postId = postId, content = content, timestamp = System.currentTimeMillis()))
             loadComments(postId)
         }
     }

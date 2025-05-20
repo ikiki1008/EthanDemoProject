@@ -36,22 +36,60 @@ class PostingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PostingScreen(onBack = { finish() }, onPost = {
-                finish()
-            })
+            val context = this
+            var title by remember { mutableStateOf(TextFieldValue("")) }
+            var subTitle by remember { mutableStateOf(TextFieldValue("")) }
+            var selectedCategory by remember { mutableStateOf(R.string.buy_or_not) }
+
+            val genre = stringResource(id = selectedCategory)
+
+            PostingScreen(
+                title = title,
+                onTitleChange = { title = it },
+                subTitle = subTitle,
+                onSubTitleChange = { subTitle = it },
+                selectedCategory = selectedCategory,
+                onCategoryChange = { selectedCategory = it },
+                onBack = { finish() },
+                onPost = {
+                    val newPost = CommunityPost(
+                        id = "프리렌 언제나오냥",
+                        pfp = null,
+                        intro = "오유경 1996년생 10월 8일 출신 호랑먀유~",
+                        title = title.text,
+                        post = subTitle.text,
+                        postPic = null,
+                        genre = genre
+                    )
+
+                    savePostToJason(context, newPost)
+
+                    val intent = intent
+                    intent.putExtra("newPost", Gson().toJson(newPost))
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+            )
         }
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
+fun PostingScreen(
+    title: TextFieldValue,
+    onTitleChange: (TextFieldValue) -> Unit,
+    subTitle: TextFieldValue,
+    onSubTitleChange: (TextFieldValue) -> Unit,
+    selectedCategory: Int,
+    onCategoryChange: (Int) -> Unit,
+    onBack: () -> Unit,
+    onPost: () -> Unit
+) {
     val sheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
-    var selectedCategory by remember { mutableStateOf(R.string.buy_or_not) }
-    var title by remember { mutableStateOf(TextFieldValue("")) }
-    var subTitle by remember { mutableStateOf(TextFieldValue("")) }
 
     if (showSheet) {
         ModalBottomSheet(
@@ -68,23 +106,22 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
             }
 
             CategoryItem(stringResource(R.string.buy_or_not), stringResource(R.string.buy_or_not_post)) {
-                selectedCategory = R.string.buy_or_not
+                onCategoryChange(R.string.buy_or_not)
                 showSheet = false
             }
 
             CategoryItem(stringResource(R.string.item_review), stringResource(R.string.review_post)) {
-                selectedCategory = R.string.item_review
+                onCategoryChange(R.string.item_review)
                 showSheet = false
             }
 
             CategoryItem(stringResource(R.string.honey_item_comm), stringResource(R.string.honey_tip_post)) {
-                selectedCategory = R.string.honey_item_comm
+                onCategoryChange(R.string.honey_item_comm)
                 showSheet = false
             }
         }
     }
 
-    val context = LocalContext.current
     val genre = stringResource(id = selectedCategory)
 
     Box(
@@ -114,19 +151,7 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         )
 
         TextButton(
-            onClick = {
-                val postData = CommunityPost(
-                    id = "프리렌 언제나오냥",
-                    pfp = null,
-                    intro = "오유경 1996년생 10월 8일 출신 호랑먀유~",
-                    title = title.text,
-                    post = subTitle.text,
-                    postPic = null,
-                    genre = genre // 이미 stringResource로 받아둠
-                )
-                savePostToJason(context = context, newPost = postData)
-                onPost()
-            },
+            onClick = onPost,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(end = 15.dp)
@@ -174,9 +199,9 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         InputField(
             category = selectedCategory,
             title = title,
-            onTitleChange = { title = it },
+            onTitleChange = onTitleChange,
             subtitle = subTitle,
-            onSubtitleChange = { subTitle = it }
+            onSubtitleChange = onSubTitleChange
         )
     }
 }

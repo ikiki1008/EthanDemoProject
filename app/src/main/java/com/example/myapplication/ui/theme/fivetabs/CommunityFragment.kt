@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -26,11 +28,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.myapplication.R
+import com.example.myapplication.ui.theme.community.CommunityViewModel
 import com.example.myapplication.ui.theme.community.PostDetailActivity
 import com.example.myapplication.ui.theme.community.PostingActivity
 import com.example.myapplication.ui.theme.dataclass.CommunityPost
@@ -38,9 +42,26 @@ import com.google.gson.Gson
 import com.google.common.reflect.TypeToken
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
-import kotlin.jvm.java
 
 class CommunityFragment : Fragment() {
+    private val viewModel: CommunityViewModel by activityViewModels()
+    private lateinit var postingLauncher: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        postingLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == android.app.Activity.RESULT_OK) {
+                val json = result.data?.getStringExtra("newPost")
+                Log.d("받았니>????", "onCreate: " + json)
+                if (json != null) {
+                    val newPost = Gson().fromJson(json, CommunityPost::class.java)
+                    viewModel.addPost(newPost)
+                }
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,23 +69,42 @@ class CommunityFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                CommunityScreen()
+                CommunityScreen(
+                    viewModel = viewModel,
+                    onPostClick = {
+                        val intent = Intent(requireContext(), PostingActivity::class.java)
+                        postingLauncher.launch(intent)
+                    }
+                )
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("로그로그로그로그", "onResume: ")
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun CommunityScreen() {
+fun CommunityScreen(
+    viewModel: CommunityViewModel = viewModel(),
+    onPostClick: () -> Unit
+) {
     val lazyListState = rememberLazyListState()
+    val posts by viewModel.posts.collectAsState()
+
     val isAtTop by remember {
-        derivedStateOf { lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0 }
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
+        }
     }
 
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     val tabs = listOf(
         R.string.community_tab_1,
@@ -73,7 +113,6 @@ fun CommunityScreen() {
         R.string.community_tab_4
     )
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
-    val coroutineScope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -82,9 +121,7 @@ fun CommunityScreen() {
                     Tab(
                         selected = pagerState.currentPage == index,
                         onClick = {
-                            coroutineScope.launch {
-                                pagerState.scrollToPage(index)
-                            }
+                            coroutineScope.launch { pagerState.scrollToPage(index) }
                         },
                         text = {
                             Text(
@@ -144,7 +181,7 @@ fun CommunityScreen() {
                             onClick = {
                                 showBottomSheet = false
                                 if (label == R.string.community) {
-                                    context.startActivity(Intent(context, PostingActivity::class.java))
+                                    onPostClick()
                                 }
                             },
                             modifier = Modifier.padding(end = 12.dp),
@@ -161,7 +198,10 @@ fun CommunityScreen() {
 }
 
 @Composable
-fun ItemFoundFeed(lazyListState: LazyListState) {
+fun ItemFoundFeed(
+    lazyListState: LazyListState,
+    viewModel: CommunityViewModel = viewModel()
+) {
     val stringIds = listOf(
         R.string.all,
         R.string.popular,
@@ -172,17 +212,14 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
     var selectedIndex by remember { mutableStateOf(0) }
     val context = LocalContext.current
 
-    val allJsonPosts by produceState<List<CommunityPost>>(initialValue = emptyList(), key1 = context) {
-        val json = context.assets.open("community_post.json")
-            .bufferedReader().use { it.readText() }
-        value = Gson().fromJson(json, object : TypeToken<List<CommunityPost>>() {}.type)
-    }
-    //filter 를 사용해서 포스트를 정렬한다
+    // ViewModel에서 posts 상태 받아오기
+    val allPosts by viewModel.posts.collectAsState()
+
     val filteredPosts = when (selectedIndex) {
-        2 -> allJsonPosts.filter { it.genre == stringResource(R.string.buy_or_not) }
-        3 -> allJsonPosts.filter { it.genre == stringResource(R.string.item_review) }
-        4 -> allJsonPosts.filter { it.genre == stringResource(R.string.honey_item_comm) }
-        else -> allJsonPosts
+        2 -> allPosts.filter { it.genre == context.getString(R.string.buy_or_not) }
+        3 -> allPosts.filter { it.genre == context.getString(R.string.item_review) }
+        4 -> allPosts.filter { it.genre == context.getString(R.string.honey_item_comm) }
+        else -> allPosts
     }
 
     LazyColumn(
@@ -199,7 +236,6 @@ fun ItemFoundFeed(lazyListState: LazyListState) {
             ) {
                 itemsIndexed(stringIds) { index, id ->
                     val title = stringResource(id = id)
-
                     RoundedTabButton(
                         title = title,
                         isSelected = selectedIndex == index,
@@ -228,7 +264,6 @@ fun PostCardShape(post: CommunityPost) {
                 val intent = Intent(context, PostDetailActivity::class.java).apply {
                     putExtra("postId", post.id)
                     putExtra("title", post.title)
-                    Log.d("letsCheckTitle", "PostCardShape: " + post.title)
                     putExtra("pfp", post.pfp)
                     putExtra("intro", post.intro)
                     putExtra("post", post.post)
@@ -252,7 +287,6 @@ fun PostCardShape(post: CommunityPost) {
                 modifier = Modifier.fillMaxHeight(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                // 장르 박스
                 Box(
                     modifier = Modifier
                         .background(Color.LightGray, RoundedCornerShape(4.dp))
@@ -265,7 +299,6 @@ fun PostCardShape(post: CommunityPost) {
                     )
                 }
 
-                // 제목
                 Text(
                     text = post.title,
                     fontWeight = FontWeight.SemiBold,
@@ -274,7 +307,6 @@ fun PostCardShape(post: CommunityPost) {
                     modifier = Modifier.padding(top = 4.dp)
                 )
 
-                // 사용자 ID
                 Text(
                     text = post.id,
                     fontSize = MaterialTheme.typography.labelSmall.fontSize,
@@ -293,7 +325,6 @@ fun PostCardShape(post: CommunityPost) {
         }
     }
 }
-
 
 @Composable
 fun RoundedTabButton(
@@ -338,6 +369,3 @@ fun HouseVisitingFeed() {
 fun HousePicFeed() {
     Text("This is house pic feed")
 }
-
-
-

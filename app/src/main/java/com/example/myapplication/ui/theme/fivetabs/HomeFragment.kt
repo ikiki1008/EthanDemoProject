@@ -70,6 +70,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.ui.theme.dataclass.TastePost
+import com.example.myapplication.ui.theme.fivetabs.loadMoreMainData
 import com.example.myapplication.ui.theme.home.HomeFeedViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
@@ -77,6 +78,8 @@ import com.google.accompanist.placeholder.material.shimmer
 import com.google.accompanist.placeholder.placeholder
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -132,6 +135,7 @@ class HomeFragment : Fragment() {
     }
 }
 
+@OptIn(FlowPreview::class)
 @Composable
 fun ShowMainFeed(scrollState : LazyListState, viewModel: HomeFeedViewModel) {
     val listState = scrollState
@@ -185,9 +189,13 @@ fun ShowMainFeed(scrollState : LazyListState, viewModel: HomeFeedViewModel) {
 
         // 피드 아이템중 0번째와 1번째를 감지하여 광고 개시
         itemsIndexed(allPosts) { index, post ->
-            ImageListItem(creatorPost = post)
-            if (index == 0) ShowPicAds()
-            if (index == 1) ShowVidAds()
+            if (post.isSkeleton || post.post == null) {
+                SkeletonItem()
+            } else {
+                ImageListItem(creatorPost = post.post)
+                if (index == 0) ShowPicAds()
+                if (index == 1) ShowVidAds()
+            }
         }
 
         // 로딩 중일 때 스켈레톤
@@ -586,6 +594,38 @@ private fun loadMoreData(
     coroutineScope: CoroutineScope,
     allItems: SnapshotStateList<TastePost?>,
     allJsonPosts: List<TastePost>,
+    onLoadingChange: (Boolean) -> Unit,
+    onEndReached: (Boolean) -> Unit
+) {
+    coroutineScope.launch {
+        onLoadingChange(true)
+
+        // 스켈레톤 추가
+        repeat(8) { allItems.add(null) }
+
+        delay(300) // 로딩 시간 시뮬레이션
+
+        // 스켈레톤 제거
+        repeat(8) { allItems.removeLast() }
+
+        // 다음 데이터 추가
+        val currentSize = allItems.count { it != null }
+        val nextItems = allJsonPosts.drop(currentSize).take(8)
+
+        if (nextItems.isEmpty()) {
+            onEndReached(true)
+        } else {
+            allItems.addAll(nextItems)
+        }
+
+        onLoadingChange(false)
+    }
+}
+
+private fun loadMoreMainData(
+    coroutineScope: CoroutineScope,
+    allItems: SnapshotStateList<CreatorPost?>,
+    allJsonPosts: List<CreatorPost>,
     onLoadingChange: (Boolean) -> Unit,
     onEndReached: (Boolean) -> Unit
 ) {

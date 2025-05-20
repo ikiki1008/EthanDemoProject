@@ -36,6 +36,7 @@ import com.example.myapplication.ui.theme.community.PostingActivity
 import com.example.myapplication.ui.theme.dataclass.CommunityPost
 import com.google.gson.Gson
 import com.google.common.reflect.TypeToken
+import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 import kotlin.jvm.java
 
@@ -282,8 +283,8 @@ fun PostCardShape(post: CommunityPost) {
                 )
             }
 
-            AsyncImage(
-                model = post.postPic,
+            GlideImage(
+                imageModel = post.postPic,
                 contentDescription = null,
                 modifier = Modifier
                     .size(75.dp)

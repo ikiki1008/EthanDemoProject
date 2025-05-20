@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 
 class HomeFeedViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _allPosts = mutableStateListOf<CreatorPost>()
-    val allPosts: List<CreatorPost> get() = _allPosts
+    private val _allPosts = mutableStateListOf<HomeMainFeedUiModel>()
+    val allPosts: List<HomeMainFeedUiModel> get() = _allPosts
 
     private var allJsonPosts: List<CreatorPost> = emptyList()
 
@@ -50,13 +50,27 @@ class HomeFeedViewModel(application: Application) : AndroidViewModel(application
 
         isLoading = true
         viewModelScope.launch {
+            //스켈레톤 먼저 추가
+            repeat(4) {
+                _allPosts.add(HomeMainFeedUiModel(null, isSkeleton = true))
+            }
+
             delay(500)
-            val next = allJsonPosts.drop(_allPosts.size).take(4)
+
+            //스켈레톤 제거
+            repeat(4) {
+                _allPosts.removeLast()
+            }
+
+            val currentSize = _allPosts.count { !it.isSkeleton }
+            val next = allJsonPosts.drop(currentSize).take(4)
+
             if (next.isEmpty()) {
                 endReached = true
             } else {
-                _allPosts.addAll(next)
+                _allPosts.addAll(next.map { HomeMainFeedUiModel(it) })
             }
+
             isLoading = false
         }
     }

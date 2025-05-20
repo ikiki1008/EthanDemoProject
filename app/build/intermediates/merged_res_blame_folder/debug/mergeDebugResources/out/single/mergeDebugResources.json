@@ -1,190 +1,190 @@
 [
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_interior.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/interior.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_back.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/back.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_rug.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/rug.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.myapplication.app-main-66:/xml/data_extraction_rules.xml"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_clock.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/clock.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_desktop.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/desktop.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_winix.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/winix.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_delivery.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/delivery.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_curtain.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/curtain.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_shampoo.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/shampoo.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/layout_fragment_home.xml.flat",
-        "source": "com.example.myapplication.app-main-66:/layout/fragment_home.xml"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_pic2.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/pic2.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_sikmul.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/sikmul.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_chair.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/chair.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_drawer.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/drawer.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_garage.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/garage.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_drawers.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/drawers.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_down_arrow.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/down_arrow.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_present.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/present.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_pic4.jpeg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/pic4.jpeg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_back.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/back.png"
+        "merged": "com.example.myapplication.app-debug-66:/xml_backup_rules.xml.flat",
+        "source": "com.example.myapplication.app-main-68:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_bookshelf.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/bookshelf.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_clock.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/clock.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_sofa.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/sofa.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_table.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/table.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_chair.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/chair.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/layout_fragment_home.xml.flat",
+        "source": "com.example.myapplication.app-main-68:/layout/fragment_home.xml"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_desktop.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/desktop.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_findhouse.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/findhouse.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_week.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/week.png"
+        "merged": "com.example.myapplication.app-debug-66:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.myapplication.app-main-68:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_pet.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/pet.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_enuggle.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/enuggle.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_curtain.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/curtain.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_sikmul.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/sikmul.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_pic3.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/pic3.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_pic1.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/pic1.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_ebul.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/ebul.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_winix.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/winix.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_delivery.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/delivery.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_shampoo.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/shampoo.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_rug.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/rug.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_luck.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/luck.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_pic1.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/pic1.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_pic3.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/pic3.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_lamp.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/lamp.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_down_arrow.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/down_arrow.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_drawers.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/drawers.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_table.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/table.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_garage.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/garage.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_bookshelf.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/bookshelf.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_pic4.jpeg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/pic4.jpeg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_present.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/present.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_ebul.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/ebul.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_week.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/week.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_findhouse.png.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/findhouse.png"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_drawer.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/drawer.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/xml_backup_rules.xml.flat",
-        "source": "com.example.myapplication.app-main-66:/xml/backup_rules.xml"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_interior.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/interior.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_pic2.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/pic2.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_luck.png.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/luck.png"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_sofa.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/sofa.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_enuggle.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/enuggle.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_pet.jpg.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/pet.jpg"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.myapplication.app-main-66:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.myapplication.app-debug-66:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.myapplication.app-main-68:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.myapplication.app-debug-64:/drawable_lamp.jpg.flat",
-        "source": "com.example.myapplication.app-main-66:/drawable/lamp.jpg"
+        "merged": "com.example.myapplication.app-debug-66:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.myapplication.app-main-68:/drawable/ic_launcher_foreground.xml"
     }
 ]

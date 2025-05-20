@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.myapplication.app-mergeDebugResources-62:/values-mn/values-mn.xml",
+            "outputFile": "com.example.myapplication.app-mergeDebugResources-64:/values-mn/values-mn.xml",
             "map": [
                 {
                     "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/319152f1a079fbd675905af2a2875fca/transformed/media3-exoplayer-1.2.1/res/values-mn/values-mn.xml",

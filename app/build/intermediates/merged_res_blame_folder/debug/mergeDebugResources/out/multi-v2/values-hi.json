@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.myapplication.app-mergeDebugResources-62:/values-hi/values-hi.xml",
+            "outputFile": "com.example.myapplication.app-mergeDebugResources-64:/values-hi/values-hi.xml",
             "map": [
                 {
                     "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/599abc734e9e237ad74db901062bb023/transformed/foundation-release/res/values-hi/values-hi.xml",

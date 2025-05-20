@@ -65,7 +65,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.compose.foundation:foundation:1.5.0")
 
-    implementation("androidx.media3:media3-exoplayer:1.2.1")
+    implementation("androidx.media3:media3-exoplayer:1.2.1") //비디오지원
     implementation("androidx.media3:media3-ui:1.2.1")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.30.1") //새로고침 컴포즈에서 제공
     implementation("com.google.accompanist:accompanist-placeholder-material:0.32.0") //shimmering
@@ -74,6 +74,9 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")      // 코루틴, Flow 지원
     kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+    implementation ("com.github.skydoves:landscapist-glide:1.4.7") //글라이드
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

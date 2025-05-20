@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.theme.community
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,18 +18,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import kotlinx.coroutines.launch
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.ui.platform.LocalContext
+import com.example.myapplication.ui.theme.dataclass.CommunityPost
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.File
 
 class PostingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PostingScreen(onBack = { finish() }, onPost = {
-                // 글쓰기 처리 로직
+                finish()
             })
         }
     }
@@ -41,8 +50,9 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
     val coroutineScope = rememberCoroutineScope()
     var showSheet by remember { mutableStateOf(false) }
     var selectedCategory by remember { mutableStateOf(R.string.buy_or_not) }
+    var title by remember { mutableStateOf(TextFieldValue("")) }
+    var subTitle by remember { mutableStateOf(TextFieldValue("")) }
 
-    // 바텀 시트
     if (showSheet) {
         ModalBottomSheet(
             onDismissRequest = { showSheet = false },
@@ -74,7 +84,9 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         }
     }
 
-    // 상단 바
+    val context = LocalContext.current
+    val genre = stringResource(id = selectedCategory)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -102,7 +114,19 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         )
 
         TextButton(
-            onClick = onPost,
+            onClick = {
+                val postData = CommunityPost(
+                    id = "프리렌 언제나오냥",
+                    pfp = null,
+                    intro = "오유경 1996년생 10월 8일 출신 호랑먀유~",
+                    title = title.text,
+                    post = subTitle.text,
+                    postPic = null,
+                    genre = genre // 이미 stringResource로 받아둠
+                )
+                savePostToJason(context = context, newPost = postData)
+                onPost()
+            },
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(end = 15.dp)
@@ -115,13 +139,11 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         }
     }
 
-    // 콘텐츠 영역
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 60.dp)
     ) {
-        // 카테고리 탭
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -149,9 +171,16 @@ fun PostingScreen(onBack: () -> Unit, onPost: () -> Unit) {
         Divider(color = Color.LightGray, thickness = 1.dp)
         Spacer(modifier = Modifier.height(10.dp))
 
-        InputField(selectedCategory)
+        InputField(
+            category = selectedCategory,
+            title = title,
+            onTitleChange = { title = it },
+            subtitle = subTitle,
+            onSubtitleChange = { subTitle = it }
+        )
     }
 }
+
 
 @Composable
 fun CategoryItem(title: String, description: String, onClick: () -> Unit) {
@@ -167,9 +196,13 @@ fun CategoryItem(title: String, description: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun InputField(category: Int) {
-    var title by remember { mutableStateOf(TextFieldValue("")) }
-    var subtitle by remember { mutableStateOf(TextFieldValue("")) }
+fun InputField(
+    category: Int,
+    title: TextFieldValue,
+    onTitleChange: (TextFieldValue) -> Unit,
+    subtitle: TextFieldValue,
+    onSubtitleChange: (TextFieldValue) -> Unit
+) {
     val placeholderMap = mapOf(
         R.string.buy_or_not to R.string.buy_or_not_post,
         R.string.item_review to R.string.review_post,
@@ -179,22 +212,73 @@ fun InputField(category: Int) {
     val subtitlePlaceHolder = placeholderMap[category] ?: R.string.buy_or_not_post
 
     Column(modifier = Modifier.padding(horizontal = 10.dp)) {
-        OutlinedTextField(
+        TextField(
             value = title,
-            onValueChange = { title = it },
-            placeholder = { Text(stringResource(R.string.make_the_title), fontSize = 20.sp, color = Color.LightGray) },
+            onValueChange = onTitleChange,
+            placeholder = {
+                Text(
+                    text = stringResource(R.string.make_the_title),
+                    fontSize = 22.sp,
+                    color = Color.LightGray
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp)
+                .padding(vertical = 8.dp),
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent
+            ),
+            textStyle = TextStyle(fontSize = 22.sp)
         )
 
-        OutlinedTextField(
+        Divider(
+            color = Color.LightGray,
+            thickness = 1.dp,
+            modifier = Modifier.padding(horizontal = 4.dp)
+        )
+
+        TextField(
             value = subtitle,
-            onValueChange = { subtitle = it },
-            placeholder = { Text(stringResource(id = subtitlePlaceHolder), fontSize = 15.sp, color = Color.LightGray) },
+            onValueChange = onSubtitleChange,
+            placeholder = {
+                Text(
+                    text = stringResource(id = subtitlePlaceHolder),
+                    fontSize = 18.sp,
+                    color = Color.LightGray
+                )
+            },
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp)
+                .fillMaxSize()
+                .padding(vertical = 8.dp),
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent
+            ),
+            textStyle = TextStyle(fontSize = 18.sp)
         )
     }
+}
+
+fun savePostToJason (context : Context, newPost : CommunityPost) {
+    val gson = Gson()
+    val file = File(context.filesDir, "community_post.json")
+
+    //기존 데이터 불러오기
+    val postList: MutableList<CommunityPost> = if (file.exists()) {
+        val json = file.readText()
+        val type = object : TypeToken<MutableList<CommunityPost>>() {}.type
+        gson.fromJson(json, type)
+    } else {
+        mutableListOf()
+    }
+
+    postList.add(newPost) //신 데이터 추가
+    file.writeText(gson.toJson(postList)) //덮어쓰기
 }

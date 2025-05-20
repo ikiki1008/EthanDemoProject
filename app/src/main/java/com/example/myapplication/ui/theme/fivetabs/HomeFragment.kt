@@ -66,11 +66,16 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlin.jvm.java
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.ui.theme.dataclass.TastePost
+import com.example.myapplication.ui.theme.home.HomeFeedViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
 import com.google.accompanist.placeholder.placeholder
+import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -107,7 +112,10 @@ class HomeFragment : Fragment() {
                             when (page) {
                                 0 -> {
                                     val feedScrollState = rememberLazyListState()
-                                    ShowMainFeed(feedScrollState)
+                                    val viewModel: HomeFeedViewModel = viewModel(
+                                        factory = ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+                                    )
+                                    ShowMainFeed(feedScrollState, viewModel)
                                 }
                                 1 -> {
                                     val tasteScrollState = rememberLazyListState()
@@ -125,52 +133,23 @@ class HomeFragment : Fragment() {
 }
 
 @Composable
-fun ShowMainFeed(scrollState : LazyListState) {
-    val context = LocalContext.current
-    val allPosts = remember { mutableStateListOf<CreatorPost>() }
-    var isLoading by remember { mutableStateOf(false) }
-    var endReached by remember { mutableStateOf(false) }
+fun ShowMainFeed(scrollState : LazyListState, viewModel: HomeFeedViewModel) {
     val listState = scrollState
     val coroutineScope = rememberCoroutineScope()
-    var showShimmering by remember { mutableStateOf(true) } //초기 상태에는 트루로 설정하여 효과를 보여준다
-    val allJsonPosts by produceState<List<CreatorPost>>(initialValue = emptyList()) {
-        val json = context.assets.open("sample_data.json")
-            .bufferedReader().use { it.readText() }
-        value = Gson().fromJson(json, object : TypeToken<List<CreatorPost>>() {}.type)
-    }
 
-    LaunchedEffect(Unit) {
-        delay(600)
-        showShimmering = false
-    }
+    val allPosts = viewModel.allPosts
+    val isLoading = viewModel.isLoading
+    val endReached = viewModel.endReached
+    val showShimmering = viewModel.showShimmering
 
-    //초기 로딩
-    LaunchedEffect(showShimmering) {
-        if (!showShimmering) {
-            isLoading = true
-            allPosts.addAll(allJsonPosts.take(4)) //json 파일에서 우선적으로 4개를 가져와 로드한다
-            isLoading = false
-        }
-    }
-
-    //스크롤 감지 후 추가 로딩
+    // 스크롤 감지 후 추가 로딩
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .map { it ?: 0 }
             .distinctUntilChanged()
-            .collect { lastVisibleItemIdex ->
-                if (!isLoading && !endReached && lastVisibleItemIdex >= allPosts.size-1) {
-                    coroutineScope.launch { //코루틴 스콥으로 다음 화면 런치 시작
-                        isLoading = true
-                        delay(500)
-                        val next = allJsonPosts.drop(allPosts.size).take(4)
-                        if (next.isEmpty()) {
-                            endReached = true
-                        } else {
-                            allPosts.addAll(next)
-                        }
-                        isLoading = false
-                    }
+            .collect { lastVisibleItemIndex ->
+                if (lastVisibleItemIndex >= allPosts.size - 1) {
+                    viewModel.loadNextItems()
                 }
             }
     }
@@ -194,7 +173,6 @@ fun ShowMainFeed(scrollState : LazyListState) {
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(15.dp)
             ) {
                 items(categoryData.size) { index ->
                     val title = stringResource(id = categoryData[index])
@@ -252,13 +230,9 @@ fun ImageListItem(creatorPost: CreatorPost) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = rememberAsyncImagePainter(creatorPost.pfImage),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .aspectRatio(1f)
-                        .clip(CircleShape),
+                GlideImage(
+                    imageModel = creatorPost.pfImage,
+                    modifier = Modifier.size(50.dp).aspectRatio(1f).clip(CircleShape),
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -280,9 +254,8 @@ fun ImageListItem(creatorPost: CreatorPost) {
             }
         }
 
-        Image(
-            painter = rememberAsyncImagePainter(creatorPost.postImage),
-            contentDescription = null,
+        GlideImage(
+            imageModel = creatorPost.postImage,
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f),
@@ -622,7 +595,7 @@ private fun loadMoreData(
         // 스켈레톤 추가
         repeat(8) { allItems.add(null) }
 
-        delay(800) // 로딩 시간 시뮬레이션
+        delay(300) // 로딩 시간 시뮬레이션
 
         // 스켈레톤 제거
         repeat(8) { allItems.removeLast() }

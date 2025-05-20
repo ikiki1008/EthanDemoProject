@@ -404,6 +404,7 @@ id fixed_height
 id fixed_width
 id forever
 id fragment_container_view_tag
+id glide_custom_view_target_tag
 id hide_graphics_layer_in_inspector_tag
 id hide_ime_id
 id hide_in_inspector_tag

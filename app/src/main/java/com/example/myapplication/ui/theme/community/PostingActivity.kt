@@ -1,7 +1,10 @@
 package com.example.myapplication.ui.theme.community
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -28,6 +31,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.platform.LocalContext
 import com.example.myapplication.ui.theme.dataclass.CommunityPost
+import com.example.myapplication.ui.theme.fivetabs.CommunityFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
@@ -52,6 +56,11 @@ class PostingActivity : ComponentActivity() {
                 onCategoryChange = { selectedCategory = it },
                 onBack = { finish() },
                 onPost = {
+                    if (title.text.isBlank() || subTitle.text.isBlank()) {
+                        Toast.makeText(context, "제목과 내용을 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
+                        return@PostingScreen
+                    }
+
                     val newPost = CommunityPost(
                         id = "프리렌 언제나오냥",
                         pfp = null,
@@ -64,9 +73,7 @@ class PostingActivity : ComponentActivity() {
 
                     savePostToJason(context, newPost)
 
-                    val intent = intent
-                    intent.putExtra("newPost", Gson().toJson(newPost))
-                    setResult(RESULT_OK, intent)
+                    setResult(Activity.RESULT_OK)
                     finish()
                 }
             )

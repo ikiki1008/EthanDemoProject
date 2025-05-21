@@ -31,6 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.myapplication.R
@@ -42,22 +44,20 @@ import com.google.gson.Gson
 import com.google.common.reflect.TypeToken
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
+import java.io.File
 
 class CommunityFragment : Fragment() {
-    private val viewModel: CommunityViewModel by activityViewModels()
-    private lateinit var postingLauncher: ActivityResultLauncher<Intent>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val viewModel: CommunityViewModel by viewModels()
 
-        postingLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == android.app.Activity.RESULT_OK) {
-                val json = result.data?.getStringExtra("newPost")
-                Log.d("받았니>????", "onCreate: " + json)
-                if (json != null) {
-                    val newPost = Gson().fromJson(json, CommunityPost::class.java)
-                    viewModel.addPost(newPost)
-                }
+    private val postingLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            // 새 글 작성 후 JSON 다시 읽어서 뷰모델에 세팅
+            lifecycleScope.launch {
+                val newPosts = loadPostsFromJason(requireContext())
+                viewModel.setPosts(newPosts)
             }
         }
     }
@@ -71,18 +71,26 @@ class CommunityFragment : Fragment() {
             setContent {
                 CommunityScreen(
                     viewModel = viewModel,
-                    onPostClick = {
-                        val intent = Intent(requireContext(), PostingActivity::class.java)
-                        postingLauncher.launch(intent)
-                    }
+                    onPostClick = { openPostingActivity() }
                 )
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("로그로그로그로그", "onResume: ")
+    // 버튼 클릭 등에서 글 작성 화면 열기
+    fun openPostingActivity() {
+        val intent = Intent(requireContext(), PostingActivity::class.java)
+        postingLauncher.launch(intent)
+    }
+
+    private suspend fun loadPostsFromJason(context: android.content.Context): List<CommunityPost> {
+        val file = File(context.filesDir, "community_post.json")
+        if (!file.exists()) return emptyList()
+
+        val json = file.readText()
+        val gson = Gson()
+        val type = object : TypeToken<List<CommunityPost>>() {}.type
+        return gson.fromJson(json, type)
     }
 }
 

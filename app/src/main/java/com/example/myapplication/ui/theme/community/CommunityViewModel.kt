@@ -48,6 +48,9 @@ class CommunityViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun setPosts(posts: List<CommunityPost>) {
+        _posts.value = posts
+    }
 
     fun addPost(newPost: CommunityPost) {
         _posts.value = _posts.value + newPost

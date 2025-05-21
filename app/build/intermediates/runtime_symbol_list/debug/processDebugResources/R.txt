@@ -286,11 +286,13 @@ int drawable pic2 0x7f070079
 int drawable pic3 0x7f07007a
 int drawable pic4 0x7f07007b
 int drawable present 0x7f07007c
+int drawable real_new_icon 0x7f070084
 int drawable rug 0x7f07007d
 int drawable shampoo 0x7f07007e
 int drawable sikmul 0x7f07007f
 int drawable sofa 0x7f070080
 int drawable table 0x7f070081
+int drawable transparent 0x7f070085
 int drawable week 0x7f070082
 int drawable winix 0x7f070083
 int font roboto_medium_numbers 0x7f080000
@@ -495,6 +497,8 @@ int layout notification_template_media 0x7f0b0019
 int layout notification_template_media_custom 0x7f0b001a
 int layout notification_template_part_chronometer 0x7f0b001b
 int layout notification_template_part_time 0x7f0b001c
+int mipmap ethan_launcher 0x7f0c0002
+int mipmap ethan_launcher_round 0x7f0c0003
 int mipmap ic_launcher 0x7f0c0000
 int mipmap ic_launcher_round 0x7f0c0001
 int plurals exo_controls_fastforward_by_amount_description 0x7f0d0000

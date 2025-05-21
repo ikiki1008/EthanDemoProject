@@ -51,6 +51,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -484,6 +487,7 @@ fun SquareItem(title: String, imageResId : Int, showShimmering: Boolean) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TasteFeed(scrollState: LazyListState) {
     val context = LocalContext.current
@@ -491,8 +495,16 @@ fun TasteFeed(scrollState: LazyListState) {
 
     val images = listOf(R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4)
     var selectedImg by remember { mutableStateOf(images.random()) }
-    val swipeRefresherState = rememberSwipeRefreshState(isRefreshing = false)
-    var isRefreshing by remember { mutableStateOf(false)}
+    var isRefreshing by remember { mutableStateOf(false) }
+
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = isRefreshing,
+        onRefresh = {
+            isRefreshing = true
+            selectedImg = images.random() // 스와이프 시 이미지 랜덤하게 배치
+            isRefreshing = false
+        }
+    )
 
     val allItems = remember { mutableStateListOf<TastePost?>() }
     var isLoading by remember { mutableStateOf(true) }
@@ -513,6 +525,7 @@ fun TasteFeed(scrollState: LazyListState) {
         }
     }
 
+    // 무한 스크롤 로직
     LaunchedEffect(scrollState) {
         snapshotFlow { !scrollState.canScrollForward }
             .distinctUntilChanged()
@@ -529,11 +542,11 @@ fun TasteFeed(scrollState: LazyListState) {
             }
     }
 
-    SwipeRefresh(state = swipeRefresherState, onRefresh = {
-        isRefreshing = true
-        selectedImg = images.random() //스와이프 시 이미지 랜덤하게 배치
-        isRefreshing = false
-    }) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pullRefresh(pullRefreshState)
+    ) {
         LazyColumn(
             state = scrollState,
             modifier = Modifier.fillMaxSize(),
@@ -574,7 +587,7 @@ fun TasteFeed(scrollState: LazyListState) {
                         .padding(vertical = 4.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    rowItems.forEachIndexed { itemIndex, post ->
+                    rowItems.forEachIndexed { _, post ->
                         Box(modifier = Modifier.weight(1f)) {
                             if (post != null) {
                                 TasteGridItem(post = post)
@@ -586,9 +599,15 @@ fun TasteFeed(scrollState: LazyListState) {
                 }
             }
         }
+
+        PullRefreshIndicator(
+            refreshing = isRefreshing,
+            state = pullRefreshState,
+            modifier = Modifier.align(Alignment.TopCenter),
+            contentColor = Color(0xFF00C7FC) //인디케이터 색상 변경
+        )
     }
 }
-
 // 추가 데이터 로딩을 위한 함수
 private fun loadMoreData(
     coroutineScope: CoroutineScope,

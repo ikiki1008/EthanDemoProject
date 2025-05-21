@@ -287,11 +287,13 @@ drawable pic2
 drawable pic3
 drawable pic4
 drawable present
+drawable real_new_icon
 drawable rug
 drawable shampoo
 drawable sikmul
 drawable sofa
 drawable table
+drawable transparent
 drawable week
 drawable winix
 font roboto_medium_numbers
@@ -496,6 +498,8 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+mipmap ethan_launcher
+mipmap ethan_launcher_round
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals exo_controls_fastforward_by_amount_description

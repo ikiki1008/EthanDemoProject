@@ -13,6 +13,7 @@ MERGED from [androidx.fragment:fragment-ktx:1.8.3] /Users/ohyugyeong/.gradle/cac
 MERGED from [androidx.fragment:fragment-testing:1.8.3] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/8651091ddfd4ac1635a88fcd51de287f/transformed/fragment-testing-1.8.3/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.room:room-runtime:2.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/ddf0908e3b44d593379edf2ac9466785/transformed/room-runtime-2.6.1/AndroidManifest.xml:17:1-31:12
 MERGED from [androidx.room:room-ktx:2.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f4adb56b5330144269521db3f3b84e53/transformed/room-ktx-2.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-splashscreen:1.0.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9b7c8acc62b28fa1c2ccfaa59cdfef2b/transformed/core-splashscreen-1.0.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.test:core:1.5.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/e7f2e2f2537174082e15cfcc01bff29d/transformed/core-1.5.0/AndroidManifest.xml:17:1-53:12
 MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/631f87fc9e62b094dca2a43562f0de8b/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/aee9cfbcb6ebcd05c9099513ff0755cf/transformed/sqlite-2.4.0/AndroidManifest.xml:17:1-22:12
@@ -162,11 +163,11 @@ MERGED from [com.github.bumptech.glide:gifdecoder:4.13.0] /Users/ohyugyeong/.gra
 	android:fullBackupContent
 		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:10:9-54
 	android:roundIcon
-		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:13:9-54
+		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:13:9-44
 	tools:targetApi
 		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:16:9-29
 	android:icon
-		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:11:9-43
+		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:11:9-39
 	android:allowBackup
 		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:8:9-35
 	android:theme
@@ -192,7 +193,7 @@ ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/An
 	android:exported
 		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:22:13-36
 	android:theme
-		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:24:13-55
+		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:24:13-51
 	android:name
 		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:21:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
@@ -227,6 +228,8 @@ MERGED from [androidx.room:room-runtime:2.6.1] /Users/ohyugyeong/.gradle/caches/
 MERGED from [androidx.room:room-runtime:2.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/ddf0908e3b44d593379edf2ac9466785/transformed/room-runtime-2.6.1/AndroidManifest.xml:21:5-44
 MERGED from [androidx.room:room-ktx:2.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f4adb56b5330144269521db3f3b84e53/transformed/room-ktx-2.6.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.room:room-ktx:2.6.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/f4adb56b5330144269521db3f3b84e53/transformed/room-ktx-2.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-splashscreen:1.0.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9b7c8acc62b28fa1c2ccfaa59cdfef2b/transformed/core-splashscreen-1.0.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core-splashscreen:1.0.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/9b7c8acc62b28fa1c2ccfaa59cdfef2b/transformed/core-splashscreen-1.0.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.test:core:1.5.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/e7f2e2f2537174082e15cfcc01bff29d/transformed/core-1.5.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.test:core:1.5.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/e7f2e2f2537174082e15cfcc01bff29d/transformed/core-1.5.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/631f87fc9e62b094dca2a43562f0de8b/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:20:5-44

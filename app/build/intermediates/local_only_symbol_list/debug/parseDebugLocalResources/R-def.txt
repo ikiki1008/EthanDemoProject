@@ -1,6 +1,7 @@
 R_DEF: Internal format may change without notice
 local
 color black
+color ohouse_color
 color purple_200
 color purple_500
 color purple_700
@@ -26,6 +27,7 @@ drawable ic_launcher_foreground
 drawable interior
 drawable lamp
 drawable luck
+drawable ohome
 drawable pet
 drawable pic1
 drawable pic2
@@ -115,6 +117,7 @@ string upload
 string userId
 string video
 string video_url
+style AppTheme.Splash
 style Theme.MyApplication
 xml backup_rules
 xml data_extraction_rules

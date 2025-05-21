@@ -41,12 +41,12 @@
 26        android:extractNativeLibs="false"
 27        android:fullBackupContent="@xml/backup_rules"
 27-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:10:9-54
-28        android:icon="@mipmap/ic_launcher"
-28-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:11:9-43
+28        android:icon="@drawable/ohome"
+28-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:11:9-39
 29        android:label="@string/app_name"
 29-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:12:9-41
-30        android:roundIcon="@mipmap/ic_launcher_round"
-30-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:13:9-54
+30        android:roundIcon="@drawable/ohome"
+30-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:13:9-44
 31        android:supportsRtl="true"
 31-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:14:9-35
 32        android:testOnly="true"
@@ -69,8 +69,8 @@
 39-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:22:13-36
 40            android:label="@string/app_name"
 40-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:23:13-45
-41            android:theme="@style/Theme.MyApplication" >
-41-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:24:13-55
+41            android:theme="@style/AppTheme.Splash" >
+41-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:24:13-51
 42            <intent-filter>
 42-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:25:13-29:29
 43                <action android:name="android.intent.action.MAIN" />

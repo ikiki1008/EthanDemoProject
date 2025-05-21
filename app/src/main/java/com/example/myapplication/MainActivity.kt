@@ -33,6 +33,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         Log.d("Activity", "MainScreen")
+
         setContent {
             MyApplicationTheme {
                 MainScreen(activity = this)

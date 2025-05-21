@@ -77,6 +77,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
     implementation ("com.github.skydoves:landscapist-glide:1.4.7") //글라이드
+    implementation ("androidx.core:core-splashscreen:1.0.1") //splash
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

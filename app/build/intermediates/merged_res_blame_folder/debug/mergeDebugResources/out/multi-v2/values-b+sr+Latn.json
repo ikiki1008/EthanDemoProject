@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.myapplication.app-mergeDebugResources-64:/values-b+sr+Latn/values-b+sr+Latn.xml",
+            "outputFile": "com.example.myapplication.app-mergeDebugResources-65:/values-b+sr+Latn/values-b+sr+Latn.xml",
             "map": [
                 {
                     "source": "/Users/ohyugyeong/.gradle/caches/8.11.1/transforms/b84dba35c26c5b8d1ff533c7cc4d9e18/transformed/ui-release/res/values-b+sr+Latn/values-b+sr+Latn.xml",

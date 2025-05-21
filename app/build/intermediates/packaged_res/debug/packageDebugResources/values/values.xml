@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="ohouse_color">#46B7F4</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_200">#03A9F4</color>
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
     <string name="adtitle1">[무료배송]모션 반자동 리프트업 통수납 커튼</string>
@@ -76,5 +77,12 @@
     <string name="userId">프리렌_언제나오냐</string>
     <string name="video">동영상</string>
     <string name="video_url">LFsS-9lT0Rk</string>
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/ohouse_color</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/transparent</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
     <style name="Theme.MyApplication" parent="android:Theme.Material.Light.NoActionBar"/>
 </resources>

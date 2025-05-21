@@ -31,9 +31,13 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.platform.LocalContext
 import com.example.myapplication.ui.theme.dataclass.CommunityPost
+import com.example.myapplication.ui.theme.dataclass.toEntity
 import com.example.myapplication.ui.theme.fivetabs.CommunityFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 
 class PostingActivity : ComponentActivity() {
@@ -63,7 +67,7 @@ class PostingActivity : ComponentActivity() {
 
                     val newPost = CommunityPost(
                         id = "프리렌 언제나오냥",
-                        pfp = null,
+                        pfp = "https://image2.1004gundam.com/item_images/goods/380/1376415975.JPG",
                         intro = "오유경 1996년생 10월 8일 출신 호랑먀유~",
                         title = title.text,
                         post = subTitle.text,
@@ -71,10 +75,16 @@ class PostingActivity : ComponentActivity() {
                         genre = genre
                     )
 
-                    savePostToJason(context, newPost)
+                    //db에 저장
+                    val db = CommunityDataBase.getDataBase(context)
+                    val dao = db.communityPostDao()
 
-                    setResult(Activity.RESULT_OK)
-                    finish()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dao.insertPost(newPost.toEntity())
+                        withContext(Dispatchers.Main) {
+                            finish()
+                        }
+                    }
                 }
             )
         }

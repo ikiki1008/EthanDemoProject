@@ -24,6 +24,14 @@
         "source": "com.example.myapplication.app-main-69:/drawable/delivery.png"
     },
     {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_shopping_cart.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/shopping_cart.png"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_menu.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/menu.png"
+    },
+    {
         "merged": "com.example.myapplication.app-debug-67:/drawable_sofa.jpg.flat",
         "source": "com.example.myapplication.app-main-69:/drawable/sofa.jpg"
     },
@@ -58,6 +66,10 @@
     {
         "merged": "com.example.myapplication.app-debug-67:/mipmap-xhdpi_ic_launcher_round.webp.flat",
         "source": "com.example.myapplication.app-main-69:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_table_icon.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/table_icon.png"
     },
     {
         "merged": "com.example.myapplication.app-debug-67:/drawable_winix.jpg.flat",
@@ -96,6 +108,10 @@
         "source": "com.example.myapplication.app-main-69:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_bookmark.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/bookmark.png"
+    },
+    {
         "merged": "com.example.myapplication.app-debug-67:/drawable_present.png.flat",
         "source": "com.example.myapplication.app-main-69:/drawable/present.png"
     },
@@ -128,6 +144,10 @@
         "source": "com.example.myapplication.app-main-69:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_home.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/home.png"
+    },
+    {
         "merged": "com.example.myapplication.app-debug-67:/drawable_chair.jpg.flat",
         "source": "com.example.myapplication.app-main-69:/drawable/chair.jpg"
     },
@@ -152,12 +172,20 @@
         "source": "com.example.myapplication.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_notification.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/notification.png"
+    },
+    {
         "merged": "com.example.myapplication.app-debug-67:/drawable_bookshelf.jpg.flat",
         "source": "com.example.myapplication.app-main-69:/drawable/bookshelf.jpg"
     },
     {
         "merged": "com.example.myapplication.app-debug-67:/mipmap-anydpi_ethan_launcher.xml.flat",
         "source": "com.example.myapplication.app-main-69:/mipmap-anydpi/ethan_launcher.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_chat.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/chat.png"
     },
     {
         "merged": "com.example.myapplication.app-debug-67:/drawable_ebul.jpg.flat",
@@ -170,6 +198,10 @@
     {
         "merged": "com.example.myapplication.app-debug-67:/xml_data_extraction_rules.xml.flat",
         "source": "com.example.myapplication.app-main-69:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_shopping_bag.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/shopping_bag.png"
     },
     {
         "merged": "com.example.myapplication.app-debug-67:/layout_fragment_home.xml.flat",
@@ -202,6 +234,10 @@
     {
         "merged": "com.example.myapplication.app-debug-67:/drawable_interior.png.flat",
         "source": "com.example.myapplication.app-main-69:/drawable/interior.png"
+    },
+    {
+        "merged": "com.example.myapplication.app-debug-67:/drawable_user.png.flat",
+        "source": "com.example.myapplication.app-main-69:/drawable/user.png"
     },
     {
         "merged": "com.example.myapplication.app-debug-67:/drawable_garage.png.flat",

@@ -3,7 +3,6 @@ package com.example.myapplication.ui.theme.fivetabs
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,9 +46,7 @@ import androidx.compose.ui.Alignment
 import com.example.myapplication.ui.theme.dataclass.CreatorPost
 import com.example.myapplication.ui.theme.dataclass.ProductItem
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
@@ -60,8 +57,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.myapplication.MainToDetailPage
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
@@ -69,11 +64,9 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlin.jvm.java
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.ui.theme.dataclass.TastePost
-import com.example.myapplication.ui.theme.fivetabs.loadMoreMainData
 import com.example.myapplication.ui.theme.home.HomeFeedViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
@@ -82,7 +75,6 @@ import com.google.accompanist.placeholder.placeholder
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -96,11 +88,14 @@ class HomeFragment : Fragment() {
         view.apply {
             setContent {
                 Box(modifier = Modifier.fillMaxSize()) {
-                    Column(modifier = Modifier.fillMaxSize()) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 2.dp) // 상단 여백을 2dp로 제한
+                    ) {
                         val tabs = listOf(R.string.tabs_1, R.string.tabs_2)
                         val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
                         val coroutineScope = rememberCoroutineScope()
-                        val scrollState = rememberLazyListState()
 
                         TabRow(selectedTabIndex = pagerState.currentPage) {
                             tabs.forEachIndexed { index, title ->
@@ -109,7 +104,12 @@ class HomeFragment : Fragment() {
                                     onClick = {
                                         coroutineScope.launch { pagerState.scrollToPage(index) }
                                     },
-                                    text = { Text(text = stringResource(id = title), color = Color.Black) }
+                                    text = {
+                                        Text(
+                                            text = stringResource(id = title),
+                                            color = Color.Black
+                                        )
+                                    }
                                 )
                             }
                         }
@@ -129,7 +129,6 @@ class HomeFragment : Fragment() {
                                 }
                             }
                         }
-
                     }
                 }
             }
@@ -137,6 +136,7 @@ class HomeFragment : Fragment() {
         return view
     }
 }
+
 
 @OptIn(FlowPreview::class)
 @Composable
@@ -222,7 +222,7 @@ fun ImageListItem(creatorPost: CreatorPost) {
         ProductItem(stringResource(R.string.book_shelf), R.drawable.bookshelf),
         ProductItem(stringResource(R.string.sofa), R.drawable.sofa),
         ProductItem(stringResource(R.string.lamp), R.drawable.lamp),
-        ProductItem(stringResource(R.string.table), R.drawable.table),
+        ProductItem(stringResource(R.string.table), R.drawable.table_icon),
         ProductItem(stringResource(R.string.mirror_drawers), R.drawable.drawers),
         ProductItem(stringResource(R.string.chair), R.drawable.chair),
         ProductItem(stringResource(R.string.rug), R.drawable.rug),

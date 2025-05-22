@@ -78,6 +78,7 @@ dependencies {
 
     implementation ("com.github.skydoves:landscapist-glide:1.4.7") //글라이드
     implementation ("androidx.core:core-splashscreen:1.0.1") //splash
+    implementation("androidx.compose.material3:material3:1.1.2")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -565,6 +565,7 @@ string category_feed_7
 string category_feed_8
 string category_feed_9
 string chair
+string challenge_channel
 string choose_the_tags
 string close_drawer
 string close_sheet
@@ -704,6 +705,7 @@ string navigation_menu
 string not_selected
 string picture
 string popular
+string popular_channels_now
 string popular_post_with_rank
 string post_off
 string post_on

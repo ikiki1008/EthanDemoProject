@@ -31,6 +31,7 @@
     <string name="category_feed_8">원하는날도착</string>
     <string name="category_feed_9">리모델링</string>
     <string name="chair">의자</string>
+    <string name="challenge_channel">챌랜지 채널</string>
     <string name="choose_the_tags">게시판 선택</string>
     <string name="come_look">평수별 인기 집들이 보러 오세요</string>
     <string name="community">커뮤니티</string>
@@ -51,6 +52,7 @@
     <string name="mirror_drawers">거울용 서랍장</string>
     <string name="picture">사진</string>
     <string name="popular">인기</string>
+    <string name="popular_channels_now">지금 뜨는 채널</string>
     <string name="popular_post_with_rank">인기 집들이 #%1$d</string>
     <string name="post_off">+</string>
     <string name="post_on">+ 글쓰기</string>

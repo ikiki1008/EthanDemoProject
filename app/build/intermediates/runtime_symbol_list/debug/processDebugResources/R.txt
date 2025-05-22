@@ -564,6 +564,7 @@ int string category_feed_7 0x7f0e001b
 int string category_feed_8 0x7f0e001c
 int string category_feed_9 0x7f0e001d
 int string chair 0x7f0e001e
+int string challenge_channel 0x7f0e00d0
 int string choose_the_tags 0x7f0e001f
 int string close_drawer 0x7f0e0020
 int string close_sheet 0x7f0e0021
@@ -703,6 +704,7 @@ int string navigation_menu 0x7f0e00a6
 int string not_selected 0x7f0e00a7
 int string picture 0x7f0e00a8
 int string popular 0x7f0e00a9
+int string popular_channels_now 0x7f0e00d1
 int string popular_post_with_rank 0x7f0e00aa
 int string post_off 0x7f0e00ab
 int string post_on 0x7f0e00ac

@@ -83,4 +83,7 @@
     <string name="userId">프리렌_언제나오냐</string>
     <string name="input_comment">댓글을 입력하세요</string>
     <string name="registration">등록</string>
+
+    <string name="challenge_channel">챌랜지 채널</string>
+    <string name="popular_channels_now">지금 뜨는 채널</string>
 </resources>

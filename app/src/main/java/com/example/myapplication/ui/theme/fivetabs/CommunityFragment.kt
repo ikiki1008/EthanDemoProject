@@ -1,6 +1,8 @@
 package com.example.myapplication.ui.theme.fivetabs
 
+import android.app.Application
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,8 +13,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.snapping.SnapPosition.Center
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.*
@@ -27,23 +31,35 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.room.util.TableInfo
 import coil.compose.AsyncImage
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.community.CommunityViewModel
 import com.example.myapplication.ui.theme.community.PostDetailActivity
 import com.example.myapplication.ui.theme.community.PostingActivity
 import com.example.myapplication.ui.theme.dataclass.CommunityPost
+import com.example.myapplication.ui.theme.home.HomeFeedViewModel
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.shimmer
+import com.google.accompanist.placeholder.placeholder
 import com.google.gson.Gson
 import com.google.common.reflect.TypeToken
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
+import okhttp3.Challenge
 import java.io.File
 
 class CommunityFragment : Fragment() {
@@ -121,6 +137,9 @@ fun CommunityScreen(
         R.string.community_tab_4
     )
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
+    val viewModel: CommunityViewModel = viewModel(
+        factory = ViewModelProvider.AndroidViewModelFactory(context.applicationContext as Application))
+    val showShimmering = viewModel.showShimmering
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -144,7 +163,7 @@ fun CommunityScreen(
             HorizontalPager(state = pagerState) { page ->
                 when (page) {
                     0 -> ItemFoundFeed(lazyListState)
-                    1 -> ChannelFeed()
+                    1 -> ChannelFeed(lazyListState,viewModel)
                     2 -> HouseVisitingFeed()
                     3 -> HousePicFeed()
                 }
@@ -364,9 +383,115 @@ fun RoundedTabButton(
 }
 
 @Composable
-fun ChannelFeed() {
-    Text("This is channel feed")
+fun ChannelFeed(scrollState: LazyListState, viewModel: CommunityViewModel) {
+    val challengeItems = remember { viewModel.loadChallengeDatas() }
+    val hashTagItems by viewModel.hashTagDatas.collectAsState()
+
+    LazyColumn(state = scrollState, modifier = Modifier.fillMaxSize()) {
+        item {
+            Text(
+                text = stringResource(R.string.challenge_channel),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                textAlign = TextAlign.Left,
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+        }
+
+        item {
+            LazyRow {
+                items(challengeItems.chunked(2)) { chunk ->
+                    Column(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .width(300.dp)
+                    ) {
+                        chunk.forEach { item ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                GlideImage(
+                                    imageModel = item.pic,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(70.dp)
+                                        .clip(RoundedCornerShape(5.dp))
+                                )
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Column {
+                                    Text(
+                                        text = item.title,
+                                        fontSize = 16.sp
+                                    )
+                                    Text(
+                                        text = item.subTitle,
+                                        fontSize = 12.sp,
+                                        color = Color.LightGray
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = stringResource(R.string.popular_channels_now),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                textAlign = TextAlign.Left,
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+        }
+
+        items(hashTagItems) { item ->
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = item.title,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = item.subText,
+                    fontSize = 12.sp,
+                    color = Color.LightGray
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    listOf(item.img1, item.img2, item.img3, item.img4).forEach { img ->
+                        GlideImage(
+                            imageModel = img,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(width = 85.dp, height = 140.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
+
+
 
 @Composable
 fun HouseVisitingFeed() {

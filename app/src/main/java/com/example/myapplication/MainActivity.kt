@@ -18,6 +18,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
@@ -76,31 +77,31 @@ fun MainScreen(activity: FragmentActivity) {
                 NavigationBarItem(
                     selected = selectedTabIndex == 0,
                     onClick = { selectedTabIndex = 0 },
-                    icon = { Icon(Icons.Filled.Home, contentDescription = null) },
+                    icon = { Icon(painter = painterResource(id = R.drawable.home), contentDescription = null) },
                     label = { Text(stringResource(R.string.tab1)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 1,
                     onClick = { selectedTabIndex = 1 },
-                    icon = { Icon(Icons.Filled.Notifications, contentDescription = null) },
+                    icon = { Icon(painter = painterResource(id = R.drawable.chat), contentDescription = null) },
                     label = {Text(stringResource(R.string.tab2)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 2,
                     onClick = { selectedTabIndex = 2 },
-                    icon = { Icon(Icons.Filled.ShoppingCart, contentDescription = null) },
+                    icon = { Icon(painter = painterResource(id = R.drawable.shopping_cart), contentDescription = null) },
                     label = { Text(stringResource(R.string.tab3)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 3,
                     onClick = { selectedTabIndex = 3 },
-                    icon = { Icon(Icons.Filled.Person, contentDescription = null) },
+                    icon = { Icon(painter = painterResource(id = R.drawable.table), contentDescription = null) },
                     label = { Text(stringResource(R.string.tab4)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 4,
                     onClick = { selectedTabIndex = 4 },
-                    icon = { Icon(Icons.Filled.Person, contentDescription = null) },
+                    icon = { Icon(painter = painterResource(id = R.drawable.user), contentDescription = null) },
                     label = { Text(stringResource(R.string.tab5)) }
                 )
             }

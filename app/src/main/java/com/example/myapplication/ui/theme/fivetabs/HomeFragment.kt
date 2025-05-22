@@ -203,7 +203,7 @@ fun ShowMainFeed(scrollState : LazyListState, viewModel: HomeFeedViewModel) {
 
         // 로딩 중일 때 스켈레톤
         if (isLoading) {
-            items(4) {
+            items(20) {
                 SkeletonItem()
             }
         }

@@ -51,14 +51,14 @@ class HomeFeedViewModel(application: Application) : AndroidViewModel(application
         isLoading = true
         viewModelScope.launch {
             //스켈레톤 먼저 추가
-            repeat(4) {
+            repeat(20) {
                 _allPosts.add(HomeMainFeedUiModel(null, isSkeleton = true))
             }
 
-            delay(500)
+            delay(300)
 
             //스켈레톤 제거
-            repeat(4) {
+            repeat(20) {
                 _allPosts.removeLast()
             }
 

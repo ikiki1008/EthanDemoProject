@@ -67,6 +67,7 @@ fun MainScreen(activity: FragmentActivity) {
     var isActive by remember { mutableStateOf(false) }
 
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             Row(
                 modifier = Modifier
@@ -121,7 +122,7 @@ fun MainScreen(activity: FragmentActivity) {
             }
         },
         bottomBar = {
-            NavigationBar {
+            NavigationBar (containerColor = Color.White) {
                 NavigationBarItem(
                     selected = selectedTabIndex == 0,
                     onClick = { selectedTabIndex = 0 },
@@ -155,7 +156,8 @@ fun MainScreen(activity: FragmentActivity) {
             }
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
+        Box(modifier = Modifier.
+        fillMaxSize().background(Color.White).padding(innerPadding)) {
             when (selectedTabIndex) {
                 0 -> FragmentContainer(supportFragmentManager, "home")
                 1 -> FragmentContainer(supportFragmentManager, "community")

@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
                         val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
                         val coroutineScope = rememberCoroutineScope()
 
-                        TabRow(selectedTabIndex = pagerState.currentPage) {
+                        TabRow(selectedTabIndex = pagerState.currentPage, containerColor = Color.White) {
                             tabs.forEachIndexed { index, title ->
                                 Tab(
                                     selected = pagerState.currentPage == index,

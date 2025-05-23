@@ -20,6 +20,7 @@ import androidx.compose.foundation.gestures.snapping.SnapPosition.Center
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
@@ -36,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
@@ -143,7 +145,7 @@ fun CommunityScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
-            TabRow(selectedTabIndex = pagerState.currentPage) {
+            TabRow(selectedTabIndex = pagerState.currentPage, containerColor = Color.White) {
                 tabs.forEachIndexed { index, titleResId ->
                     Tab(
                         selected = pagerState.currentPage == index,
@@ -163,7 +165,7 @@ fun CommunityScreen(
             HorizontalPager(state = pagerState) { page ->
                 when (page) {
                     0 -> ItemFoundFeed(lazyListState)
-                    1 -> ChannelFeed(lazyListState,viewModel)
+                    1 -> ChannelFeed(viewModel)
                     2 -> HouseVisitingFeed()
                     3 -> HousePicFeed()
                 }
@@ -359,9 +361,11 @@ fun RoundedTabButton(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (isSelected) Color(0xFF0D1A45) else Color.White
-    val contentColor = if (isSelected) Color.White else Color.Black
-    val borderColor = if (isSelected) Color(0xFF0D1A45) else Color.LightGray
+    val selectedBackgroundColor = colorResource(id=R.color.ohouse_color)
+
+    val backgroundColor = if (isSelected) selectedBackgroundColor else Color.LightGray
+    val contentColor = if (isSelected) Color.White else Color.White
+    val borderColor = if (isSelected) Color.Transparent else Color.Transparent
 
     Button(
         onClick = onClick,
@@ -383,9 +387,10 @@ fun RoundedTabButton(
 }
 
 @Composable
-fun ChannelFeed(scrollState: LazyListState, viewModel: CommunityViewModel) {
+fun ChannelFeed(viewModel: CommunityViewModel) {
     val challengeItems = remember { viewModel.loadChallengeDatas() }
     val hashTagItems by viewModel.hashTagDatas.collectAsState()
+    val scrollState = rememberLazyListState()
 
     LazyColumn(state = scrollState, modifier = Modifier.fillMaxSize()) {
         item {

@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme.dataclass
+package com.example.myapplication.dataclass
 
 import androidx.compose.ui.res.stringResource
 import androidx.room.Entity

@@ -1,7 +1,7 @@
 package com.example.myapplication.ui.theme.home
 
 import android.content.Context
-import com.example.myapplication.ui.theme.dataclass.CreatorPost
+import com.example.myapplication.domain.CreatorPost
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 

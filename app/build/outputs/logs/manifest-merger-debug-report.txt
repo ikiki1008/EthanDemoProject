@@ -176,10 +176,10 @@ MERGED from [com.github.bumptech.glide:gifdecoder:4.13.0] /Users/ohyugyeong/.gra
 		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:16:9-69
 	android:dataExtractionRules
 		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:9:9-65
-activity#com.example.myapplication.MainToDetailPage
-ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:9-54
+activity#com.example.myapplication.ui.theme.home.MainToDetailPage
+ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:9-68
 	android:name
-		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:19-51
+		ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:19-65
 activity#com.example.myapplication.ui.theme.community.PostingActivity
 ADDED from /Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:19:9-72
 	android:name

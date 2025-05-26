@@ -1,9 +1,9 @@
-package com.example.myapplication.ui.theme.community
+package com.example.myapplication.dataclass
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.myapplication.ui.theme.dataclass.CommunityPost
+import com.example.myapplication.dataclass.CommunityPostEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

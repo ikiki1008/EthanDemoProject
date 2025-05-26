@@ -1,9 +1,11 @@
-package com.example.myapplication.ui.theme.community
+package com.example.myapplication.dataclass
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.myapplication.dataclass.CommunityPostDao
+import com.example.myapplication.dataclass.CommunityPostEntity
 
 @Database(entities = [CommunityPostEntity::class], version = 1)
 abstract class CommunityDataBase : RoomDatabase() {

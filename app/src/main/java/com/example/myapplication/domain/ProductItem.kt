@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme.dataclass
+package com.example.myapplication.domain
 
 data class ProductItem(
     val title : String,

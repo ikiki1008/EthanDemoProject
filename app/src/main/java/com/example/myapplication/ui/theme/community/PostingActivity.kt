@@ -1,8 +1,6 @@
 package com.example.myapplication.ui.theme.community
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -10,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -29,10 +26,9 @@ import com.example.myapplication.R
 import kotlinx.coroutines.launch
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.ui.platform.LocalContext
-import com.example.myapplication.ui.theme.dataclass.CommunityPost
-import com.example.myapplication.ui.theme.dataclass.toEntity
-import com.example.myapplication.ui.theme.fivetabs.CommunityFragment
+import com.example.myapplication.dataclass.CommunityDataBase
+import com.example.myapplication.domain.CommunityPost
+import com.example.myapplication.domain.toEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope

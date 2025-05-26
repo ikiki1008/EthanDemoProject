@@ -54,9 +54,9 @@
 33        android:testOnly="true"
 34        android:theme="@style/Theme.MyApplication" >
 34-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:15:9-51
-35        <activity android:name="com.example.myapplication.MainToDetailPage" />
-35-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:9-54
-35-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:19-51
+35        <activity android:name="com.example.myapplication.ui.theme.home.MainToDetailPage" />
+35-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:9-68
+35-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:18:19-65
 36        <activity android:name="com.example.myapplication.ui.theme.community.PostingActivity" />
 36-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:19:9-72
 36-->/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/src/main/AndroidManifest.xml:19:19-69

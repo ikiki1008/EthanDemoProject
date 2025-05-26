@@ -1,10 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.ui.theme.home
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Text
-import androidx.compose.runtime.State
-import androidx.activity.ComponentActivity
 
 class MainToDetailPage : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +13,7 @@ class MainToDetailPage : ComponentActivity(){
         val imageId = intent.getIntExtra("imageId", -1)
 
         setContent {
-            Text("clicked item is ...  $title" )
+            Text("clicked item is ...  $title")
         }
     }
 }

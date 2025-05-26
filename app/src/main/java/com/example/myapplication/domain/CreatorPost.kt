@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme.dataclass
+package com.example.myapplication.domain
 
 data class CreatorPost(
     val pfImage : String,

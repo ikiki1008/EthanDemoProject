@@ -1,13 +1,13 @@
 package com.example.myapplication.ui.theme.community
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.ui.theme.dataclass.CommunityPost
+import com.example.myapplication.dataclass.CommunityDataBase
+import com.example.myapplication.domain.CommunityPost
+import com.example.myapplication.dataclass.CommunityPostEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
-import org.json.JSONObject
 
 //카테고리 이미지 데이터 모델
 data class CategoryImage(val pic: String, val title: String, val subTitle: String)

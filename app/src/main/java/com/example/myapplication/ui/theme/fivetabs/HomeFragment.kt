@@ -43,8 +43,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.ui.Alignment
-import com.example.myapplication.ui.theme.dataclass.CreatorPost
-import com.example.myapplication.ui.theme.dataclass.ProductItem
+import com.example.myapplication.domain.CreatorPost
+import com.example.myapplication.domain.ProductItem
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
@@ -56,7 +56,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.myapplication.MainToDetailPage
+import com.example.myapplication.ui.theme.home.MainToDetailPage
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
@@ -66,7 +66,7 @@ import kotlin.jvm.java
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.ui.theme.dataclass.TastePost
+import com.example.myapplication.domain.TastePost
 import com.example.myapplication.ui.theme.home.HomeFeedViewModel
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder

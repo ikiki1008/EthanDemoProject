@@ -1,11 +1,9 @@
-package com.example.myapplication.ui.theme.community
+package com.example.myapplication.dataclass
 
-import androidx.compose.ui.input.pointer.PointerId
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.myapplication.ui.theme.dataclass.CommentEntity
 
 @Dao
 interface CommentDao {

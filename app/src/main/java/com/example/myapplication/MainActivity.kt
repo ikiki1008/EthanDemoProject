@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import MainViewModel
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
@@ -45,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.presentation.MainViewModel
 
 class MainActivity : FragmentActivity() {
 

@@ -1,6 +1,6 @@
 package com.example.myapplication.ui.theme.home
 
-import com.example.myapplication.ui.theme.dataclass.CreatorPost
+import com.example.myapplication.domain.CreatorPost
 
 data class HomeMainFeedUiModel(
     val post: CreatorPost?,

@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme.dataclass
+package com.example.myapplication.dataclass
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

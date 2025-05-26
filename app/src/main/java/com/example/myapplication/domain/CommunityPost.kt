@@ -1,6 +1,6 @@
-package com.example.myapplication.ui.theme.dataclass
+package com.example.myapplication.domain
 
-import com.example.myapplication.ui.theme.community.CommunityPostEntity
+import com.example.myapplication.dataclass.CommunityPostEntity
 
 data class CommunityPost(
     val id : String,

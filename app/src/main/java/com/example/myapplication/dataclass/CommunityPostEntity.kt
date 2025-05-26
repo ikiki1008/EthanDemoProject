@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme.community
+package com.example.myapplication.dataclass
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

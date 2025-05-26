@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import MainViewModel
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
@@ -8,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -42,6 +44,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : FragmentActivity() {
 
@@ -64,7 +67,13 @@ fun MainScreen(activity: FragmentActivity) {
     val supportFragmentManager = activity.supportFragmentManager
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var searchText by remember { mutableStateOf("") }
-    var isActive by remember { mutableStateOf(false) }
+
+    val viewModel: MainViewModel = viewModel()
+    val helloText by viewModel.helloText
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchData()
+    }
 
     Scaffold(
         containerColor = Color.White,
@@ -89,14 +98,13 @@ fun MainScreen(activity: FragmentActivity) {
                     )
                 }
 
-                Spacer(modifier = Modifier.width(10.dp)) // 메뉴와 서치바 사이 간격
+                Spacer(modifier = Modifier.width(10.dp))
 
-                // 서치바
                 OutlinedTextField(
                     value = searchText,
                     onValueChange = { searchText = it },
                     modifier = Modifier
-                        .weight(1f) // 남은 공간 모두 사용
+                        .weight(1f)
                         .clip(RoundedCornerShape(8.dp))
                         .background(Color.White),
                     placeholder = {
@@ -122,7 +130,7 @@ fun MainScreen(activity: FragmentActivity) {
             }
         },
         bottomBar = {
-            NavigationBar (containerColor = Color.White) {
+            NavigationBar(containerColor = Color.White) {
                 NavigationBarItem(
                     selected = selectedTabIndex == 0,
                     onClick = { selectedTabIndex = 0 },
@@ -133,7 +141,7 @@ fun MainScreen(activity: FragmentActivity) {
                     selected = selectedTabIndex == 1,
                     onClick = { selectedTabIndex = 1 },
                     icon = { Icon(painter = painterResource(id = R.drawable.chat), contentDescription = null, modifier = Modifier.size(20.dp)) },
-                    label = {Text(stringResource(R.string.tab2)) }
+                    label = { Text(stringResource(R.string.tab2)) }
                 )
                 NavigationBarItem(
                     selected = selectedTabIndex == 2,
@@ -156,8 +164,20 @@ fun MainScreen(activity: FragmentActivity) {
             }
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.
-        fillMaxSize().background(Color.White).padding(innerPadding)) {
+        // ✅ BoxScope로 감싸야 align 사용 가능
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(innerPadding)
+        ) {
+            Column {
+                Text(
+                    text = helloText,
+                    modifier = Modifier.padding(16.dp),
+                    color = Color.Black)
+            }
+
             when (selectedTabIndex) {
                 0 -> FragmentContainer(supportFragmentManager, "home")
                 1 -> FragmentContainer(supportFragmentManager, "community")
@@ -168,6 +188,7 @@ fun MainScreen(activity: FragmentActivity) {
         }
     }
 }
+
 
 @Composable
 fun FragmentContainer(

@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.theme.fivetabs
 
+import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
@@ -32,8 +33,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -50,17 +54,19 @@ import java.io.File
 
 class CommunityFragment : Fragment() {
 
-    private val viewModel: CommunityViewModel by viewModels()
+    private val viewModel: CommunityViewModel by viewModels {
+        object : ViewModelProvider.AndroidViewModelFactory(requireActivity().application) {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return CommunityViewModel(requireActivity().application) as T
+            }
+        }
+    }
 
     private val postingLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == android.app.Activity.RESULT_OK) {
-            // 새 글 작성 후 JSON 다시 읽어서 뷰모델에 세팅
-            lifecycleScope.launch {
-                val newPosts = loadPostsFromJason(requireContext())
-                viewModel.setPosts(newPosts)
-            }
+        if (result.resultCode == Activity.RESULT_OK) {
+            viewModel.reloadPostsFromFile()
         }
     }
 
@@ -69,7 +75,7 @@ class CommunityFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return ComposeView(requireContext()).apply {
+        return ComposeView(inflater.context).apply {
             setContent {
                 CommunityScreen(
                     viewModel = viewModel,
@@ -79,32 +85,21 @@ class CommunityFragment : Fragment() {
         }
     }
 
-    // 버튼 클릭 등에서 글 작성 화면 열기
-    fun openPostingActivity() {
+    private fun openPostingActivity() {
         val intent = Intent(requireContext(), PostingActivity::class.java)
         postingLauncher.launch(intent)
     }
-
-    private suspend fun loadPostsFromJason(context: android.content.Context): List<CommunityPost> {
-        val file = File(context.filesDir, "community_post.json")
-        if (!file.exists()) return emptyList()
-
-        val json = file.readText()
-        val gson = Gson()
-        val type = object : TypeToken<List<CommunityPost>>() {}.type
-        return gson.fromJson(json, type)
-    }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun CommunityScreen(
-    viewModel: CommunityViewModel = viewModel(),
+    viewModel: CommunityViewModel,
     onPostClick: () -> Unit
 ) {
     val lazyListState = rememberLazyListState()
     val posts by viewModel.posts.collectAsState()
-
     val isAtTop by remember {
         derivedStateOf {
             lazyListState.firstVisibleItemIndex == 0 && lazyListState.firstVisibleItemScrollOffset == 0
@@ -113,7 +108,6 @@ fun CommunityScreen(
 
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(false) }
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     val tabs = listOf(
@@ -123,9 +117,6 @@ fun CommunityScreen(
         R.string.community_tab_4
     )
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { tabs.size })
-    val viewModel: CommunityViewModel = viewModel(
-        factory = ViewModelProvider.AndroidViewModelFactory(context.applicationContext as Application))
-    val showShimmering = viewModel.showShimmering
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -133,9 +124,7 @@ fun CommunityScreen(
                 tabs.forEachIndexed { index, titleResId ->
                     Tab(
                         selected = pagerState.currentPage == index,
-                        onClick = {
-                            coroutineScope.launch { pagerState.scrollToPage(index) }
-                        },
+                        onClick = { coroutineScope.launch { pagerState.scrollToPage(index) } },
                         text = {
                             Text(
                                 text = stringResource(id = titleResId),
@@ -148,7 +137,7 @@ fun CommunityScreen(
 
             HorizontalPager(state = pagerState) { page ->
                 when (page) {
-                    0 -> ItemFoundFeed(lazyListState)
+                    0 -> ItemFoundFeed(viewModel, lazyListState)
                     1 -> ChannelFeed(viewModel)
                     2 -> HouseVisitingFeed()
                     3 -> HousePicFeed()
@@ -212,8 +201,8 @@ fun CommunityScreen(
 
 @Composable
 fun ItemFoundFeed(
-    lazyListState: LazyListState,
-    viewModel: CommunityViewModel = viewModel()
+    viewModel: CommunityViewModel,
+    lazyListState: LazyListState
 ) {
     val stringIds = listOf(
         R.string.all,
@@ -224,8 +213,6 @@ fun ItemFoundFeed(
     )
     var selectedIndex by remember { mutableStateOf(0) }
     val context = LocalContext.current
-
-    // ViewModel에서 posts 상태 받아오기
     val allPosts by viewModel.posts.collectAsState()
 
     val filteredPosts = when (selectedIndex) {
@@ -345,7 +332,7 @@ fun RoundedTabButton(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val selectedBackgroundColor = colorResource(id=R.color.ohouse_color)
+    val selectedBackgroundColor = colorResource(id = R.color.ohouse_color)
 
     val backgroundColor = if (isSelected) selectedBackgroundColor else Color.LightGray
     val contentColor = if (isSelected) Color.White else Color.White
@@ -479,7 +466,6 @@ fun ChannelFeed(viewModel: CommunityViewModel) {
         }
     }
 }
-
 
 
 @Composable

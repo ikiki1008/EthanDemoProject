@@ -608,43 +608,12 @@ fun TasteFeed(scrollState: LazyListState) {
         )
     }
 }
+
 // 추가 데이터 로딩을 위한 함수
 private fun loadMoreData(
     coroutineScope: CoroutineScope,
     allItems: SnapshotStateList<TastePost?>,
     allJsonPosts: List<TastePost>,
-    onLoadingChange: (Boolean) -> Unit,
-    onEndReached: (Boolean) -> Unit
-) {
-    coroutineScope.launch {
-        onLoadingChange(true)
-
-        // 스켈레톤 추가
-        repeat(8) { allItems.add(null) }
-
-        delay(300) // 로딩 시간 시뮬레이션
-
-        // 스켈레톤 제거
-        repeat(8) { allItems.removeLast() }
-
-        // 다음 데이터 추가
-        val currentSize = allItems.count { it != null }
-        val nextItems = allJsonPosts.drop(currentSize).take(8)
-
-        if (nextItems.isEmpty()) {
-            onEndReached(true)
-        } else {
-            allItems.addAll(nextItems)
-        }
-
-        onLoadingChange(false)
-    }
-}
-
-private fun loadMoreMainData(
-    coroutineScope: CoroutineScope,
-    allItems: SnapshotStateList<CreatorPost?>,
-    allJsonPosts: List<CreatorPost>,
     onLoadingChange: (Boolean) -> Unit,
     onEndReached: (Boolean) -> Unit
 ) {

@@ -55,7 +55,10 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
+import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PostDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,14 +71,9 @@ class PostDetailActivity : ComponentActivity() {
         val postPic = intent.getStringExtra("postPic") ?: ""
         val menu = intent.getStringExtra("postGenre") ?: ""
 
-        val commentViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        )
-            .get(CommentViewModel::class.java)
-
         setContent {
             MyApplicationTheme {
+                val commentViewModel : CommentViewModel = hiltViewModel()
                 Column(
                     modifier = Modifier
                         .fillMaxSize()

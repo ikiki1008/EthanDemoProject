@@ -12,12 +12,14 @@ import com.example.myapplication.dataclass.CommunityPostEntity
 import com.example.myapplication.repository.CommunityRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.io.File
+import javax.inject.Inject
 
 //카테고리 이미지 데이터 모델
 data class CategoryImage(val pic: String, val title: String, val subTitle: String)
@@ -40,7 +42,10 @@ data class HashTagData(
     val img4 : String
 )
 
-class CommunityViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class CommunityViewModel @Inject constructor(
+    application: Application
+) : AndroidViewModel(application) {
 
     private val dao = CommunityDataBase.getDataBase(application).communityPostDao()
     private val repository = CommunityRepository()

@@ -7,10 +7,12 @@ animator fragment_fade_exit
 animator fragment_open_enter
 animator fragment_open_exit
 array exo_controls_playback_speeds
+attr action
 attr ad_marker_color
 attr ad_marker_width
 attr alpha
 attr animation_enabled
+attr argType
 attr artwork_display_mode
 attr auto_show
 attr backgroundTint
@@ -18,7 +20,12 @@ attr bar_gravity
 attr bar_height
 attr buffered_color
 attr controller_layout_id
+attr data
+attr dataPattern
 attr default_artwork
+attr destination
+attr enterAnim
+attr exitAnim
 attr fastScrollEnabled
 attr fastScrollHorizontalThumbDrawable
 attr fastScrollHorizontalTrackDrawable
@@ -35,21 +42,33 @@ attr fontProviderSystemFontFamily
 attr fontStyle
 attr fontVariationSettings
 attr fontWeight
+attr graph
 attr hide_during_ads
 attr hide_on_touch
 attr keep_content_on_player_reset
 attr lStar
+attr launchSingleTop
 attr layoutManager
+attr mimeType
+attr navGraph
 attr nestedScrollViewStyle
+attr nullable
 attr played_ad_marker_color
 attr played_color
 attr player_layout_id
+attr popEnterAnim
+attr popExitAnim
+attr popUpTo
+attr popUpToInclusive
+attr popUpToSaveState
 attr postSplashScreenTheme
 attr queryPatterns
 attr recyclerViewStyle
 attr repeat_toggle_modes
 attr resize_mode
+attr restoreState
 attr reverseLayout
+attr route
 attr scrubber_color
 attr scrubber_disabled_size
 attr scrubber_dragged_size
@@ -69,11 +88,14 @@ attr shutter_background_color
 attr spanCount
 attr splashScreenIconSize
 attr stackFromEnd
+attr startDestination
 attr surface_type
+attr targetPackage
 attr time_bar_min_update_interval
 attr touch_target_height
 attr ttcIndex
 attr unplayed_color
+attr uri
 attr use_artwork
 attr use_controller
 attr windowSplashScreenAnimatedIcon
@@ -448,6 +470,7 @@ id line1
 id line3
 id media_actions
 id media_controller_compat_view_tag
+id nav_controller_view_tag
 id never
 id none
 id normal
@@ -808,6 +831,7 @@ style WhiteBackgroundDialogTheme
 style WhiteBackgroundTheme
 style Widget_Compat_NotificationActionContainer
 style Widget_Compat_NotificationActionText
+styleable ActivityNavigator android_name action data dataPattern targetPackage
 styleable AnimatedStateListDrawableCompat android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable AnimatedStateListDrawableItem android_id android_drawable
 styleable AnimatedStateListDrawableTransition android_drawable android_toId android_fromId android_reversible
@@ -822,6 +846,13 @@ styleable FragmentContainerView android_name android_tag
 styleable GradientColor android_startColor android_endColor android_type android_centerX android_centerY android_gradientRadius android_tileMode android_centerColor android_startX android_startY android_endX android_endY
 styleable GradientColorItem android_color android_offset
 styleable LegacyPlayerControlView ad_marker_color ad_marker_width bar_gravity bar_height buffered_color controller_layout_id played_ad_marker_color played_color repeat_toggle_modes scrubber_color scrubber_disabled_size scrubber_dragged_size scrubber_drawable scrubber_enabled_size show_fastforward_button show_next_button show_previous_button show_rewind_button show_shuffle_button show_timeout time_bar_min_update_interval touch_target_height unplayed_color
+styleable NavAction android_id destination enterAnim exitAnim launchSingleTop popEnterAnim popExitAnim popUpTo popUpToInclusive popUpToSaveState restoreState
+styleable NavArgument android_name android_defaultValue argType nullable
+styleable NavDeepLink android_autoVerify action mimeType uri
+styleable NavGraphNavigator startDestination
+styleable NavHost navGraph
+styleable NavInclude graph
+styleable Navigator android_label android_id route
 styleable PlayerControlView ad_marker_color ad_marker_width animation_enabled bar_gravity bar_height buffered_color controller_layout_id played_ad_marker_color played_color repeat_toggle_modes scrubber_color scrubber_disabled_size scrubber_dragged_size scrubber_drawable scrubber_enabled_size show_fastforward_button show_next_button show_previous_button show_rewind_button show_shuffle_button show_subtitle_button show_timeout show_vr_button time_bar_min_update_interval touch_target_height unplayed_color
 styleable PlayerView ad_marker_color ad_marker_width animation_enabled artwork_display_mode auto_show bar_gravity bar_height buffered_color controller_layout_id default_artwork hide_during_ads hide_on_touch keep_content_on_player_reset played_ad_marker_color played_color player_layout_id repeat_toggle_modes resize_mode scrubber_color scrubber_disabled_size scrubber_dragged_size scrubber_drawable scrubber_enabled_size show_buffering show_shuffle_button show_subtitle_button show_timeout show_vr_button shutter_background_color surface_type time_bar_min_update_interval touch_target_height unplayed_color use_artwork use_controller
 styleable RecyclerView android_orientation android_clipToPadding android_descendantFocusability fastScrollEnabled fastScrollHorizontalThumbDrawable fastScrollHorizontalTrackDrawable fastScrollVerticalThumbDrawable fastScrollVerticalTrackDrawable layoutManager reverseLayout spanCount stackFromEnd

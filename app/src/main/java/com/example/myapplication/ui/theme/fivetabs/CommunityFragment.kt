@@ -37,6 +37,7 @@ import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -49,18 +50,14 @@ import com.example.myapplication.domain.CommunityPost
 import com.google.gson.Gson
 import com.google.common.reflect.TypeToken
 import com.skydoves.landscapist.glide.GlideImage
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 
+@AndroidEntryPoint
 class CommunityFragment : Fragment() {
 
-    private val viewModel: CommunityViewModel by viewModels {
-        object : ViewModelProvider.AndroidViewModelFactory(requireActivity().application) {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return CommunityViewModel(requireActivity().application) as T
-            }
-        }
-    }
+    private  lateinit var viewModel : CommunityViewModel
 
     private val postingLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -68,6 +65,11 @@ class CommunityFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             viewModel.reloadPostsFromFile()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[CommunityViewModel::class.java]
     }
 
     override fun onCreateView(

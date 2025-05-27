@@ -31,11 +31,13 @@ import com.example.myapplication.domain.CommunityPost
 import com.example.myapplication.domain.toEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 
+@AndroidEntryPoint
 class PostingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -302,21 +304,4 @@ fun InputField(
             textStyle = TextStyle(fontSize = 18.sp)
         )
     }
-}
-
-fun savePostToJason (context : Context, newPost : CommunityPost) {
-    val gson = Gson()
-    val file = File(context.filesDir, "community_post.json")
-
-    //기존 데이터 불러오기
-    val postList: MutableList<CommunityPost> = if (file.exists()) {
-        val json = file.readText()
-        val type = object : TypeToken<MutableList<CommunityPost>>() {}.type
-        gson.fromJson(json, type)
-    } else {
-        mutableListOf()
-    }
-
-    postList.add(newPost) //신 데이터 추가
-    file.writeText(gson.toJson(postList)) //덮어쓰기
 }

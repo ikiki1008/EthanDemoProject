@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.compose.material3.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ShoppingFragment : Fragment() {
     override fun onCreateView(
 

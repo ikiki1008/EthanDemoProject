@@ -73,10 +73,12 @@ import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
 import com.google.accompanist.placeholder.placeholder
 import com.skydoves.landscapist.glide.GlideImage
+import dagger.hilt.android.AndroidEntryPoint
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 
-
+@AndroidEntryPoint
 @OptIn(ExperimentalMaterial3Api::class)
 class HomeFragment : Fragment() {
     override fun onCreateView(
@@ -118,9 +120,7 @@ class HomeFragment : Fragment() {
                             when (page) {
                                 0 -> {
                                     val feedScrollState = rememberLazyListState()
-                                    val viewModel: HomeFeedViewModel = viewModel(
-                                        factory = ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-                                    )
+                                    val viewModel: HomeFeedViewModel = hiltViewModel()
                                     ShowMainFeed(feedScrollState, viewModel)
                                 }
                                 1 -> {

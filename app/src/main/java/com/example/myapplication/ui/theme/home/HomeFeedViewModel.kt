@@ -10,10 +10,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.domain.CreatorPost
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeFeedViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class HomeFeedViewModel @Inject constructor(
+    application: Application // 또는 repository 등 DI 필요한 의존성들
+) : AndroidViewModel(application) {
 
     private val _allPosts = mutableStateListOf<HomeMainFeedUiModel>()
     val allPosts: List<HomeMainFeedUiModel> get() = _allPosts

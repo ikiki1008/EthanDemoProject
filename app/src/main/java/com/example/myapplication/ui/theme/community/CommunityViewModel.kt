@@ -63,27 +63,37 @@ class CommunityViewModel @Inject constructor(
     val showShimmering = mutableStateOf(true)
 
     init {
-        viewModelScope.launch { observeCombinedPosts() }
-        viewModelScope.launch { loadCategoryImages() }
-        viewModelScope.launch { loadHashTagDatas() }
-    }
+        viewModelScope.launch {
+            showShimmering.value = true
+            try {
+                val assetPosts = repository.loadAssetsPosts(context)
+                val dbPostsFlow = dao.getAllPosts()
+                val categoryImages = repository.loadCategoryImages(context)
+                val hashTagData = repository.loadHashTagDatas(context)
 
-    private suspend fun observeCombinedPosts() {
-        val assetPosts = repository.loadAssetsPosts(context)
-        dao.getAllPosts().collectLatest { dbEntities ->
-            val dbPosts = dbEntities.map { it.toCommunityPost() }
-            _posts.value = assetPosts + dbPosts
+                launch { observeDbAndAssetPosts(assetPosts, dbPostsFlow) }
+                _categoryImages.value = categoryImages
+                _hashTagDatas.value = hashTagData
+
+                kotlinx.coroutines.delay(2000) //쉬머링 효과를 보여주기 위한 딜레이 시간
+            } catch (e: Exception) {
+                Log.e("TAG", "초기화 중 오류: ${e.printStackTrace()}" )
+            } finally {
+                showShimmering.value = false
+            }
         }
     }
 
-    private suspend fun loadCategoryImages() {
-        val images = repository.loadCategoryImages(context)
-        _categoryImages.value = images
-    }
-
-    private suspend fun loadHashTagDatas() {
-        val tags = repository.loadHashTagDatas(context)
-        _hashTagDatas.value = tags
+    private fun observeDbAndAssetPosts(
+        assetPosts: List<CommunityPost>,
+        dbPostsFlow: Flow<List<CommunityPostEntity>>
+    ) {
+        viewModelScope.launch {
+            dbPostsFlow.collectLatest { dbEntities ->
+                val dbPosts = dbEntities.map { it.toCommunityPost() }
+                _posts.value = assetPosts + dbPosts
+            }
+        }
     }
 
     fun setPosts(newPosts: List<CommunityPost>) {
@@ -92,8 +102,13 @@ class CommunityViewModel @Inject constructor(
 
     fun reloadPostsFromFile() {
         viewModelScope.launch {
-            val newPosts = repository.loadPostsFromFile(context)
-            setPosts(newPosts)
+            showShimmering.value = true
+            try {
+                val newPosts = repository.loadPostsFromFile(context)
+                setPosts(newPosts)
+            } finally {
+                showShimmering.value = false
+            }
         }
     }
 

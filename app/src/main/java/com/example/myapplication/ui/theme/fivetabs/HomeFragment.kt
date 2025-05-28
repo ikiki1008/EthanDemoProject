@@ -78,6 +78,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 
+
+/*
+* 힐트는 의존성 주입을 위해 컴파일 타임에 생성되는 텀포넌트 계층을 기반으로 동작함.
+* 액티비티에 AndroidEntryPoint 를 달면 이 액티비티는 힐트에 의해 관리되는 컴포넌트로 변경됨.
+* 액티비티가 생성하고 포함 하는 프래그먼트들도 힐트에 의한 주입이 가능하려면 직접 AndroidEntryPoint 를 붙여야 함*/
+
 @AndroidEntryPoint
 @OptIn(ExperimentalMaterial3Api::class)
 class HomeFragment : Fragment() {

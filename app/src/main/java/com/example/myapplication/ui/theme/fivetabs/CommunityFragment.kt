@@ -27,32 +27,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.community.CommunityViewModel
 import com.example.myapplication.ui.theme.community.PostDetailActivity
 import com.example.myapplication.ui.theme.community.PostingActivity
 import com.example.myapplication.domain.CommunityPost
-import com.google.gson.Gson
-import com.google.common.reflect.TypeToken
 import com.skydoves.landscapist.glide.GlideImage
+import com.valentinilk.shimmer.ShimmerBounds
+import com.valentinilk.shimmer.rememberShimmer
+import com.valentinilk.shimmer.shimmer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.File
 
 @AndroidEntryPoint
 class CommunityFragment : Fragment() {
@@ -216,6 +211,7 @@ fun ItemFoundFeed(
     var selectedIndex by remember { mutableStateOf(0) }
     val context = LocalContext.current
     val allPosts by viewModel.posts.collectAsState()
+    val showShimmer by remember { viewModel.showShimmering }
 
     val filteredPosts = when (selectedIndex) {
         2 -> allPosts.filter { it.genre == context.getString(R.string.buy_or_not) }
@@ -236,22 +232,61 @@ fun ItemFoundFeed(
                     .fillMaxWidth()
                     .padding(bottom = 10.dp)
             ) {
-                itemsIndexed(stringIds) { index, id ->
-                    val title = stringResource(id = id)
-                    RoundedTabButton(
-                        title = title,
-                        isSelected = selectedIndex == index,
-                        onClick = { selectedIndex = index }
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
+                if (showShimmer) {
+                    items(5) {
+                        RoundedTabBtnShimer()
+                        Spacer(modifier = Modifier.width(12.dp))
+                    }
+                } else {
+                    itemsIndexed(stringIds) { index, id ->
+                        val title = stringResource(id = id)
+                        RoundedTabButton(
+                            title = title,
+                            isSelected = selectedIndex == index,
+                            onClick = { selectedIndex = index }
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                    }
                 }
             }
         }
 
-        items(filteredPosts) { post ->
-            PostCardShape(post = post)
+        if (showShimmer) {
+            items(5) {
+                PostCardShimmer() // 수직 스크롤용 카드 셰이프는 여기
+            }
+        } else {
+            items(filteredPosts) { post ->
+                PostCardShape(post = post)
+            }
         }
     }
+}
+
+@Composable
+fun PostCardShimmer() {
+    val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.Window)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .padding(8.dp)
+            .shimmer(shimmerInstance)
+            .background(Color.LightGray, RoundedCornerShape(10.dp))
+    )
+}
+
+@Composable
+fun RoundedTabBtnShimer() {
+    val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.Window)
+
+    Box(
+        modifier = Modifier
+            .size(width = 80.dp, height = 36.dp) // 실제 버튼 크기에 맞게
+            .clip(RoundedCornerShape(50))
+            .shimmer(shimmerInstance) // shimmer는 background보다 앞에 있어야 함
+            .background(Color.Gray.copy(alpha = 0.3f)) // shimmer가 보이도록 alpha 낮춤
+    )
 }
 
 @Composable
@@ -364,53 +399,71 @@ fun ChannelFeed(viewModel: CommunityViewModel) {
     val challengeItems = remember { viewModel.loadChallengeDatas() }
     val hashTagItems by viewModel.hashTagDatas.collectAsState()
     val scrollState = rememberLazyListState()
+    val showShimmer by remember { viewModel.showShimmering }
 
-    LazyColumn(state = scrollState, modifier = Modifier.fillMaxSize()) {
-        item {
-            Text(
-                text = stringResource(R.string.challenge_channel),
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                textAlign = TextAlign.Left,
-                fontSize = 15.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            )
-        }
+    LazyColumn(
+        state = scrollState,
+        modifier = Modifier.fillMaxSize()
+    ) {
 
         item {
-            LazyRow {
-                items(challengeItems.chunked(2)) { chunk ->
-                    Column(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .width(300.dp)
-                    ) {
-                        chunk.forEach { item ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                GlideImage(
-                                    imageModel = item.pic,
-                                    contentScale = ContentScale.Crop,
+            if (showShimmer) {
+
+                // 챌린지 채널 텍스트 shimmer
+                ShimmerTextBox(
+                    width = 120.dp,
+                    height = 18.dp,
+                    padding = PaddingValues(16.dp)
+                )
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(3) { ChannelCardShimmer() }
+                }
+            } else {
+
+                Text(
+                    text = stringResource(R.string.challenge_channel),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                    textAlign = TextAlign.Left,
+                    fontSize = 15.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(challengeItems.chunked(2)) { chunk ->
+                        Column(
+                            modifier = Modifier.width(300.dp)
+                        ) {
+                            chunk.forEach { item ->
+                                Row(
                                     modifier = Modifier
-                                        .size(70.dp)
-                                        .clip(RoundedCornerShape(5.dp))
-                                )
-                                Spacer(modifier = Modifier.width(10.dp))
-                                Column {
-                                    Text(
-                                        text = item.title,
-                                        fontSize = 16.sp
+                                        .fillMaxWidth()
+                                        .padding(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    GlideImage(
+                                        imageModel = item.pic,
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .size(70.dp)
+                                            .clip(RoundedCornerShape(5.dp))
                                     )
-                                    Text(
-                                        text = item.subTitle,
-                                        fontSize = 12.sp,
-                                        color = Color.LightGray
-                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
+                                    Column {
+                                        Text(text = item.title, fontSize = 16.sp)
+                                        Text(
+                                            text = item.subTitle,
+                                            fontSize = 12.sp,
+                                            color = Color.LightGray
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -419,51 +472,177 @@ fun ChannelFeed(viewModel: CommunityViewModel) {
             }
         }
 
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
+        if (showShimmer) {
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+                ShimmerTextBox(width = 140.dp, height = 18.dp, padding = PaddingValues(16.dp))
+            }
 
-            Text(
-                text = stringResource(R.string.popular_channels_now),
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                textAlign = TextAlign.Left,
-                fontSize = 15.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-        }
+            items(2) {
+                ShimmerHashTagSection()
+            }
 
-        items(hashTagItems) { item ->
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
+        } else {
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = item.title,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    text = stringResource(R.string.popular_channels_now),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                    textAlign = TextAlign.Left,
+                    fontSize = 15.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                 )
-                Text(
-                    text = item.subText,
-                    fontSize = 12.sp,
-                    color = Color.LightGray
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
+            }
+
+            items(hashTagItems) { item ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
                 ) {
-                    listOf(item.img1, item.img2, item.img3, item.img4).forEach { img ->
-                        GlideImage(
-                            imageModel = img,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(width = 85.dp, height = 140.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                        )
+                    Text(text = item.title, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    Text(text = item.subText, fontSize = 12.sp, color = Color.LightGray)
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        listOf(item.img1, item.img2, item.img3, item.img4).forEach { img ->
+                            GlideImage(
+                                imageModel = img,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(width = 85.dp, height = 140.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                            )
+                        }
                     }
                 }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun ChannelCardShimmer() {
+    val shimmer = rememberShimmer(shimmerBounds = ShimmerBounds.Window)
+
+    Column(
+        modifier = Modifier,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        repeat(2) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(70.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                        .background(Color.LightGray.copy(alpha = 0.3f))
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Column {
+                    Box(
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(16.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(Color.LightGray.copy(alpha = 0.3f))
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Box(
+                        modifier = Modifier
+                            .width(80.dp)
+                            .height(12.dp)
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(Color.LightGray.copy(alpha = 0.3f))
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Box(
+            modifier = Modifier.width(150.dp)
+                .height(16.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color.LightGray.copy(alpha = 0.3f)))
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Box(modifier = Modifier.width(100.dp)
+            .height(12.dp)
+            .clip(RoundedCornerShape(4.dp))
+            .background(Color.LightGray.copy(0.3f)))
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()) {
+            repeat(4) {
+                Box(
+                    modifier = Modifier.size(width = 85.dp, height = 140.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color.LightGray.copy(0.4f))
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ShimmerTextBox(width: Dp, height: Dp, padding: PaddingValues) {
+    val shimmer = rememberShimmer(shimmerBounds = ShimmerBounds.Window)
+    Box(
+        modifier = Modifier
+            .padding(padding)
+            .width(width)
+            .height(height)
+            .clip(RoundedCornerShape(4.dp))
+            .background(Color.LightGray.copy(0.3f))
+            .shimmer(shimmer)
+    )
+}
+
+@Composable
+fun ShimmerHashTagSection() {
+    val shimmer = rememberShimmer(shimmerBounds = ShimmerBounds.Window)
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .shimmer(shimmer)
+    ) {
+        Box(
+            modifier = Modifier
+                .width(120.dp)
+                .height(18.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color.LightGray.copy(0.3f))
+        )
+        Spacer(modifier = Modifier.height(6.dp))
+        Box(
+            modifier = Modifier
+                .width(200.dp)
+                .height(14.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .background(Color.LightGray.copy(0.3f))
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            repeat(4) {
+                Box(
+                    modifier = Modifier
+                        .size(width = 85.dp, height = 140.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color.LightGray.copy(0.3f))
+                )
             }
         }
     }

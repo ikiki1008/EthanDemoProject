@@ -70,6 +70,7 @@ dependencies {
     implementation("androidx.media3:media3-ui:1.2.1")
     implementation("com.google.accompanist:accompanist-swiperefresh:0.30.1") //새로고침 컴포즈에서 제공
     implementation("com.google.accompanist:accompanist-placeholder-material:0.32.0") //shimmering
+    implementation ("com.valentinilk.shimmer:compose-shimmer:1.0.5")
     implementation ("com.google.code.gson:gson:2.10.1")
 
     implementation("androidx.room:room-runtime:2.6.1")

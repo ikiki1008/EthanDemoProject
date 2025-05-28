@@ -1,4 +1,4 @@
-#Tue May 27 16:38:21 KST 2025
+#Wed May 28 16:11:47 KST 2025
 base.0=/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
 base.10=/Users/ohyugyeong/AndroidStudioProjects/MyApplication/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex

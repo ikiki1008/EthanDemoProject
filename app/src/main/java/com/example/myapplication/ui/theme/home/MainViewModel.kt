@@ -4,11 +4,14 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.repository.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-
-    private val repository = MainRepository()
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val repository: MainRepository
+): ViewModel() {
 
     private val _helloText = mutableStateOf("")
     val helloText: State<String> = _helloText

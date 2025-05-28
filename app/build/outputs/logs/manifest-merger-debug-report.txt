@@ -20,6 +20,7 @@ MERGED from [androidx.core:core-splashscreen:1.0.1] /Users/ohyugyeong/.gradle/ca
 MERGED from [androidx.test:core:1.5.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/11dc683b1416c8562ca909e24ee8c424/transformed/core-1.5.0/AndroidManifest.xml:17:1-53:12
 MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1a2a8721cd2a1a722340ba50b6154f98/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/d68955946b71f502cfb12bf40e2ab2c2/transformed/sqlite-2.4.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.valentinilk.shimmer:compose-shimmer:1.0.5] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1d36a2904cb9bee92dab3c29dd954915/transformed/compose-shimmer-1.0.5/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.accompanist:accompanist-swiperefresh:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/aa0387073554b2088eca0811ea3f0827/transformed/accompanist-swiperefresh-0.30.1/AndroidManifest.xml:17:1-25:12
 MERGED from [com.google.accompanist:accompanist-placeholder-material:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/6bca8f0cf6a74511e0d99ce3c2387afb/transformed/accompanist-placeholder-material-0.32.0/AndroidManifest.xml:17:1-23:12
 MERGED from [com.google.accompanist:accompanist-placeholder:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/327b18a968f9b176e154174530c07c48/transformed/accompanist-placeholder-0.32.0/AndroidManifest.xml:17:1-23:12
@@ -255,6 +256,8 @@ MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/ohyugyeong/.gradle/c
 MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1a2a8721cd2a1a722340ba50b6154f98/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/d68955946b71f502cfb12bf40e2ab2c2/transformed/sqlite-2.4.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/d68955946b71f502cfb12bf40e2ab2c2/transformed/sqlite-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [com.valentinilk.shimmer:compose-shimmer:1.0.5] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1d36a2904cb9bee92dab3c29dd954915/transformed/compose-shimmer-1.0.5/AndroidManifest.xml:5:5-44
+MERGED from [com.valentinilk.shimmer:compose-shimmer:1.0.5] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/1d36a2904cb9bee92dab3c29dd954915/transformed/compose-shimmer-1.0.5/AndroidManifest.xml:5:5-44
 MERGED from [com.google.accompanist:accompanist-swiperefresh:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/aa0387073554b2088eca0811ea3f0827/transformed/accompanist-swiperefresh-0.30.1/AndroidManifest.xml:21:5-23:42
 MERGED from [com.google.accompanist:accompanist-swiperefresh:0.30.1] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/aa0387073554b2088eca0811ea3f0827/transformed/accompanist-swiperefresh-0.30.1/AndroidManifest.xml:21:5-23:42
 MERGED from [com.google.accompanist:accompanist-placeholder-material:0.32.0] /Users/ohyugyeong/.gradle/caches/8.11.1/transforms/6bca8f0cf6a74511e0d99ce3c2387afb/transformed/accompanist-placeholder-material-0.32.0/AndroidManifest.xml:21:5-44

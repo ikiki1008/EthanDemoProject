@@ -7,5 +7,5 @@ import retrofit2.http.Header
 
 interface ApiService {
     @GET("/api/hello")
-    suspend fun getHello(@Header("Authorization") authHeader: String): Response<HelloResponse>
+    suspend fun getHello(@Header("Authorization") authHeader: String): Response< HelloResponse>
 }
